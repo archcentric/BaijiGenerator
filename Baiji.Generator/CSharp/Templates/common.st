@@ -13,7 +13,7 @@ namespace <context.Namespace>
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
     <_docString(context.DocStringLines)>
 <endif>
-    [TContract("<context.ServiceName>", "<context.ServiceNamespace>", "<global.CodeGenVersion>")]
+    [CTripOSS.Baiji.Rpc.Common.BaijiContract("<context.ServiceName>", "<context.ServiceNamespace>", "<global.CodeGenVersion>")]
     public interface <context.TypeName><if(context.Parents)> : <context.Parents; separator=", "><endif>
     {
         <context.Methods : { method |<_method(method)>}; separator="\n">
@@ -31,7 +31,8 @@ client(context, tweaks, global) ::= <<
 <! ================================================================================== !>
 namespace <context.Namespace>
 {
-using CTripOSS.Baiji.Rpc;
+using CTripOSS.Baiji.Rpc.Client;
+using CTripOSS.Baiji.Rpc.Common
 
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
     <_docString(context.DocStringLines)>

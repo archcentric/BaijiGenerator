@@ -13,9 +13,8 @@ package <context.Namespace>;
 <_docString(context.DocStringLines)>
 <endif>
 
-@TContract(serviceName = "<if(context.ServiceName)><context.ServiceName><endif>", serviceNamespace = "<if(context.ServiceNamespace)><context.ServiceNamespace><endif>", codeGeneratorVersion = "<global.CodeGenVersion>")
-public interface <context.TypeName> extends com.ctriposs.baiji.specific.SpecificRecordBase <if(context.Parents)>, <context.Parents; separator=", "><endif> implements com.ctriposs.baiji.specific.SpecificRecord
-{
+@BaijiContract(serviceName = "<if(context.ServiceName)><context.ServiceName><endif>", serviceNamespace = "<if(context.ServiceNamespace)><context.ServiceNamespace><endif>", codeGeneratorVersion = "<global.CodeGenVersion>")
+public interface <context.TypeName> extends com.ctriposs.baiji.specific.SpecificRecordBase <if(context.Parents)>, <context.Parents; separator=", "><endif> implements com.ctriposs.baiji.specific.SpecificRecord {
     <context.Methods : { method |<_method(method)>}; separator="\n">
 }
 >>
@@ -43,8 +42,7 @@ import com.google.common.base.Objects;
 <_docString(context.DocStringLines)>
 <endif>
 @SuppressWarnings("all")
-public class <context.TypeName> extends SpecificRecordBase implements SpecificRecord<if (context.IsServiceResponse)>, HasResponseStatus<endif>
-{
+public class <context.TypeName> extends SpecificRecordBase implements SpecificRecord<if (context.IsServiceResponse)>, HasResponseStatus<endif> {
     private static final long serialVersionUID = 1L;
 
     public static final Schema SCHEMA = Schema.parse("<context.EscapedSchemaText>");
@@ -83,8 +81,8 @@ package <context.Namespace>;
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
 <_docString(context.DocStringLines)>
 <endif>
-public enum <context.TypeName>
-{
+public enum <context.TypeName> {
+
     <context.Fields : { field|<_enumElement(field)>}; separator=",\n">;
 
     private final int value;
