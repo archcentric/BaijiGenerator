@@ -19,6 +19,8 @@ namespace CTripOSS.Baiji.Editor
     {
         #region [Configurations]
         private const int MaxRecentFileCount = 9;
+
+        private const string FileExtension = ".bjsc";
         #endregion
 
         #region [Private Fields]
@@ -35,6 +37,7 @@ namespace CTripOSS.Baiji.Editor
         {
             InitializeComponent();
             InitializeTextBox();
+            InitializeFileDialogs();
             UpdateRecentFilesDisplay();
             New_Click(null, EventArgs.Empty);
             Icon = Resources.Icon;
@@ -95,7 +98,7 @@ namespace CTripOSS.Baiji.Editor
             {
                 return null;
             }
-            return files.FirstOrDefault(file => Path.GetExtension(file.ToLower()) == ".baiji");
+            return files.FirstOrDefault(file => Path.GetExtension(file.ToLower()) == FileExtension);
         }
         #endregion
 
@@ -394,6 +397,12 @@ namespace CTripOSS.Baiji.Editor
                     AllowTabKey = true
                 };
             m_AutocompleteMenu.Items.SetAutocompleteItems(new IdlAutoCompleteCollection(m_AutocompleteMenu, m_TextBox));
+        }
+
+        private void InitializeFileDialogs()
+        {
+            var filter = string.Format("Baiji IDL files (*{0})|*{0}|All files (*.*)|*.*", FileExtension);
+            m_SaveFileDialog.Filter = m_OpenFileDialog.Filter = filter;
         }
 
         private void UpdateDocumentNameDisplay()
