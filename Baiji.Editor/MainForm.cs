@@ -652,14 +652,11 @@ namespace CTripOSS.Baiji.Editor
                         new AutocompleteItem("required"),
                         new AutocompleteItem("optional"),
                         new AutocompleteItem("bool"),
-                        new AutocompleteItem("byte"),
-                        new AutocompleteItem("i16"),
                         new AutocompleteItem("i32"),
                         new AutocompleteItem("i64"),
                         new AutocompleteItem("string"),
                         new AutocompleteItem("binary"),
                         new AutocompleteItem("map"),
-                        new AutocompleteItem("set"),
                         new AutocompleteItem("list")
                     };
                 foreach (var builtInKeyword in BuiltInKeywords)
