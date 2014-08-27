@@ -120,7 +120,7 @@ intEnum(context, tweaks, global) ::= <<
 <! =                                                                                = !>
 <! = int based enum definition                                                      = !>
 <! =                                                                                = !>
-<! = called from the generator to render a new enum chsarp source file.             = !>
+<! = called from the generator to render a new enum csharp source file.             = !>
 <! =                                                                                = !>
 <! ================================================================================== !>
 namespace <context.Namespace>
@@ -249,7 +249,7 @@ public override bool Equals(object that)
 }
 >>
 
-_equalsField(field) ::= <<
+_equalsField(field) ::= <%
 <if(field.GenType.IsContainer)>
 ObjectUtils.AreEqual(<field.PropertyName>, other.<field.PropertyName>)
 <elseif(field.GenType.IsBinary)>
@@ -259,31 +259,23 @@ ObjectUtils.AreEqual(<field.PropertyName>, other.<field.PropertyName>)
 <else>
 Equals(<field.PropertyName>, other.<field.PropertyName>)
 <endif>
->>
+%>
 
 _hashCode(context) ::= <<
 public override int GetHashCode()
 {
     int result = 1;
 
-    <context.Fields : { field |<_hashCodeField(field)>}>
+    <context.Fields : { field |<_hashCodeField(field)>}; separator = "\n">
 
     return result;
 }
 >>
 
-_hashCodeField(field) ::= <<
-<if(field.GenType.IsContainer)>
+_hashCodeField(field) ::= <%
+<if(field.GenType.IsContainer || field.GenType.IsBinary)>
 result = (result * 397) ^ (<field.PropertyName> == null ? 0 : ObjectUtils.GetHashCode(<field.PropertyName>));
-<elseif(field.GenType.IsBinary)>
-if (<field.PropertyName> != null)
-{
-    foreach (byte elem in <field.PropertyName>)
-    {
-        result = (result * 397) ^ elem;
-    }
-}
 <else>
 result = (result * 397) ^ (<field.PropertyName> == null ? 0 : <field.PropertyName>.GetHashCode());
 <endif>
->>
+%>
