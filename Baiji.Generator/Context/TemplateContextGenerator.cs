@@ -38,7 +38,7 @@ namespace CTripOSS.Baiji.Generator.Context
             string serviceName, serviceNamespace;
             GetServiceNameAndNamespace(service, out serviceName, out serviceNamespace);
 
-            var serviceContext = new ServiceContext(service.DocStringLines, name, type.Namespace, type.Name,
+            var serviceContext = new ServiceContext(service.DocStringLines, name, type.CodeNamespace, type.Name,
                 parents, serviceName, serviceNamespace);
 
             return serviceContext;
@@ -47,14 +47,14 @@ namespace CTripOSS.Baiji.Generator.Context
         public ClientContext ClientFromIdl(Service service)
         {
             var name = _typeMangler.MangleClientName(service.Name);
-            var type = _typeRegistry.FindType(_defaultNamespace, name);
+            var type = _typeRegistry.FindType(_defaultNamespace, service.Name);
 
             var csharpParents = new HashSet<string>();
             string serviceName, serviceNamespace;
             GetServiceNameAndNamespace(service, out serviceName, out serviceNamespace);
 
-            var clientContext = new ClientContext(service.DocStringLines, name, type.Namespace,
-                                                  type.Name, csharpParents, serviceName, serviceNamespace);
+            var clientContext = new ClientContext(service.DocStringLines, name, type.CodeNamespace,
+                                                  name, csharpParents, serviceName, serviceNamespace);
             return clientContext;
         }
 
@@ -81,7 +81,7 @@ namespace CTripOSS.Baiji.Generator.Context
             var name = _typeMangler.MangleTypeName(@struct.Name);
             var type = _typeRegistry.FindType(_defaultNamespace, name);
             var schemaText = _schemaBuilder.Build(type);
-            var structContext = new StructContext(@struct.DocStringLines, name, type.Namespace, type.Name,
+            var structContext = new StructContext(@struct.DocStringLines, name, type.CodeNamespace, type.Name,
                 @struct.IsServiceResponse, schemaText, 0);
             foreach (var field in @struct.Fields)
             {
@@ -126,7 +126,7 @@ namespace CTripOSS.Baiji.Generator.Context
         {
             var name = _typeMangler.MangleTypeName(integerEnum.Name);
             var type = _typeRegistry.FindType(_defaultNamespace, name);
-            return new EnumContext(integerEnum.DocStringLines, type.Namespace, type.Name);
+            return new EnumContext(integerEnum.DocStringLines, type.CodeNamespace, type.Name);
         }
 
         public virtual EnumFieldContext FieldFromIdl(IntegerEnumField field)

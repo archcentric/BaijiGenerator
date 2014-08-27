@@ -32,7 +32,7 @@ client(context, tweaks, global) ::= <<
 namespace <context.Namespace>
 {
 using CTripOSS.Baiji.Rpc.Client;
-using CTripOSS.Baiji.Rpc.Common
+using CTripOSS.Baiji.Rpc.Common.Types;
 
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
     <_docString(context.DocStringLines)>
@@ -76,9 +76,8 @@ namespace <context.Namespace>
     using CTripOSS.Baiji.Exception;
     using CTripOSS.Baiji.Specific;
     using CTripOSS.Baiji.Utils;
-
 <if (context.IsServiceResponse)>
-    using CTripOSS.Baiji.Rpc.Common.IHasResponseStatus;
+    using CTripOSS.Baiji.Rpc.Common;
 <endif>
 
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
@@ -162,9 +161,9 @@ _clientMethod(method) ::= <<
 <if (tweaks.GEN_COMMENTS && method.DocStringLines)>
 <_docString(method.DocStringLines)>
 <endif>
-public <method.ReturnType> <method.MethodName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>)
+public <method.ReturnType> <method.CodeName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>)
 {
-    return base.Invoke\<<if(method.ArgumentType)><method.ArgumentType>, <endif><method.ReturnType>\>("<method.MethodName>"<if (method.ArgumentType)>, <method.ArgumentName><endif>);
+    return base.Invoke\<<if(method.ArgumentType)><method.ArgumentType>, <endif><method.ReturnType>\>("<method.CodeName>"<if (method.ArgumentType)>, <method.ArgumentName><endif>);
 }
 >>
 

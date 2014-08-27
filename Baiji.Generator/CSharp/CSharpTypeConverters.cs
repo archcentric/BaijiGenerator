@@ -90,7 +90,7 @@ namespace CTripOSS.Baiji.Generator.CSharp
         public string ConvertToString(BaijiType type)
         {
             var codeType = FindCodeTypeFromIdentifierType((IdentifierType)type);
-            var className = ShortenClassName(codeType.Name);
+            var className = ShortenClassName(codeType.FullName);
             if (codeType.IsEnum)
             {
                 className += "?";

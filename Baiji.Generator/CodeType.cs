@@ -36,11 +36,19 @@ namespace CTripOSS.Baiji.Generator
             set;
         }
 
-        public string Namespace
+        public string CodeNamespace
         {
             get
             {
                 return _codeNamespace;
+            }
+        }
+
+        public string IdlNamespace
+        {
+            get
+            {
+                return _idlNamespace;
             }
         }
 

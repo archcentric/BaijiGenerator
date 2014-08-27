@@ -179,7 +179,7 @@ namespace CTripOSS.Baiji.Generator.Visitor
                             @struct.Name);
                     throw new ArgumentException(message);
                 }
-                var fieldType = responseStatusField.GenType.KeyTypeName;
+                var fieldType = responseStatusField.GenType.TypeName;
                 var lastTypeSegment = fieldType != null ? fieldType.Split('.').Last() : null;
                 if (lastTypeSegment != "ResponseStatusType")
                 {

@@ -35,7 +35,7 @@ namespace CTripOSS.Baiji.Generator
 
         private Schema.Schema BuildSchema(CodeType type, IDictionary<SchemaName, Schema.Schema> parsedSchemas)
         {
-            var schemaName = new SchemaName(type.Name, type.Namespace, null);
+            var schemaName = new SchemaName(type.Name, type.CodeNamespace, null);
             Schema.Schema schema;
             if (parsedSchemas.TryGetValue(schemaName, out schema))
             {
@@ -51,7 +51,7 @@ namespace CTripOSS.Baiji.Generator
                 int pos = 0;
                 foreach (var idlField in ((Struct)definition).Fields)
                 {
-                    var actualFieldSchema = BuildSchema(idlField.Type, parsedSchemas);
+                    var actualFieldSchema = BuildSchema(type.IdlNamespace, idlField.Type, parsedSchemas);
                     var fieldSchema =
                         new UnionSchema(new[] {actualFieldSchema, PrimitiveSchema.NewInstance("null")},
                             null);
@@ -79,7 +79,7 @@ namespace CTripOSS.Baiji.Generator
             return schema;
         }
 
-        private Schema.Schema BuildSchema(BaijiType type, IDictionary<SchemaName, Schema.Schema> parsedSchema)
+        private Schema.Schema BuildSchema(string @namespace, BaijiType type, IDictionary<SchemaName, Schema.Schema> parsedSchema)
         {
             if (type is BaseType)
             {
@@ -90,21 +90,26 @@ namespace CTripOSS.Baiji.Generator
             if (type is ListType)
             {
                 var listType = (ListType)type;
-                var itemSchema = BuildSchema(listType.Type, parsedSchema);
+                var itemSchema = BuildSchema(@namespace, listType.Type, parsedSchema);
                 return new ArraySchema(itemSchema, null);
             }
 
             if (type is MapType)
             {
                 var mapType = (MapType)type;
-                var valueSchema = BuildSchema(mapType.ValueType, parsedSchema);
+                var valueSchema = BuildSchema(@namespace, mapType.ValueType, parsedSchema);
                 return new MapSchema(valueSchema, null);
             }
 
             if (type is IdentifierType)
             {
                 var idType = (IdentifierType)type;
-                var codeType = _typeConverter.FindCodeTypeFromIdentifierType(idType);
+                string name = idType.Name;
+                if (@namespace != _typeConverter.IdlNamespace && !name.Contains("."))
+                {
+                    name = @namespace + "." + name;
+                }
+                var codeType = _typeConverter.FindCodeTypeFromName(name);
                 return BuildSchema(codeType, parsedSchema);
             }
 

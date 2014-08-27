@@ -9,13 +9,15 @@ service(context, tweaks, global) ::= <<
 
 package <context.Namespace>;
 
+import com.ctriposs.baiji.rpc.common.BaijiContract;
+
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
 <_docString(context.DocStringLines)>
 <endif>
-
 @BaijiContract(serviceName = "<if(context.ServiceName)><context.ServiceName><endif>", serviceNamespace = "<if(context.ServiceNamespace)><context.ServiceNamespace><endif>", codeGeneratorVersion = "<global.CodeGenVersion>")
-public interface <context.TypeName> extends com.ctriposs.baiji.specific.SpecificRecordBase <if(context.Parents)>, <context.Parents; separator=", "><endif> implements com.ctriposs.baiji.specific.SpecificRecord {
-    <context.Methods : { method |<_method(method)>}; separator="\n">
+public interface <context.TypeName> {
+
+    <context.Methods : { method |<_method(method)>}; separator="\n\n">
 }
 >>
 
@@ -137,7 +139,7 @@ _method(method) ::= <<
 <if (tweaks.GEN_COMMENTS && method.DocStringLines)>
 <_docString(method.DocStringLines)>
 <endif>
-<method.ReturnType> <method.MethodName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>);
+<method.ReturnType> <method.CodeName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>);
 >>
 
 _params(parameters) ::= <<

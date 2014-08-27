@@ -89,7 +89,11 @@ namespace CTripOSS.Baiji.Generator
 
         public CodeType FindCodeTypeFromIdentifierType(IdentifierType id)
         {
-            var name = id.Name;
+            return FindCodeTypeFromName(id.Name);
+        }
+
+        public CodeType FindCodeTypeFromName(string name)
+        {
             // the name is [<namespace>.]<type>
             var names = new List<string>(name.Split('.'));
 
