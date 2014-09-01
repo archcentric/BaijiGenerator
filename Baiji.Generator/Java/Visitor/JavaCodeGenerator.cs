@@ -25,7 +25,7 @@ namespace CTripOSS.Baiji.Generator.Java.Visitor
         {
             get
             {
-                return null;
+                return JavaGeneratorTweak.GEN_CLIENT_PROXY;
             }
         }
 

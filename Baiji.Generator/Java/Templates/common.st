@@ -21,6 +21,50 @@ public interface <context.TypeName> {
 }
 >>
 
+client(context, tweaks, global) ::= <<
+<! ================================================================================== !>
+<! =                                                                                = !>
+<! = client definition                                                              = !>
+<! =                                                                                = !>
+<! = called from the generator to render a new client java source file.             = !>
+<! =                                                                                = !>
+<! ================================================================================== !>
+package <context.Namespace>;
+
+import com.ctriposs.baiji.rpc.client.*;
+import com.ctriposs.baiji.rpc.common.types.*;
+import java.io.IOException;
+
+<if (tweaks.GEN_COMMENTS && context.DocStringLines)>
+<_docString(context.DocStringLines)>
+<endif>
+public class <context.TypeName> extends ServiceClientBase\<<context.TypeName>\> {
+    public static final String ORIGINAL_SERVICE_NAME = "<context.ServiceName>";
+
+    public static final String ORIGINAL_SERVICE_NAMESPACE = "<context.ServiceNamespace>";
+
+    private <context.TypeName>(String baseUri) {
+        super(<context.TypeName>.class, baseUri);
+    }
+
+    private <context.TypeName>(String serviceName, String serviceNamespace, String subEnv) throws ServiceLookupException {
+        super(<context.TypeName>.class, serviceName, serviceNamespace, subEnv);
+    }
+
+    <context.Methods : { method |<_clientMethod(method)>}; separator="\n">
+}
+>>
+
+_clientMethod(method) ::= <<
+<if (tweaks.GEN_COMMENTS && method.DocStringLines)>
+<_docString(method.DocStringLines)>
+<endif>
+public <method.ReturnType> <method.CodeName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>)
+                                throws ServiceException, HttpWebException, IOException {
+    return super.invoke("<method.CodeName>"<if (method.ArgumentType)>, <method.ArgumentName><endif>, <method.ReturnType>.class);
+}
+>>
+
 struct(context, tweaks, global) ::= <<
 <! ================================================================================== !>
 <! =                                                                                = !>

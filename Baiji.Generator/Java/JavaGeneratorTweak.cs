@@ -15,5 +15,10 @@
         /// Generate public fields. If not specified, private fields will be generated.
         /// </summary>
         public static readonly string GEN_PUBLIC_FIELDS = "GEN_PUBLIC_FIELDS";
+
+        /// <summary>
+        /// Generate client proxy instead of service stub
+        /// </summary>
+        public static readonly string GEN_CLIENT_PROXY = "GEN_CLIENT_PROXY";
     }
 }

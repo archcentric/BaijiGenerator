@@ -16,8 +16,6 @@ namespace CTripOSS.Baiji.Editor
         {
             InitializeComponent();
             LoadDefaults();
-            // TODO: Support generating client code.
-            m_ClientRadioButton.Enabled = false;
         }
 
         public string IdlFilename
@@ -147,6 +145,10 @@ namespace CTripOSS.Baiji.Editor
             if (m_GenPublicFieldsCheckBox.Checked)
             {
                 configBuilder.AddTweak(JavaGeneratorTweak.GEN_PUBLIC_FIELDS);
+            }
+            if (m_ClientRadioButton.Checked)
+            {
+                configBuilder.AddTweak(JavaGeneratorTweak.GEN_CLIENT_PROXY);
             }
             return configBuilder;
         }
