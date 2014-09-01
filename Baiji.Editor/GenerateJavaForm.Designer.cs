@@ -122,7 +122,6 @@
             // m_BrowseButton
             // 
             this.m_BrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_BrowseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.m_BrowseButton.Location = new System.Drawing.Point(422, 41);
             this.m_BrowseButton.Name = "m_BrowseButton";
             this.m_BrowseButton.Size = new System.Drawing.Size(34, 23);
