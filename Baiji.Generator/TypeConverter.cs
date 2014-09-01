@@ -51,25 +51,25 @@ namespace CTripOSS.Baiji.Generator
             _converters.Add(converter);
         }
 
-        public string ConvertToString(BaijiType type)
+        public string ConvertToString(BaijiType type, bool nullable = true)
         {
             foreach (var converter in _converters)
             {
                 if (converter.Accept(type))
                 {
-                    return converter.ConvertToString(type);
+                    return converter.ConvertToString(type, nullable);
                 }
             }
             throw new ArgumentException(string.Format("Baiji type {0} is unknown!", type));
         }
 
-        public GenType ConvertToGenType(BaijiType type)
+        public GenType ConvertToGenType(BaijiType type, bool nullable = true)
         {
             foreach (var converter in _converters)
             {
                 if (converter.Accept(type))
                 {
-                    return converter.ConvertToGenType(type);
+                    return converter.ConvertToGenType(type, nullable);
                 }
             }
             throw new ArgumentException(string.Format("Baiji type {0} is unknown!", type));
@@ -128,15 +128,17 @@ namespace CTripOSS.Baiji.Generator
             /// Convert the Baiji type into a string suitable for a code type.
             /// </summary>
             /// <param name="type">Baiji type</param>
+            /// <param name="nullable">Whether to allow nullable for this type</param>
             /// <returns>string representation of code type</returns>
-            string ConvertToString(BaijiType type);
+            string ConvertToString(BaijiType type, bool nullable);
 
             /// <summary>
             /// Convert the Baiji type into a code generation type model
             /// </summary>
             /// <param name="type">Baiji type</param>
+            /// <param name="nullable">Whether to allow nullable for this type</param>
             /// <returns>a code type model</returns>
-            GenType ConvertToGenType(BaijiType type);
+            GenType ConvertToGenType(BaijiType type, bool nullable);
         }
     }
 }

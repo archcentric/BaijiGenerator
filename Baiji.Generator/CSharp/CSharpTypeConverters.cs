@@ -7,17 +7,26 @@ namespace CTripOSS.Baiji.Generator.CSharp
     internal class CSharpBaseConverter : TypeConverter.Converter
     {
         private static readonly IDictionary<BType, string> CSHARP_PRIMITIVES_MAP;
+        private static readonly IDictionary<BType, string> CSHARP_NULLABLE_PRIMITIVES_MAP;
         private static readonly IDictionary<BType, GenType.Type> GTYPE_BASETYPE_MAP;
 
         static CSharpBaseConverter()
         {
             CSHARP_PRIMITIVES_MAP = new Dictionary<BType, string>();
-            CSHARP_PRIMITIVES_MAP[BType.BOOL] = "bool?";
-            CSHARP_PRIMITIVES_MAP[BType.I32] = "int?";
-            CSHARP_PRIMITIVES_MAP[BType.I64] = "long?";
-            CSHARP_PRIMITIVES_MAP[BType.DOUBLE] = "double?";
+            CSHARP_PRIMITIVES_MAP[BType.BOOL] = "bool";
+            CSHARP_PRIMITIVES_MAP[BType.I32] = "int";
+            CSHARP_PRIMITIVES_MAP[BType.I64] = "long";
+            CSHARP_PRIMITIVES_MAP[BType.DOUBLE] = "double";
             CSHARP_PRIMITIVES_MAP[BType.STRING] = "string";
             CSHARP_PRIMITIVES_MAP[BType.BINARY] = "byte[]";
+
+            CSHARP_NULLABLE_PRIMITIVES_MAP = new Dictionary<BType, string>();
+            CSHARP_NULLABLE_PRIMITIVES_MAP[BType.BOOL] = "bool?";
+            CSHARP_NULLABLE_PRIMITIVES_MAP[BType.I32] = "int?";
+            CSHARP_NULLABLE_PRIMITIVES_MAP[BType.I64] = "long?";
+            CSHARP_NULLABLE_PRIMITIVES_MAP[BType.DOUBLE] = "double?";
+            CSHARP_NULLABLE_PRIMITIVES_MAP[BType.STRING] = "string";
+            CSHARP_NULLABLE_PRIMITIVES_MAP[BType.BINARY] = "byte[]";
 
             GTYPE_BASETYPE_MAP = new Dictionary<BType, GenType.Type>();
             GTYPE_BASETYPE_MAP[BType.BOOL] = GenType.Type.Bool;
@@ -33,15 +42,15 @@ namespace CTripOSS.Baiji.Generator.CSharp
             return type.GetType() == typeof(BaseType);
         }
 
-        public string ConvertToString(BaijiType type)
+        public string ConvertToString(BaijiType type, bool nullable)
         {
             var baseType = ((BaseType)type).BType;
-            return CSHARP_PRIMITIVES_MAP[baseType];
+            return (nullable ? CSHARP_NULLABLE_PRIMITIVES_MAP : CSHARP_PRIMITIVES_MAP)[baseType];
         }
 
-        public GenType ConvertToGenType(BaijiType type)
+        public GenType ConvertToGenType(BaijiType type, bool nullable)
         {
-            var csharpTypeName = ConvertToString(type);
+            var csharpTypeName = ConvertToString(type, nullable);
             var baseType = ((BaseType)type).BType;
             var gType = GTYPE_BASETYPE_MAP[baseType];
             var genType = new GenType(gType, csharpTypeName);
@@ -87,11 +96,11 @@ namespace CTripOSS.Baiji.Generator.CSharp
             return type;
         }
 
-        public string ConvertToString(BaijiType type)
+        public string ConvertToString(BaijiType type, bool nullable)
         {
             var codeType = FindCodeTypeFromIdentifierType((IdentifierType)type);
             var className = ShortenClassName(codeType.FullName);
-            if (codeType.IsEnum)
+            if (codeType.IsEnum && nullable)
             {
                 className += "?";
             }
@@ -110,9 +119,9 @@ namespace CTripOSS.Baiji.Generator.CSharp
             return className;
         }
 
-        public GenType ConvertToGenType(BaijiType type)
+        public GenType ConvertToGenType(BaijiType type, bool nullable)
         {
-            var csharpTypeName = ConvertToString(type);
+            var csharpTypeName = ConvertToString(type, nullable);
             var csharpType = FindCodeTypeFromIdentifierType((IdentifierType)type);
             if (csharpType.IsEnum)
             {
@@ -139,21 +148,21 @@ namespace CTripOSS.Baiji.Generator.CSharp
             return type.GetType() == typeof(ListType);
         }
 
-        public string ConvertToString(BaijiType type)
+        public string ConvertToString(BaijiType type, bool nullable)
         {
             var listType = type as ListType;
-            string actualType = _converter.ConvertToString(listType.Type);
+            string actualType = _converter.ConvertToString(listType.Type, false);
             return "List<" + actualType + ">";
         }
 
-        public GenType ConvertToGenType(BaijiType type)
+        public GenType ConvertToGenType(BaijiType type, bool nullable)
         {
-            var csharpTypeName = ConvertToString(type);
+            var csharpTypeName = ConvertToString(type, nullable);
 
             var listType = type as ListType;
             var genType = new GenType(GenType.Type.List, csharpTypeName);
-            genType.ElementType = _converter.ConvertToGenType(listType.Type);
-            genType.ElementTypeName = _converter.ConvertToString(listType.Type);
+            genType.ElementType = _converter.ConvertToGenType(listType.Type, false);
+            genType.ElementTypeName = _converter.ConvertToString(listType.Type, false);
             return genType;
         }
     }
@@ -172,26 +181,26 @@ namespace CTripOSS.Baiji.Generator.CSharp
             return type.GetType() == typeof(MapType);
         }
 
-        public string ConvertToString(BaijiType type)
+        public string ConvertToString(BaijiType type, bool nullable)
         {
             var mapType = type as MapType;
 
-            string actualKeyType = _converter.ConvertToString(mapType.KeyType);
-            string actualValueType = _converter.ConvertToString(mapType.ValueType);
+            string actualKeyType = _converter.ConvertToString(mapType.KeyType, false);
+            string actualValueType = _converter.ConvertToString(mapType.ValueType, false);
 
             return string.Format("Dictionary<{0}, {1}>", actualKeyType, actualValueType);
         }
 
-        public GenType ConvertToGenType(BaijiType type)
+        public GenType ConvertToGenType(BaijiType type, bool nullable)
         {
-            var csharpTypeName = ConvertToString(type);
+            var csharpTypeName = ConvertToString(type, nullable);
 
             var mapType = type as MapType;
             var genType = new GenType(GenType.Type.Map, csharpTypeName);
-            genType.KeyType = _converter.ConvertToGenType(mapType.KeyType);
-            genType.KeyTypeName = _converter.ConvertToString(mapType.KeyType);
-            genType.ValueType = _converter.ConvertToGenType(mapType.ValueType);
-            genType.ValueTypeName = _converter.ConvertToString(mapType.ValueType);
+            genType.KeyType = _converter.ConvertToGenType(mapType.KeyType, false);
+            genType.KeyTypeName = _converter.ConvertToString(mapType.KeyType, false);
+            genType.ValueType = _converter.ConvertToGenType(mapType.ValueType, false);
+            genType.ValueTypeName = _converter.ConvertToString(mapType.ValueType, false);
             return genType;
         }
     }

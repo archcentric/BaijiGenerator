@@ -33,15 +33,15 @@ namespace CTripOSS.Baiji.Generator.Java
             return type.GetType() == typeof(BaseType);
         }
 
-        public string ConvertToString(BaijiType type)
+        public string ConvertToString(BaijiType type, bool nullable)
         {
             var baseType = ((BaseType)type).BType;
             return JAVA_PRIMITIVES_MAP[baseType];
         }
 
-        public GenType ConvertToGenType(BaijiType type)
+        public GenType ConvertToGenType(BaijiType type, bool nullable)
         {
-            var javaTypeName = ConvertToString(type);
+            var javaTypeName = ConvertToString(type, nullable);
             var baseType = ((BaseType)type).BType;
             var gType = GTYPE_BASETYPE_MAP[baseType];
             var genType = new GenType(gType, javaTypeName);
@@ -87,7 +87,7 @@ namespace CTripOSS.Baiji.Generator.Java
             return javaType;
         }
 
-        public string ConvertToString(BaijiType type)
+        public string ConvertToString(BaijiType type, bool nullable)
         {
             var javaType = FindCodeTypeFromIdentifierType((IdentifierType)type);
             return ShortenClassName(javaType.FullName);
@@ -105,9 +105,9 @@ namespace CTripOSS.Baiji.Generator.Java
             return className;
         }
 
-        public GenType ConvertToGenType(BaijiType type)
+        public GenType ConvertToGenType(BaijiType type, bool nullable)
         {
-            var javaTypeName = ConvertToString(type);
+            var javaTypeName = ConvertToString(type, nullable);
             var javaType = FindCodeTypeFromIdentifierType((IdentifierType)type);
             if (javaType.IsEnum)
             {
@@ -134,21 +134,21 @@ namespace CTripOSS.Baiji.Generator.Java
             return type.GetType() == typeof(ListType);
         }
 
-        public string ConvertToString(BaijiType type)
+        public string ConvertToString(BaijiType type, bool nullable)
         {
             var listType = type as ListType;
-            string actualType = typeToJavaConverter.ConvertToString(listType.Type);
+            string actualType = typeToJavaConverter.ConvertToString(listType.Type, false);
             return "List<" + actualType + ">";
         }
 
-        public GenType ConvertToGenType(BaijiType type)
+        public GenType ConvertToGenType(BaijiType type, bool nullable)
         {
-            var javaTypeName = ConvertToString(type);
+            var javaTypeName = ConvertToString(type, nullable);
 
             var listType = type as ListType;
             var genType = new GenType(GenType.Type.List, javaTypeName);
-            genType.ElementType = typeToJavaConverter.ConvertToGenType(listType.Type);
-            genType.ElementTypeName = typeToJavaConverter.ConvertToString(listType.Type);
+            genType.ElementType = typeToJavaConverter.ConvertToGenType(listType.Type, false);
+            genType.ElementTypeName = typeToJavaConverter.ConvertToString(listType.Type, false);
             return genType;
         }
     }
@@ -167,26 +167,26 @@ namespace CTripOSS.Baiji.Generator.Java
             return type.GetType() == typeof(MapType);
         }
 
-        public string ConvertToString(BaijiType type)
+        public string ConvertToString(BaijiType type, bool nullable)
         {
             var mapType = type as MapType;
 
-            string actualKeyType = typeToJavaConverter.ConvertToString(mapType.KeyType);
-            string actualValueType = typeToJavaConverter.ConvertToString(mapType.ValueType);
+            string actualKeyType = typeToJavaConverter.ConvertToString(mapType.KeyType, false);
+            string actualValueType = typeToJavaConverter.ConvertToString(mapType.ValueType, false);
 
             return string.Format("Map<{0}, {1}>", actualKeyType, actualValueType);
         }
 
-        public GenType ConvertToGenType(BaijiType type)
+        public GenType ConvertToGenType(BaijiType type, bool nullable)
         {
-            var javaTypeName = ConvertToString(type);
+            var javaTypeName = ConvertToString(type, nullable);
 
             var mapType = type as MapType;
             var genType = new GenType(GenType.Type.Map, javaTypeName);
-            genType.KeyType = typeToJavaConverter.ConvertToGenType(mapType.KeyType);
-            genType.KeyTypeName = typeToJavaConverter.ConvertToString(mapType.KeyType);
-            genType.ValueType = typeToJavaConverter.ConvertToGenType(mapType.ValueType);
-            genType.ValueTypeName = typeToJavaConverter.ConvertToString(mapType.ValueType);
+            genType.KeyType = typeToJavaConverter.ConvertToGenType(mapType.KeyType, false);
+            genType.KeyTypeName = typeToJavaConverter.ConvertToString(mapType.KeyType, false);
+            genType.ValueType = typeToJavaConverter.ConvertToGenType(mapType.ValueType, false);
+            genType.ValueTypeName = typeToJavaConverter.ConvertToString(mapType.ValueType, false);
             return genType;
         }
     }
