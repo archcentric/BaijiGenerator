@@ -133,7 +133,9 @@ namespace CTripOSS.Baiji.IDLParser
             listSeparatorOrEmpty.Rule = tListSeparator | Empty;
             // Enum ::= 'enum' Identifier '{' (Identifier ('=' IntConstant)? ListSeparator?)* '}'
             var enumValue = new NonTerminal(NTNAME_ENUM_VALUE);
-            enumValue.Rule = ("=" + tIntNumber) | Empty;
+            // No explicit enum value is allowed for now.
+            //enumValue.Rule = ("=" + tIntNumber) | Empty;
+            enumValue.Rule = Empty;
             var enumField = new NonTerminal(NTNAME_ENUM_FIELD);
             enumField.Rule = tDocStringOrEmpty + tIdentifier + enumValue;
             var enumFields = new NonTerminal(NTNAME_ENUM_FIELDS);
