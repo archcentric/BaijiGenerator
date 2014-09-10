@@ -197,12 +197,9 @@ namespace CTripOSS.Baiji.Generator
         private string ExtractNamespace(Uri uri)
         {
             var path = uri.AbsolutePath;
-            var fileName = path.Split('/').Last();
-            Enforce.IsNotNull(fileName, string.Format("No namespace found in {0}", uri));
-
-            var name = fileName.Split('.').First();
+            var name = Path.GetFileNameWithoutExtension(path);
             Enforce.IsNotNull(name, string.Format("No namespace found in {0}", uri));
-            return name;
+            return name.Replace(".", "_");
         }
 
         private void GenerateFiles(DocumentContext context)
