@@ -344,11 +344,11 @@ namespace CTripOSS.Baiji.IDLParser
             {
                 return BType.BOOL;
             }
-            if (keyword == "i32")
+            if (keyword == "int")
             {
                 return BType.I32;
             }
-            if (keyword == "i64")
+            if (keyword == "long")
             {
                 return BType.I64;
             }

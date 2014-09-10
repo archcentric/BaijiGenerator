@@ -141,10 +141,10 @@ namespace CTripOSS.Baiji.IDLParser
             var enumFields = new NonTerminal(NTNAME_ENUM_FIELDS);
             enumFields.Rule = MakeListRule(enumFields, tListSeparator, enumField, TermListOptions.StarList | TermListOptions.AllowTrailingDelimiter);
             tEnum.Rule = tDocStringOrEmpty + tAnnotationsOrEmpty + "enum" + tIdentifier + "{" + enumFields + "}";
-            // Struct ::= 'struct' Identifier '{' Field* '}'
+            // Struct ::= 'class' Identifier '{' Field* '}'
             var structFields = new NonTerminal(NTNAME_STRUCT_FIELDS);
             structFields.Rule = MakeStarRule(structFields, null, tField);
-            tStruct.Rule = tDocStringOrEmpty + tAnnotationsOrEmpty + "struct" + tIdentifier + "{" + structFields + "}";
+            tStruct.Rule = tDocStringOrEmpty + tAnnotationsOrEmpty + "class" + tIdentifier + "{" + structFields + "}";
             // Service ::= 'service' Identifier '{' Function* '}'
             var functions = new NonTerminal(NTNAME_FUNCTIONS);
             functions.Rule = MakeStarRule(functions, null, tFunction);
@@ -161,8 +161,8 @@ namespace CTripOSS.Baiji.IDLParser
             tMapKeyType.Rule = ToTerm("string");
             // FieldType ::= Identifier | BaseType | ContainerType
             tFieldType.Rule = tIdentifier | tBaseType | tContainerType;
-            // BaseType ::= 'bool' | 'i32' | 'i64' | 'double' | 'string' | 'binary'
-            tBaseType.Rule = ToTerm("bool") | "i32" | "i64" | "double" | "string" | "binary";
+            // BaseType ::= 'bool' | 'int' | 'long' | 'double' | 'string' | 'binary'
+            tBaseType.Rule = ToTerm("bool") | "int" | "long" | "double" | "string" | "binary";
             // ContainerType ::= MapType | ListType
             tContainerType.Rule = tMapType | tListType;
             // MapType ::= 'map' '<' MapKeyType ',' FieldType '>'
@@ -178,7 +178,7 @@ namespace CTripOSS.Baiji.IDLParser
             this.Root = tDocument;
 
             // 4. Punctuation and transient terms
-            MarkPunctuation("include", "namespace", "=", "enum", "struct", "{", "}", "(", ")",
+            MarkPunctuation("include", "namespace", "=", "enum", "class", "{", "}", "(", ")",
                 "service", "map", "set", "list", "<", ">", ",", "[", "]", ":", "@");
             RegisterBracePair("(", ")");
             RegisterBracePair("{", "}");
