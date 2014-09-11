@@ -142,6 +142,10 @@ namespace CTripOSS.Baiji.Editor
             {
                 configBuilder.AddTweak(CSharpGeneratorTweak.GEN_CLIENT_PROXY);
             }
+            if (m_ServiceRadioButton.Checked)
+            {
+                configBuilder.AddTweak(CSharpGeneratorTweak.GEN_SERVICE_STUB);
+            }
             if (m_GenCommentsCheckBox.Checked)
             {
                 configBuilder.AddTweak(CSharpGeneratorTweak.GEN_COMMENTS);

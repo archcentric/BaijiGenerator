@@ -41,6 +41,7 @@
             this.m_OutputFolderTextBox = new System.Windows.Forms.TextBox();
             this.m_BrowseButton = new System.Windows.Forms.Button();
             this.m_FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.m_DataObjsOnlyRadioButtion = new System.Windows.Forms.RadioButton();
             this.m_CodeTypeGroupBox.SuspendLayout();
             this.m_OptionsGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -90,6 +91,7 @@
             // 
             this.m_CodeTypeGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_CodeTypeGroupBox.Controls.Add(this.m_DataObjsOnlyRadioButtion);
             this.m_CodeTypeGroupBox.Controls.Add(this.m_ServiceRadioButton);
             this.m_CodeTypeGroupBox.Controls.Add(this.m_ClientRadioButton);
             this.m_CodeTypeGroupBox.Location = new System.Drawing.Point(14, 74);
@@ -102,19 +104,19 @@
             // m_ServiceRadioButton
             // 
             this.m_ServiceRadioButton.AutoSize = true;
-            this.m_ServiceRadioButton.Checked = true;
-            this.m_ServiceRadioButton.Location = new System.Drawing.Point(148, 22);
+            this.m_ServiceRadioButton.Location = new System.Drawing.Point(277, 22);
             this.m_ServiceRadioButton.Name = "m_ServiceRadioButton";
             this.m_ServiceRadioButton.Size = new System.Drawing.Size(125, 16);
             this.m_ServiceRadioButton.TabIndex = 1;
-            this.m_ServiceRadioButton.TabStop = true;
             this.m_ServiceRadioButton.Text = "Service-Side Stub";
             this.m_ServiceRadioButton.UseVisualStyleBackColor = true;
+            this.m_ServiceRadioButton.Visible = false;
             // 
             // m_ClientRadioButton
             // 
             this.m_ClientRadioButton.AutoSize = true;
-            this.m_ClientRadioButton.Location = new System.Drawing.Point(17, 22);
+            this.m_ClientRadioButton.Checked = true;
+            this.m_ClientRadioButton.Location = new System.Drawing.Point(146, 22);
             this.m_ClientRadioButton.Name = "m_ClientRadioButton";
             this.m_ClientRadioButton.Size = new System.Drawing.Size(125, 16);
             this.m_ClientRadioButton.TabIndex = 0;
@@ -178,6 +180,17 @@
             // 
             this.m_FolderBrowserDialog.SelectedPath = "Please select the output folder of code generation:";
             // 
+            // m_DataObjsOnlyRadioButtion
+            // 
+            this.m_DataObjsOnlyRadioButtion.AutoSize = true;
+            this.m_DataObjsOnlyRadioButtion.Location = new System.Drawing.Point(17, 22);
+            this.m_DataObjsOnlyRadioButtion.Name = "m_DataObjsOnlyRadioButtion";
+            this.m_DataObjsOnlyRadioButtion.Size = new System.Drawing.Size(125, 16);
+            this.m_DataObjsOnlyRadioButtion.TabIndex = 2;
+            this.m_DataObjsOnlyRadioButtion.TabStop = true;
+            this.m_DataObjsOnlyRadioButtion.Text = "Data Objects Only";
+            this.m_DataObjsOnlyRadioButtion.UseVisualStyleBackColor = true;
+            // 
             // GenerateCSharpForm
             // 
             this.AcceptButton = this.m_GenerateButton;
@@ -225,5 +238,6 @@
         private System.Windows.Forms.TextBox m_OutputFolderTextBox;
         private System.Windows.Forms.Button m_BrowseButton;
         private System.Windows.Forms.FolderBrowserDialog m_FolderBrowserDialog;
+        private System.Windows.Forms.RadioButton m_DataObjsOnlyRadioButtion;
     }
 }

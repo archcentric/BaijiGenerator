@@ -36,6 +36,11 @@ namespace CTripOSS.Baiji.Generator.Visitor
             get;
         }
 
+        protected abstract string GenServiceTweak
+        {
+            get;
+        }
+
         protected abstract string GenClientTweak
         {
             get;
@@ -146,7 +151,7 @@ namespace CTripOSS.Baiji.Generator.Visitor
                 }
                 Render(clientContext, "client");
             }
-            else
+            if (!string.IsNullOrEmpty(GenServiceTweak) && _config.ContainsTweak(GenServiceTweak))
             {
                 var serviceContext = _contextGenerator.ServiceFromIdl(service);
                 foreach (var method in service.Methods)

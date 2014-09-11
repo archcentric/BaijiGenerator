@@ -17,7 +17,12 @@
         public static readonly string GEN_PUBLIC_FIELDS = "GEN_PUBLIC_FIELDS";
 
         /// <summary>
-        /// Generate client proxy instead of service stub
+        /// Generate service stub
+        /// </summary>
+        public static readonly string GEN_SERVICE_STUB = "GEN_SERVICE_STUB";
+
+        /// <summary>
+        /// Generate client proxy
         /// </summary>
         public static readonly string GEN_CLIENT_PROXY = "GEN_CLIENT_PROXY";
     }

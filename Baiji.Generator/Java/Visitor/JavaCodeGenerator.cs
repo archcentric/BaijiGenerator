@@ -21,6 +21,14 @@ namespace CTripOSS.Baiji.Generator.Java.Visitor
             }
         }
 
+        protected override string GenServiceTweak
+        {
+            get
+            {
+                return JavaGeneratorTweak.GEN_SERVICE_STUB;
+            }
+        }
+
         protected override string GenClientTweak
         {
             get

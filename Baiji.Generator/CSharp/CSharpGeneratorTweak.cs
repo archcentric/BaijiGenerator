@@ -19,7 +19,12 @@
         public static readonly string GEN_COMMENTS = "GEN_COMMENTS";
 
         /// <summary>
-        /// Generate client proxy instead of service stub
+        /// Generate service stub
+        /// </summary>
+        public static readonly string GEN_SERVICE_STUB = "GEN_SERVICE_STUB";
+
+        /// <summary>
+        /// Generate client proxy
         /// </summary>
         public static readonly string GEN_CLIENT_PROXY = "GEN_CLIENT_PROXY";
     }

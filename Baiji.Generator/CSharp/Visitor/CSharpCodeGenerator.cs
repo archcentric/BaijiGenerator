@@ -21,6 +21,14 @@ namespace CTripOSS.Baiji.Generator.CSharp.Visitor
             }
         }
 
+        protected override string GenServiceTweak
+        {
+            get
+            {
+                return CSharpGeneratorTweak.GEN_SERVICE_STUB;
+            }
+        }
+
         protected override string GenClientTweak
         {
             get
