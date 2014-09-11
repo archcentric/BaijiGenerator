@@ -34,6 +34,7 @@ namespace CTripOSS.Baiji.Editor
         {
             m_OutputFolderTextBox.Text = Settings.Default.LastOutputFolder_CSharp;
             m_GenCommentsCheckBox.Checked = Settings.Default.GenComment_CSharp;
+            m_GenIncludesCheckBox.Checked = Settings.Default.GenIncludes_CSharp;
         }
 
         private void m_BrowseButton_Click(object sender, EventArgs e)
@@ -134,7 +135,7 @@ namespace CTripOSS.Baiji.Editor
                 .OutputFolder(new DirectoryInfo(outputFolder))
                 .OverrideNamespace(null)
                 .DefaultNamespace(null)
-                .GenerateIncludedCode(false)
+                .GenerateIncludedCode(m_GenIncludesCheckBox.Checked)
                 .CodeFlavor("csharp-ctor");
             configBuilder.AddTweak(CSharpGeneratorTweak.ADD_DISPOSABLE_INTERFACE);
             configBuilder.AddTweak(CSharpGeneratorTweak.USE_PLAIN_CSHARP_NAMESPACE);

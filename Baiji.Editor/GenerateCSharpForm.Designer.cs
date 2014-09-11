@@ -42,6 +42,7 @@
             this.m_BrowseButton = new System.Windows.Forms.Button();
             this.m_FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.m_DataObjsOnlyRadioButtion = new System.Windows.Forms.RadioButton();
+            this.m_GenIncludesCheckBox = new System.Windows.Forms.CheckBox();
             this.m_CodeTypeGroupBox.SuspendLayout();
             this.m_OptionsGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -129,6 +130,7 @@
             this.m_OptionsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_OptionsGroupBox.Controls.Add(this.m_GenIncludesCheckBox);
             this.m_OptionsGroupBox.Controls.Add(this.m_GenCommentsCheckBox);
             this.m_OptionsGroupBox.Location = new System.Drawing.Point(14, 128);
             this.m_OptionsGroupBox.Name = "m_OptionsGroupBox";
@@ -187,9 +189,18 @@
             this.m_DataObjsOnlyRadioButtion.Name = "m_DataObjsOnlyRadioButtion";
             this.m_DataObjsOnlyRadioButtion.Size = new System.Drawing.Size(125, 16);
             this.m_DataObjsOnlyRadioButtion.TabIndex = 2;
-            this.m_DataObjsOnlyRadioButtion.TabStop = true;
             this.m_DataObjsOnlyRadioButtion.Text = "Data Objects Only";
             this.m_DataObjsOnlyRadioButtion.UseVisualStyleBackColor = true;
+            // 
+            // m_GenIncludesCheckBox
+            // 
+            this.m_GenIncludesCheckBox.AutoSize = true;
+            this.m_GenIncludesCheckBox.Location = new System.Drawing.Point(149, 25);
+            this.m_GenIncludesCheckBox.Name = "m_GenIncludesCheckBox";
+            this.m_GenIncludesCheckBox.Size = new System.Drawing.Size(126, 16);
+            this.m_GenIncludesCheckBox.TabIndex = 3;
+            this.m_GenIncludesCheckBox.Text = "Generate Includes";
+            this.m_GenIncludesCheckBox.UseVisualStyleBackColor = true;
             // 
             // GenerateCSharpForm
             // 
@@ -239,5 +250,6 @@
         private System.Windows.Forms.Button m_BrowseButton;
         private System.Windows.Forms.FolderBrowserDialog m_FolderBrowserDialog;
         private System.Windows.Forms.RadioButton m_DataObjsOnlyRadioButtion;
+        private System.Windows.Forms.CheckBox m_GenIncludesCheckBox;
     }
 }

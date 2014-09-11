@@ -93,5 +93,29 @@ namespace CTripOSS.Baiji.Editor.Properties {
                 this["GenPublicFields_Java"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool GenIncludes_CSharp {
+            get {
+                return ((bool)(this["GenIncludes_CSharp"]));
+            }
+            set {
+                this["GenIncludes_CSharp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool GenIncludes_Java {
+            get {
+                return ((bool)(this["GenIncludes_Java"]));
+            }
+            set {
+                this["GenIncludes_Java"] = value;
+            }
+        }
     }
 }

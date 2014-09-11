@@ -35,6 +35,7 @@ namespace CTripOSS.Baiji.Editor
             m_OutputFolderTextBox.Text = Settings.Default.LastOutputFolder_Java;
             m_GenCommentsCheckBox.Checked = Settings.Default.GenComment_Java;
             m_GenPublicFieldsCheckBox.Checked = Settings.Default.GenPublicFields_Java;
+            m_GenIncludesCheckBox.Checked = Settings.Default.GenIncludes_Java;
         }
 
         private void m_BrowseButton_Click(object sender, EventArgs e)
@@ -135,7 +136,7 @@ namespace CTripOSS.Baiji.Editor
                 .OutputFolder(new DirectoryInfo(outputFolder))
                 .OverrideNamespace(null)
                 .DefaultNamespace(null)
-                .GenerateIncludedCode(false)
+                .GenerateIncludedCode(m_GenIncludesCheckBox.Checked)
                 .CodeFlavor("java-ctor");
             configBuilder.AddTweak(JavaGeneratorTweak.USE_PLAIN_JAVA_NAMESPACE);
             if (m_GenCommentsCheckBox.Checked)

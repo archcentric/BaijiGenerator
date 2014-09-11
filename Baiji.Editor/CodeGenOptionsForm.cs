@@ -24,6 +24,8 @@ namespace CTripOSS.Baiji.Editor
             m_CSharpGenCommentsCheckBox.Checked = Settings.Default.GenComment_CSharp;
             m_JavaGenCommentsCheckBox.Checked = Settings.Default.GenComment_Java;
             m_JavaGenPublicFieldsCheckBox.Checked = Settings.Default.GenPublicFields_Java;
+            m_CSharpGenIncludesCheckBox.Checked = Settings.Default.GenIncludes_CSharp;
+            m_JavaGenIncludesCheckBox.Checked = Settings.Default.GenIncludes_Java;
         }
 
         private void SaveSettings()
@@ -31,6 +33,8 @@ namespace CTripOSS.Baiji.Editor
             Settings.Default.GenComment_CSharp = m_CSharpGenCommentsCheckBox.Checked;
             Settings.Default.GenComment_Java = m_JavaGenCommentsCheckBox.Checked;
             Settings.Default.GenPublicFields_Java = m_JavaGenPublicFieldsCheckBox.Checked;
+            Settings.Default.GenIncludes_CSharp = m_CSharpGenIncludesCheckBox.Checked;
+            Settings.Default.GenIncludes_Java = m_JavaGenIncludesCheckBox.Checked;
             Settings.Default.Save();
         }
     }
