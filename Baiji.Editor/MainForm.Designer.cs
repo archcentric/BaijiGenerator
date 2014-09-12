@@ -642,6 +642,7 @@
             this.m_TextBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.m_TextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_TextBox.Hotkeys = resources.GetString("m_TextBox.Hotkeys");
+            this.m_TextBox.ImeMode = System.Windows.Forms.ImeMode.On;
             this.m_TextBox.IsReplaceMode = false;
             this.m_TextBox.Location = new System.Drawing.Point(0, 0);
             this.m_TextBox.Name = "m_TextBox";
