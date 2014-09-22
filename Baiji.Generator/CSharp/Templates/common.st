@@ -76,15 +76,13 @@ namespace <context.Namespace>
     using CTripOSS.Baiji.Exception;
     using CTripOSS.Baiji.Specific;
     using CTripOSS.Baiji.Utils;
-<if (context.IsServiceResponse)>
     using CTripOSS.Baiji.Rpc.Common;
-<endif>
 
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
     <_docString(context.DocStringLines)>
 <endif>
     [Serializable]
-    public partial class <context.TypeName> : SpecificRecordBase<if (context.IsServiceResponse)>, IHasResponseStatus<endif>
+    public partial class <context.TypeName> : SpecificRecordBase<if (context.IsServiceResponse)>, IHasResponseStatus<endif><if (context.HasMobileRequestHead)>, IHasMobileRequestHead<endif>
     {
         public static readonly CTripOSS.Baiji.Schema.Schema SCHEMA = CTripOSS.Baiji.Schema.Schema.Parse("<context.EscapedSchemaText>");
 

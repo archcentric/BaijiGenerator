@@ -75,11 +75,9 @@ struct(context, tweaks, global) ::= <<
 <! ================================================================================== !>
 package <context.Namespace>;
 
-<if (context.IsServiceResponse)>
-import com.ctriposs.baiji.rpc.common.HasResponseStatus;
-<endif>
 import java.util.*;
 import com.ctriposs.baiji.exception.*;
+import com.ctriposs.baiji.rpc.common.*;
 import com.ctriposs.baiji.schema.*;
 import com.ctriposs.baiji.specific.*;
 import com.google.common.base.Objects;
@@ -88,7 +86,7 @@ import com.google.common.base.Objects;
 <_docString(context.DocStringLines)>
 <endif>
 @SuppressWarnings("all")
-public class <context.TypeName> extends SpecificRecordBase implements SpecificRecord<if (context.IsServiceResponse)>, HasResponseStatus<endif> {
+public class <context.TypeName> extends SpecificRecordBase implements SpecificRecord<if (context.IsServiceResponse)>, HasResponseStatus<endif><if (context.HasMobileRequestHead)>, HasMobileRequestHead<endif> {
     private static final long serialVersionUID = 1L;
 
     public static final Schema SCHEMA = Schema.parse("<context.EscapedSchemaText>");

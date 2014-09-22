@@ -165,8 +165,8 @@ namespace CTripOSS.Baiji.IDLParser
                 else if (definitionChildNode.Term.Name == IdlGrammar.NTNAME_TSTRUCT)
                 {
                     var name = definitionChildNode.ChildNodes[2].Token.Text;
-                    var fFields = BuildFields(definitionChildNode.ChildNodes[3], name);
-                    var @struct = new Struct(docStringLines, name, fFields, annotations);
+                    var fields = BuildFields(definitionChildNode.ChildNodes[3], name);
+                    var @struct = new Struct(docStringLines, name, fields, annotations);
                     definitions.Add(@struct);
                 }
                 else if (definitionChildNode.Term.Name == IdlGrammar.NTNAME_TSERVICE)
@@ -185,8 +185,26 @@ namespace CTripOSS.Baiji.IDLParser
                 }
             }
 
-            // Mark all locally referenced response struct types.
             var structs = definitions.OfType<Struct>().ToList();
+
+            // Mark structs with mobile request head
+            foreach (var @struct in structs)
+            {
+                foreach (var field in @struct.Fields)
+                {
+                    if (!string.Equals(field.Name, "head", StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+                    var type = field.Type;
+                    if (type is IdentifierType && ((IdentifierType)type).Name.EndsWith("MobileRequestHead"))
+                    {
+                        @struct.HasMobileRequestHead = true;
+                    }
+                }
+            }
+
+            // Mark all locally referenced response struct types.
             foreach (var service in definitions.OfType<Service>())
             {
                 foreach (var method in service.Methods)

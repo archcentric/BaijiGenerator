@@ -26,6 +26,12 @@ namespace CTripOSS.Baiji.IDLParser.Model
             set;
         }
 
+        public bool HasMobileRequestHead
+        {
+            get;
+            set;
+        }
+
         public void Accept(IVisitor visitor)
         {
             visitor.Visit(this);
