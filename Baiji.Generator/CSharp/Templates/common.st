@@ -90,12 +90,9 @@ namespace <context.Namespace>
         <_structbody(context)>
         <endif>
 
-        public override CTripOSS.Baiji.Schema.Schema Schema
+        public override CTripOSS.Baiji.Schema.Schema GetSchema()
         {
-            get
-            {
-                return SCHEMA;
-            }
+            return SCHEMA;
         }
 
         <_get(context)>
