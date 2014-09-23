@@ -181,7 +181,7 @@ _method(method) ::= <<
 <if (tweaks.GEN_COMMENTS && method.DocStringLines)>
 <_docString(method.DocStringLines)>
 <endif>
-<method.ReturnType> <method.CodeName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>);
+<method.ReturnType> <method.CodeName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>) throws Exception;
 >>
 
 _params(parameters) ::= <<
