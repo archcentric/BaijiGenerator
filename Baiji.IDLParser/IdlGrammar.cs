@@ -161,8 +161,8 @@ namespace CTripOSS.Baiji.IDLParser
             tMapKeyType.Rule = ToTerm("string");
             // FieldType ::= Identifier | BaseType | ContainerType
             tFieldType.Rule = tIdentifier | tBaseType | tContainerType;
-            // BaseType ::= 'bool' | 'int' | 'long' | 'double' | 'string' | 'binary'
-            tBaseType.Rule = ToTerm("bool") | "int" | "long" | "double" | "string" | "binary";
+            // BaseType ::= 'bool' | 'int' | 'long' | 'double' | 'string' | 'binary' | 'datetime'
+            tBaseType.Rule = ToTerm("bool") | "int" | "long" | "double" | "string" | "binary" | "datetime";
             // ContainerType ::= MapType | ListType
             tContainerType.Rule = tMapType | tListType;
             // MapType ::= 'map' '<' MapKeyType ',' FieldType '>'

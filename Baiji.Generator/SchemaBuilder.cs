@@ -15,6 +15,7 @@ namespace CTripOSS.Baiji.Generator
             {BType.DOUBLE, SchemaType.Double},
             {BType.STRING, SchemaType.String},
             {BType.BINARY, SchemaType.Bytes},
+            {BType.DATETIME, SchemaType.DateTime},
         };
 
         private readonly TypeConverter _typeConverter;

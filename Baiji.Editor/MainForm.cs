@@ -656,6 +656,7 @@ namespace CTripOSS.Baiji.Editor
                         new AutocompleteItem("i64"),
                         new AutocompleteItem("string"),
                         new AutocompleteItem("binary"),
+                        new AutocompleteItem("datetime"),
                         new AutocompleteItem("map"),
                         new AutocompleteItem("list")
                     };

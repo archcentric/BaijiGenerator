@@ -14,7 +14,8 @@
             Struct = 8,
             Enum = 9,
             Map = 10,
-            List = 12
+            List = 12,
+            DateTime = 13
         }
 
         public Type GType
@@ -167,7 +168,7 @@
             get
             {
                 return GType == Type.Bool || GType == Type.Byte || GType == Type.Double || GType == Type.I32 ||
-                       GType == Type.I64 || GType == Type.Binary || GType == Type.String;
+                       GType == Type.I64 || GType == Type.Binary || GType == Type.String || GType == Type.DateTime;
             }
         }
 

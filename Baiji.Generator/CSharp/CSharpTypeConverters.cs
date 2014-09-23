@@ -19,6 +19,7 @@ namespace CTripOSS.Baiji.Generator.CSharp
             CSHARP_PRIMITIVES_MAP[BType.DOUBLE] = "double";
             CSHARP_PRIMITIVES_MAP[BType.STRING] = "string";
             CSHARP_PRIMITIVES_MAP[BType.BINARY] = "byte[]";
+            CSHARP_PRIMITIVES_MAP[BType.DATETIME] = "DateTime";
 
             CSHARP_NULLABLE_PRIMITIVES_MAP = new Dictionary<BType, string>();
             CSHARP_NULLABLE_PRIMITIVES_MAP[BType.BOOL] = "bool?";
@@ -27,6 +28,7 @@ namespace CTripOSS.Baiji.Generator.CSharp
             CSHARP_NULLABLE_PRIMITIVES_MAP[BType.DOUBLE] = "double?";
             CSHARP_NULLABLE_PRIMITIVES_MAP[BType.STRING] = "string";
             CSHARP_NULLABLE_PRIMITIVES_MAP[BType.BINARY] = "byte[]";
+            CSHARP_NULLABLE_PRIMITIVES_MAP[BType.DATETIME] = "DateTime?";
 
             GTYPE_BASETYPE_MAP = new Dictionary<BType, GenType.Type>();
             GTYPE_BASETYPE_MAP[BType.BOOL] = GenType.Type.Bool;
@@ -35,6 +37,7 @@ namespace CTripOSS.Baiji.Generator.CSharp
             GTYPE_BASETYPE_MAP[BType.DOUBLE] = GenType.Type.Double;
             GTYPE_BASETYPE_MAP[BType.STRING] = GenType.Type.String;
             GTYPE_BASETYPE_MAP[BType.BINARY] = GenType.Type.Binary;
+            GTYPE_BASETYPE_MAP[BType.DATETIME] = GenType.Type.DateTime;
         }
 
         public bool Accept(BaijiType type)

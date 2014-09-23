@@ -9,7 +9,8 @@ namespace CTripOSS.Baiji.IDLParser.Model
         I64,
         DOUBLE,
         STRING,
-        BINARY
+        BINARY,
+        DATETIME
     }
 
     public class BaseType : BaijiType, Visitable

@@ -382,7 +382,15 @@ namespace CTripOSS.Baiji.IDLParser
             {
                 return BType.BINARY;
             }
-            return BType.STRING;
+            if (keyword == "datetime")
+            {
+                return BType.DATETIME;
+            }
+            if (keyword == "string")
+            {
+                return BType.STRING;
+            }
+            return (BType)255;
         }
 
         private static string[] ParseDocStringLines(string docStringText)

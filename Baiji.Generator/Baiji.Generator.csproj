@@ -116,7 +116,9 @@
     <None Include="Java\Templates\ctor.st" />
     <None Include="Java\Templates\immutable.st" />
     <None Include="Java\Templates\regular.st" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

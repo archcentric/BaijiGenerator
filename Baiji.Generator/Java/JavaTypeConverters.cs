@@ -18,6 +18,7 @@ namespace CTripOSS.Baiji.Generator.Java
             JAVA_PRIMITIVES_MAP[BType.DOUBLE] = "Double";
             JAVA_PRIMITIVES_MAP[BType.STRING] = "String";
             JAVA_PRIMITIVES_MAP[BType.BINARY] = "byte[]";
+            JAVA_PRIMITIVES_MAP[BType.DATETIME] = "java.util.Calendar";
 
             GTYPE_BASETYPE_MAP = new Dictionary<BType, GenType.Type>();
             GTYPE_BASETYPE_MAP[BType.BOOL] = GenType.Type.Bool;
@@ -26,6 +27,7 @@ namespace CTripOSS.Baiji.Generator.Java
             GTYPE_BASETYPE_MAP[BType.DOUBLE] = GenType.Type.Double;
             GTYPE_BASETYPE_MAP[BType.STRING] = GenType.Type.String;
             GTYPE_BASETYPE_MAP[BType.BINARY] = GenType.Type.Binary;
+            GTYPE_BASETYPE_MAP[BType.DATETIME] = GenType.Type.DateTime;
         }
 
         public bool Accept(BaijiType type)
