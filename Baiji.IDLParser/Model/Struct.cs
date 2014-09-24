@@ -26,6 +26,12 @@ namespace CTripOSS.Baiji.IDLParser.Model
             set;
         }
 
+        public bool HasResponseStatus
+        {
+            get;
+            set;
+        }
+
         public bool HasMobileRequestHead
         {
             get;

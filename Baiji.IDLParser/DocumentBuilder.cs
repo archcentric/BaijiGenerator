@@ -187,19 +187,31 @@ namespace CTripOSS.Baiji.IDLParser
 
             var structs = definitions.OfType<Struct>().ToList();
 
-            // Mark structs with mobile request head
+            // Mark some flags in structs
             foreach (var @struct in structs)
             {
                 foreach (var field in @struct.Fields)
                 {
-                    if (!string.Equals(field.Name, "head", StringComparison.OrdinalIgnoreCase))
+                    var name = field.Name.ToLower();
+                    if (!(field.Type is IdentifierType))
                     {
                         continue;
                     }
-                    var type = field.Type;
-                    if (type is IdentifierType && ((IdentifierType)type).Name.EndsWith("MobileRequestHead"))
+                    var pureType = ((IdentifierType)field.Type).Name.Split('.').Last();
+                    switch (name)
                     {
-                        @struct.HasMobileRequestHead = true;
+                        case "head":
+                            if (pureType.EndsWith("MobileRequestHead"))
+                            {
+                                @struct.HasMobileRequestHead = true;
+                            }
+                            break;
+                        case "responsestatus":
+                            if (pureType.EndsWith("ResponseStatusType"))
+                            {
+                                @struct.HasResponseStatus = true;
+                            }
+                            break;
                     }
                 }
             }

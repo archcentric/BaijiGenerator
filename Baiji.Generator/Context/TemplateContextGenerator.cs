@@ -82,7 +82,7 @@ namespace CTripOSS.Baiji.Generator.Context
             var type = _typeRegistry.FindType(_defaultNamespace, name);
             var schemaText = _schemaBuilder.Build(type);
             var structContext = new StructContext(@struct.DocStringLines, name, type.CodeNamespace, type.Name,
-                @struct.IsServiceResponse, @struct.HasMobileRequestHead, schemaText, 0);
+                @struct.IsServiceResponse, @struct.HasResponseStatus, @struct.HasMobileRequestHead, schemaText, 0);
             foreach (var field in @struct.Fields)
             {
                 structContext.AddField(FieldFromIdl(field));

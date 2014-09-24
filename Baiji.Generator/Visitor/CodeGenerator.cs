@@ -167,31 +167,12 @@ namespace CTripOSS.Baiji.Generator.Visitor
         {
             var structContext = _contextGenerator.StructFromIdl(@struct);
 
-            FieldContext responseStatusField = null;
-            foreach (var field in structContext.Fields)
+            if (@struct.IsServiceResponse && !@struct.HasResponseStatus)
             {
-                if (field.IdlName == "responseStatus" || field.IdlName == "ResponseStatus")
-                {
-                    responseStatusField = field;
-                }
-            }
-            if (@struct.IsServiceResponse)
-            {
-                if (responseStatusField == null)
-                {
-                    var message =
-                        string.Format("{0} must have a responseStatus field in order to be used as a service response.",
-                            @struct.Name);
-                    throw new ArgumentException(message);
-                }
-                var fieldType = responseStatusField.GenType.TypeName;
-                var lastTypeSegment = fieldType != null ? fieldType.Split('.').Last() : null;
-                if (lastTypeSegment != "ResponseStatusType")
-                {
-                    var message = string.Format("The type of {0} field in {1} must be ResponseStatusType.",
-                        responseStatusField.IdlName, @struct.Name);
-                    throw new ArgumentException(message);
-                }
+                var message =
+                    @struct.Name +
+                    " must have a responseStatus field with ResponseStatusType in order to be used as a service response.";
+                throw new ArgumentException(message);
             }
 
             Render(structContext, "struct");

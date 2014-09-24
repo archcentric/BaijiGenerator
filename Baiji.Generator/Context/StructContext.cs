@@ -9,7 +9,8 @@ namespace CTripOSS.Baiji.Generator.Context
         private readonly string _schemaText;
 
         public StructContext(string[] docStringLines, string idlName, string @namespace, string codeName,
-            bool isServiceResponse, bool hasMobileRequestHead, string schemaText, int indentLevel)
+            bool isServiceResponse, bool hasResponseStatus, bool hasMobileRequestHead, string schemaText,
+            int indentLevel)
         {
             DocStringLines = docStringLines;
             Name = idlName;
@@ -17,6 +18,7 @@ namespace CTripOSS.Baiji.Generator.Context
             TypeName = codeName;
             Fields = new List<FieldContext>();
             IsServiceResponse = isServiceResponse;
+            HasResponseStatus = hasResponseStatus;
             HasMobileRequestHead = hasMobileRequestHead;
             _schemaText = schemaText;
             IndentLevel = indentLevel;
@@ -53,6 +55,12 @@ namespace CTripOSS.Baiji.Generator.Context
         }
 
         public bool IsServiceResponse
+        {
+            get;
+            private set;
+        }
+
+        public bool HasResponseStatus
         {
             get;
             private set;
