@@ -141,6 +141,8 @@ namespace CTripOSS.Baiji.Generator.Visitor
 
         public void Visit(Service service)
         {
+            EnsureCheckHealthAvail(service);
+
             if (!string.IsNullOrEmpty(GenClientTweak) && _config.ContainsTweak(GenClientTweak))
             {
                 var clientContext = _contextGenerator.ClientFromIdl(service);
@@ -160,6 +162,27 @@ namespace CTripOSS.Baiji.Generator.Visitor
                     serviceContext.AddMethod(methodContext);
                 }
                 Render(serviceContext, "service");
+            }
+        }
+
+        private void EnsureCheckHealthAvail(Service service)
+        {
+            var checkHealthMethod = service.Methods.FirstOrDefault(m => m.Name.ToLower().Equals("checkhealth"));
+            if (checkHealthMethod == null)
+            {
+                throw new ArgumentException(string.Format("checkHealth method is mandatory for service {0}.",
+                    service.Name));
+            }
+
+            if (!checkHealthMethod.ArgumentType.Name.EndsWith("CheckHealthRequestType"))
+            {
+                throw new ArgumentException(string.Format("The parameter type of {0}.{1} method must be CheckHealthRequestType from common types.",
+                   checkHealthMethod.Name, service.Name));
+            }
+            if (!checkHealthMethod.ReturnType.Name.EndsWith("CheckHealthResponseType"))
+            {
+                throw new ArgumentException(string.Format("The parameter type of {0}.{1} method must be CheckHealthResponseType from common types.",
+                   checkHealthMethod.Name, service.Name));
             }
         }
 
