@@ -43,6 +43,8 @@ public class <context.TypeName> extends ServiceClientBase\<<context.TypeName>\> 
 
     public static final String ORIGINAL_SERVICE_NAMESPACE = "<context.ServiceNamespace>";
 
+    public static final String CODE_GENERATOR_VERSION = "<global.CodeGenVersion>";
+
     private <context.TypeName>(String baseUri) {
         super(<context.TypeName>.class, baseUri);
     }

@@ -43,6 +43,8 @@ using CTripOSS.Baiji.Rpc.Common.Types;
 
         public const string OriginalServiceNamespace = "<context.ServiceNamespace>";
 
+        public const string CodeGeneratorVersion = "<global.CodeGenVersion>";
+
         private <context.TypeName>(string baseUri)
             : base(baseUri)
         {
