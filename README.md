@@ -6,7 +6,7 @@ A Code generator for [Baiji IDL/Schema](https://github.com/ctriposs/BaijiGenerat
 Baiji is inspired by Apache Thrift and Avro.
 
 
-==HighLight
+## HighLight
 * Thrift Like IDL driven development
 * mobile(iOS/Android/WinPhone) client auto-generation
 * JSON/binary over HTTP
