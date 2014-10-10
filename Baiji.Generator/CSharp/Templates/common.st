@@ -83,7 +83,6 @@ namespace <context.Namespace>
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
     <_docString(context.DocStringLines)>
 <endif>
-    [Serializable]
     public partial class <context.TypeName> : SpecificRecordBase<if (context.HasResponseStatus)>, IHasResponseStatus<endif><if (context.HasMobileRequestHead)>, IHasMobileRequestHead<endif>
     {
         public static readonly CTripOSS.Baiji.Schema.Schema SCHEMA = CTripOSS.Baiji.Schema.Schema.Parse("<context.EscapedSchemaText>");
