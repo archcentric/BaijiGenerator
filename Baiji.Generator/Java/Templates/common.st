@@ -53,6 +53,14 @@ public class <context.TypeName> extends ServiceClientBase\<<context.TypeName>\> 
         super(<context.TypeName>.class, serviceName, serviceNamespace, subEnv);
     }
 
+    public static <context.TypeName> getInstance() {
+        return ServiceClientBase.getInstance(<context.TypeName>.class);
+    }
+
+    public static <context.TypeName> getInstance(String baseUrl) {
+        return ServiceClientBase.getInstance(<context.TypeName>.class, baseUrl);
+    }
+
     <context.Methods : { method |<_clientMethod(method)>}; separator="\n">
 }
 >>
