@@ -6,7 +6,7 @@ namespace CTripOSS.Baiji.IDLParser
     /// This class defines the Grammar for the Baiji IDL,
     /// adapted thrift idl here : http://thrift.apache.org/docs/idl/
     /// </summary>
-    [Language("BaijiIdlParser", "1.0", "Grammar for the Baiji IDL")]
+    [Language("BaijiIdlParser", "1.1", "Grammar for the Baiji IDL")]
     public class IdlGrammar : Grammar
     {
         // non-terminal names
@@ -24,6 +24,7 @@ namespace CTripOSS.Baiji.IDLParser
         public const string NTNAME_TMAP_KEY_TYPE = "TMapKeyType";
         public const string NTNAME_TMAP_TYPE = "TMapType";
         public const string NTNAME_TLIST_TYPE = "TListType";
+        public const string NTNAME_TNONCONTAINER_TYPE = "TNonContainerType";
         public const string NTNAME_TCONTAINER_TYPE = "TContainerType";
         public const string NTNAME_TBASE_TYPE = "TBaseType";
         public const string NTNAME_TENUM = "TEnum";
@@ -71,6 +72,7 @@ namespace CTripOSS.Baiji.IDLParser
             var tFunction = new NonTerminal(NTNAME_TFUNCTION);
             var tFieldType = new NonTerminal(NTNAME_TFIELD_TYPE);
             var tBaseType = new NonTerminal(NTNAME_TBASE_TYPE);
+            var tNonContainerType = new NonTerminal(NTNAME_TNONCONTAINER_TYPE);
             var tContainerType = new NonTerminal(NTNAME_TCONTAINER_TYPE);
             var tMapKeyType = new NonTerminal(NTNAME_TMAP_KEY_TYPE);
             var tMapType = new NonTerminal(NTNAME_TMAP_TYPE);
@@ -124,7 +126,7 @@ namespace CTripOSS.Baiji.IDLParser
             namespaceValue.Rule = tIdentifier | literal;
             tNamespace.Rule = "namespace" + tNamespaceScope + namespaceValue;
             // NamespaceScope ::= 'java' | 'csharp' | 'objc'
-            tNamespaceScope.Rule = ToTerm("*") | tIdentifier;
+            tNamespaceScope.Rule = ToTerm("java") | "csharp";
             // Definition ::= Enum | Struct | Service | DOC_STRING
             // Adding DOC_STRING here is to make it recognizable right after it's finished,
             // no need to wait until the whole definition (e.g. a struct) is finished.
@@ -165,10 +167,12 @@ namespace CTripOSS.Baiji.IDLParser
             tBaseType.Rule = ToTerm("bool") | "int" | "long" | "double" | "string" | "binary" | "datetime";
             // ContainerType ::= MapType | ListType
             tContainerType.Rule = tMapType | tListType;
+            // NonContainerType ::= Identifier | BaseType
+            tNonContainerType.Rule = tIdentifier | tBaseType;
             // MapType ::= 'map' '<' MapKeyType ',' FieldType '>'
-            tMapType.Rule = ToTerm("map") + "<" + tMapKeyType + "," + tFieldType + ">";
+            tMapType.Rule = ToTerm("map") + "<" + tMapKeyType + "," + tNonContainerType + ">";
             // ListType ::= 'list' '<' FieldType '>'
-            tListType.Rule = ToTerm("list") + "<" + tFieldType + ">";
+            tListType.Rule = ToTerm("list") + "<" + tNonContainerType + ">";
             // ListSeparator ::= ',' | ';'
             tListSeparator.Rule = ToTerm(",") | ";";
 
