@@ -31,8 +31,9 @@ client(context, tweaks, global) ::= <<
 <! ================================================================================== !>
 namespace <context.Namespace>
 {
-using CTripOSS.Baiji.Rpc.Client;
-using CTripOSS.Baiji.Rpc.Common.Types;
+    using System.Threading.Tasks;
+    using CTripOSS.Baiji.Rpc.Client;
+    using CTripOSS.Baiji.Rpc.Common.Types;
 
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
     <_docString(context.DocStringLines)>
@@ -160,6 +161,14 @@ _clientMethod(method) ::= <<
 public <method.ReturnType> <method.CodeName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>)
 {
     return base.Invoke\<<if(method.ArgumentType)><method.ArgumentType>, <endif><method.ReturnType>\>("<method.CodeName>"<if (method.ArgumentType)>, <method.ArgumentName><endif>);
+}
+public Task\<<method.ReturnType>\> CreateAsyncTaskOf<method.CodeName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>)
+{
+    return base.CreateAsyncTask\<<if(method.ArgumentType)><method.ArgumentType>, <endif><method.ReturnType>\>("<method.CodeName>"<if (method.ArgumentType)>, <method.ArgumentName><endif>);
+}
+public Task\<<method.ReturnType>\> StartIOCPTaskOf<method.CodeName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>)
+{
+    return base.StartIOCPTask\<<if(method.ArgumentType)><method.ArgumentType>, <endif><method.ReturnType>\>("<method.CodeName>"<if (method.ArgumentType)>, <method.ArgumentName><endif>);
 }
 >>
 
