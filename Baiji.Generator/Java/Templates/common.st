@@ -70,7 +70,7 @@ _clientMethod(method) ::= <<
 <_docString(method.DocStringLines)>
 <endif>
 public <method.ReturnType> <method.CodeName>(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>)
-                                throws ServiceException, HttpWebException, IOException {
+                                throws Exception {
     return super.invoke("<method.CodeName>"<if (method.ArgumentType)>, <method.ArgumentName><endif>, <method.ReturnType>.class);
 }
 >>
