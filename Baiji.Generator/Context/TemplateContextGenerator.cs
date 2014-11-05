@@ -30,6 +30,8 @@ namespace CTripOSS.Baiji.Generator.Context
 
         public virtual ServiceContext ServiceFromIdl(Service service)
         {
+            ValidateService(service);
+
             var name = _typeMangler.MangleTypeName(service.Name);
             var type = _typeRegistry.FindType(_defaultNamespace, name);
 
@@ -40,12 +42,18 @@ namespace CTripOSS.Baiji.Generator.Context
 
             var serviceContext = new ServiceContext(service.DocStringLines, name, type.CodeNamespace, type.Name,
                 parents, serviceName, serviceNamespace);
-
+            foreach (var method in service.Methods)
+            {
+                var methodContext = MethodFromIdl(method);
+                serviceContext.AddMethod(methodContext);
+            }
             return serviceContext;
         }
 
         public ClientContext ClientFromIdl(Service service)
         {
+            ValidateService(service);
+
             var name = _typeMangler.MangleClientName(service.Name);
             var type = _typeRegistry.FindType(_defaultNamespace, service.Name);
 
@@ -55,7 +63,34 @@ namespace CTripOSS.Baiji.Generator.Context
 
             var clientContext = new ClientContext(service.DocStringLines, name, type.CodeNamespace,
                                                   name, csharpParents, serviceName, serviceNamespace);
+            foreach (var method in service.Methods)
+            {
+                var methodContext = MethodFromIdl(method);
+                clientContext.AddMethod(methodContext);
+            }
             return clientContext;
+        }
+
+        private void ValidateService(Service service)
+        {
+            var methodNames = new Dictionary<string, string>();
+            var duplicatedMethods = new List<string>();
+            foreach (var method in service.Methods)
+            {
+                var normalizedName = method.Name.ToLower();
+                if (methodNames.ContainsKey(normalizedName))
+                {
+                    duplicatedMethods.Add(methodNames[normalizedName]);
+                    continue;
+                }
+                methodNames.Add(normalizedName, method.Name);
+            }
+            if (duplicatedMethods.Count != 0)
+            {
+                var message = string.Format("Service {0} has duplicated operation(s): {1}. Operation names are case insensitive. Please fix them and try again.",
+                    service.Name, string.Join(",", duplicatedMethods));
+                throw new ArgumentException(message);
+            }
         }
 
         private void GetServiceNameAndNamespace(Service service, out string serviceName, out string serviceNamespace)
@@ -78,6 +113,8 @@ namespace CTripOSS.Baiji.Generator.Context
 
         public virtual StructContext StructFromIdl(Struct @struct)
         {
+            ValidateStruct(@struct);
+
             var name = _typeMangler.MangleTypeName(@struct.Name);
             var type = _typeRegistry.FindType(_defaultNamespace, name);
             var schemaText = _schemaBuilder.Build(type);
@@ -88,6 +125,28 @@ namespace CTripOSS.Baiji.Generator.Context
                 structContext.AddField(FieldFromIdl(field));
             }
             return structContext;
+        }
+
+        private void ValidateStruct(Struct @struct)
+        {
+            var fieldNames = new Dictionary<string, string>();
+            var duplicatedFields = new List<string>();
+            foreach (var field in @struct.Fields)
+            {
+                var normalizedName = field.Name.ToLower();
+                if (fieldNames.ContainsKey(normalizedName))
+                {
+                    duplicatedFields.Add(fieldNames[normalizedName]);
+                    continue;
+                }
+                fieldNames.Add(normalizedName, field.Name);
+            }
+            if (duplicatedFields.Count != 0)
+            {
+                var message = string.Format("Class {0} has duplicated field(s): {1}. Field names are case insensitive. Please fix them and try again.",
+                    @struct.Name, string.Join(",", duplicatedFields));
+                throw new ArgumentException(message);
+            }
         }
 
         public virtual MethodContext MethodFromIdl(BaijiMethod method)

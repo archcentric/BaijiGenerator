@@ -146,21 +146,11 @@ namespace CTripOSS.Baiji.Generator.Visitor
             if (!string.IsNullOrEmpty(GenClientTweak) && _config.ContainsTweak(GenClientTweak))
             {
                 var clientContext = _contextGenerator.ClientFromIdl(service);
-                foreach (var method in service.Methods)
-                {
-                    var methodContext = _contextGenerator.MethodFromIdl(method);
-                    clientContext.AddMethod(methodContext);
-                }
                 Render(clientContext, "client");
             }
             if (!string.IsNullOrEmpty(GenServiceTweak) && _config.ContainsTweak(GenServiceTweak))
             {
                 var serviceContext = _contextGenerator.ServiceFromIdl(service);
-                foreach (var method in service.Methods)
-                {
-                    var methodContext = _contextGenerator.MethodFromIdl(method);
-                    serviceContext.AddMethod(methodContext);
-                }
                 Render(serviceContext, "service");
             }
         }
