@@ -190,7 +190,7 @@ namespace CTripOSS.Baiji.Generator.Context
 
         public virtual EnumFieldContext FieldFromIdl(IntegerEnumField field)
         {
-            return new EnumFieldContext(field.DocStringLines, _typeMangler.MangleConstantName(field.Name), field.Value);
+            return new EnumFieldContext(field.DocStringLines, field.Name, field.Value);
         }
     }
 }
