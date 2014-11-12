@@ -67,8 +67,7 @@ namespace CTripOSS.Baiji.Generator
                 var symbols = new List<KeyValuePair<string, int?>>(fields.Count);
                 foreach (var symbol in fields)
                 {
-                    symbols.Add(new KeyValuePair<string, int?>(_typeMangler.MangleConstantName(symbol.Name),
-                        (int?)symbol.ExplicitValue));
+                    symbols.Add(new KeyValuePair<string, int?>(symbol.Name, (int?)symbol.ExplicitValue));
                 }
                 parsedSchemas[schemaName] = schema = new EnumSchema(schemaName, null, null, symbols.ToArray(), null);
             }
