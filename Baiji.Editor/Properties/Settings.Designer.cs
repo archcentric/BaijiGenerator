@@ -57,7 +57,22 @@ namespace CTripOSS.Baiji.Editor.Properties {
                 this["LastOutputFolder_Java"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastOutputFolder_OC
+        {
+            get
+            {
+                return ((string)(this["LastOutputFolder_OC"]));
+            }
+            set
+            {
+                this["LastOutputFolder_OC"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -81,7 +96,19 @@ namespace CTripOSS.Baiji.Editor.Properties {
                 this["GenComment_Java"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GenComment_OC {
+            get {
+                return ((bool)(this["GenComment_OC"]));
+            }
+            set {
+                this["GenComment_OC"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -115,6 +142,36 @@ namespace CTripOSS.Baiji.Editor.Properties {
             }
             set {
                 this["GenIncludes_Java"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool GenIncludes_OC
+        {
+            get
+            {
+                return ((bool)(this["GenIncludes_OC"]));
+            }
+            set
+            {
+                this["GenIncludes_OC"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool GenAutoRelease_OC
+        {
+            get
+            {
+                return ((bool)(this["GenAutoRelease_OC"]));
+            }
+            set
+            {
+                this["GenAutoRelease_OC"] = value;
             }
         }
     }

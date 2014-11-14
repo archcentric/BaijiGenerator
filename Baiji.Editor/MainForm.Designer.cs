@@ -64,6 +64,7 @@
             this.m_GenerateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_GenerateCSharpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_GenerateJavaMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_GenerateOCMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_CodeGenOptionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -395,6 +396,7 @@
             this.m_GenerateMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_GenerateCSharpMenuItem,
             this.m_GenerateJavaMenuItem,
+            this.m_GenerateOCMenuItem,
             this.m_CodeGenOptionsMenuItem});
             this.m_GenerateMenuItem.Name = "m_GenerateMenuItem";
             this.m_GenerateMenuItem.Size = new System.Drawing.Size(73, 21);
@@ -404,7 +406,7 @@
             // 
             this.m_GenerateCSharpMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_CSharp;
             this.m_GenerateCSharpMenuItem.Name = "m_GenerateCSharpMenuItem";
-            this.m_GenerateCSharpMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.m_GenerateCSharpMenuItem.Size = new System.Drawing.Size(235, 22);
             this.m_GenerateCSharpMenuItem.Text = "Generate &C# Code...";
             this.m_GenerateCSharpMenuItem.Click += new System.EventHandler(this.GenerateCSharp_Click);
             // 
@@ -412,14 +414,22 @@
             // 
             this.m_GenerateJavaMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_Java;
             this.m_GenerateJavaMenuItem.Name = "m_GenerateJavaMenuItem";
-            this.m_GenerateJavaMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.m_GenerateJavaMenuItem.Size = new System.Drawing.Size(235, 22);
             this.m_GenerateJavaMenuItem.Text = "Generate &Java Code...";
             this.m_GenerateJavaMenuItem.Click += new System.EventHandler(this.GenerateJava_Click);
+            // 
+            // m_GenerateOCMenuItem
+            // 
+            this.m_GenerateOCMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_Java;
+            this.m_GenerateOCMenuItem.Name = "m_GenerateOCMenuItem";
+            this.m_GenerateOCMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.m_GenerateOCMenuItem.Text = "Generate Objective-C Code";
+            this.m_GenerateOCMenuItem.Click += new System.EventHandler(this.GenerateOC_Click);
             // 
             // m_CodeGenOptionsMenuItem
             // 
             this.m_CodeGenOptionsMenuItem.Name = "m_CodeGenOptionsMenuItem";
-            this.m_CodeGenOptionsMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.m_CodeGenOptionsMenuItem.Size = new System.Drawing.Size(235, 22);
             this.m_CodeGenOptionsMenuItem.Text = "&Options";
             this.m_CodeGenOptionsMenuItem.Click += new System.EventHandler(this.m_CodeGenOptionsMenuItem_Click);
             // 
@@ -944,6 +954,7 @@
         private System.Windows.Forms.ToolStripMenuItem m_ClearRecentFilesMenuItem;
         private System.Windows.Forms.ToolStripSeparator m_FileMenuSeparator2;
         private System.Windows.Forms.ToolStripMenuItem m_CodeGenOptionsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_GenerateOCMenuItem;
     }
 }
 

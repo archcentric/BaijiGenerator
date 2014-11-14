@@ -48,7 +48,7 @@ namespace CTripOSS.Baiji.Generator.Visitor
 
         protected abstract IDictionary<string, bool> GetTweakMap();
 
-        private void Render(CodeContext context, string templateName)
+        protected void Render(CodeContext context, string templateName, string overridenFileExtension = null)
         {
             var template = _templateLoader.Load(templateName);
             Enforce.IsNotNull(template, string.Format("No template for '{0}' found!", templateName));
@@ -62,15 +62,8 @@ namespace CTripOSS.Baiji.Generator.Visitor
             globalValues.Add("CodeGenVersion", codeGenVersion.ToString());
             template.Add("global", globalValues);
 
-            var packages = context.Namespace.Split('.');
-            DirectoryInfo folder = _outputFolder;
+            var filename = GetOutputFileName(context, overridenFileExtension ?? FileExtension);
 
-            foreach (string pkg in packages)
-            {
-                folder = folder.CreateSubdirectory(pkg);
-            }
-
-            var filename = Path.Combine(folder.FullName, context.TypeName + FileExtension);
             using (var writer = new StreamWriter(filename, false /*, Encoding.UTF8*/))
             {
                 template.Write(new AutoIndentWriter(writer));
@@ -112,7 +105,14 @@ namespace CTripOSS.Baiji.Generator.Visitor
             throw new NotSupportedException();
         }
 
-        public void Visit(IntegerEnum integerEnum)
+        public virtual void Visit(IntegerEnum integerEnum)
+        {
+            var enumContext = GetEnumContext(integerEnum);
+
+            Render(enumContext, "intEnum", null);
+        }
+
+        protected EnumContext GetEnumContext(IntegerEnum integerEnum)
         {
             var enumContext = _contextGenerator.EnumFromIdl(integerEnum);
 
@@ -120,8 +120,7 @@ namespace CTripOSS.Baiji.Generator.Visitor
             {
                 enumContext.AddField(_contextGenerator.FieldFromIdl(field));
             }
-
-            Render(enumContext, "intEnum");
+            return enumContext;
         }
 
         public void Visit(IntegerEnumField integerEnumField)
@@ -175,8 +174,15 @@ namespace CTripOSS.Baiji.Generator.Visitor
                    checkHealthMethod.Name, service.Name));
             }
         }
+         
+        public virtual void Visit(Struct @struct)
+        {
+            var structContext = GetStructContext(@struct);
 
-        public void Visit(Struct @struct)
+            Render(structContext, "struct", null);
+        }
+
+        protected StructContext GetStructContext(Struct @struct)
         {
             var structContext = _contextGenerator.StructFromIdl(@struct);
 
@@ -188,7 +194,7 @@ namespace CTripOSS.Baiji.Generator.Visitor
                 throw new ArgumentException(message);
             }
 
-            Render(structContext, "struct");
+            return structContext;
         }
 
         public void Visit(BaijiField field)
@@ -199,6 +205,21 @@ namespace CTripOSS.Baiji.Generator.Visitor
         public void Visit(BaijiMethod method)
         {
             throw new NotSupportedException();
+        }
+
+        protected virtual string GetOutputFileName(CodeContext context, string fileExtension)
+        {
+            var packages = context.Namespace.Split('.');
+            DirectoryInfo folder = _outputFolder;
+
+            foreach (string pkg in packages)
+            {
+                folder = folder.CreateSubdirectory(pkg);
+            }
+
+            var filename = Path.Combine(folder.FullName, context.TypeName + fileExtension);
+
+            return filename;
         }
     }
 }

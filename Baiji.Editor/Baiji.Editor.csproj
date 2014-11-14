@@ -75,6 +75,12 @@
     <Compile Include="GenerateJavaForm.Designer.cs">
       <DependentUpon>GenerateJavaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenerateOCForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerateOCForm.Designer.cs">
+      <DependentUpon>GenerateOCForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="IronyFCTB.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -132,6 +138,7 @@
     <Content Include="Resources\Icon_16x16_NavigateBackward.png" />
     <Content Include="Resources\Icon_16x16_NavigateForward.png" />
     <Content Include="Resources\Icon_16x16_New.png" />
+    <Content Include="Resources\Icon_16x16_OC.png" />
     <Content Include="Resources\Icon_16x16_Open.png" />
     <Content Include="Resources\Icon_16x16_Paste.png" />
     <Content Include="Resources\Icon_16x16_Redo.png" />
@@ -147,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenerateJavaForm.resx">
       <DependentUpon>GenerateJavaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerateOCForm.resx">
+      <DependentUpon>GenerateOCForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

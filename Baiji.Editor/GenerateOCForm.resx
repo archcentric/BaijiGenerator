@@ -117,35 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="csharp_common_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\CSharp\Templates\common.st;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
-  <data name="csharp_ctor_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\CSharp\Templates\ctor.st;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
-  <data name="csharp_immutable_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\CSharp\Templates\immutable.st;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
-  <data name="csharp_regular_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\CSharp\Templates\regular.st;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
-  <data name="java_common_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Java\Templates\common.st;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
-  <data name="java_ctor_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Java\Templates\ctor.st;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
-  <data name="java_immutable_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Java\Templates\immutable.st;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
-  <data name="java_regular_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Java\Templates\regular.st;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
-  <data name="objectivec_common_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ObjectiveC\Templates\common.st;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
-  <data name="objectivec_regular_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ObjectiveC\Templates\regular.st;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
+  <metadata name="m_FolderBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

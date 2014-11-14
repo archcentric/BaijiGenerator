@@ -126,7 +126,7 @@ namespace CTripOSS.Baiji.IDLParser
             namespaceValue.Rule = tIdentifier | literal;
             tNamespace.Rule = "namespace" + tNamespaceScope + namespaceValue;
             // NamespaceScope ::= 'java' | 'csharp' | 'objc'
-            tNamespaceScope.Rule = ToTerm("java") | "csharp";
+            tNamespaceScope.Rule = ToTerm("java") | "csharp" | "objc";
             // Definition ::= Enum | Struct | Service | DOC_STRING
             // Adding DOC_STRING here is to make it recognizable right after it's finished,
             // no need to wait until the whole definition (e.g. a struct) is finished.

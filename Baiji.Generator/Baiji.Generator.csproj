@@ -87,6 +87,14 @@
     <Compile Include="Java\JavaTypeConverters.cs" />
     <Compile Include="Java\JavaTypeMangler.cs" />
     <Compile Include="Java\Visitor\JavaCodeGenerator.cs" />
+    <Compile Include="ObjectiveC\Context\OCDocumentContext.cs" />
+    <Compile Include="ObjectiveC\Context\OCFieldContext.cs" />
+    <Compile Include="ObjectiveC\Context\OCTemplateContextGenerator.cs" />
+    <Compile Include="ObjectiveC\OCTypeConverter.cs" />
+    <Compile Include="ObjectiveC\OCTypeMangler.cs" />
+    <Compile Include="ObjectiveC\OCGenerator.cs" />
+    <Compile Include="ObjectiveC\OCGeneratorTweak.cs" />
+    <Compile Include="ObjectiveC\Visitor\OCCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -119,6 +127,8 @@
     <None Include="Java\Templates\ctor.st" />
     <None Include="Java\Templates\immutable.st" />
     <None Include="Java\Templates\regular.st" />
+    <None Include="ObjectiveC\Templates\common.st" />
+    <None Include="ObjectiveC\Templates\regular.st" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -129,7 +139,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

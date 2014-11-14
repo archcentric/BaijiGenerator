@@ -29,16 +29,21 @@
         private void InitializeComponent()
         {
             this.m_CSharpOptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.m_CSharpGenIncludesCheckBox = new System.Windows.Forms.CheckBox();
             this.m_CSharpGenCommentsCheckBox = new System.Windows.Forms.CheckBox();
             this.m_JavaOptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.m_JavaGenIncludesCheckBox = new System.Windows.Forms.CheckBox();
             this.m_JavaGenPublicFieldsCheckBox = new System.Windows.Forms.CheckBox();
             this.m_JavaGenCommentsCheckBox = new System.Windows.Forms.CheckBox();
             this.m_CancelButton = new System.Windows.Forms.Button();
             this.m_SaveButton = new System.Windows.Forms.Button();
-            this.m_CSharpGenIncludesCheckBox = new System.Windows.Forms.CheckBox();
-            this.m_JavaGenIncludesCheckBox = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.m_OCGenIncludesCheckBox = new System.Windows.Forms.CheckBox();
+            this.m_OCGenCommentsCheckBox = new System.Windows.Forms.CheckBox();
+            this.m_OCAutoReleaseCheckBox = new System.Windows.Forms.CheckBox();
             this.m_CSharpOptionsGroupBox.SuspendLayout();
             this.m_JavaOptionsGroupBox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_CSharpOptionsGroupBox
@@ -49,10 +54,20 @@
             this.m_CSharpOptionsGroupBox.Controls.Add(this.m_CSharpGenCommentsCheckBox);
             this.m_CSharpOptionsGroupBox.Location = new System.Drawing.Point(14, 12);
             this.m_CSharpOptionsGroupBox.Name = "m_CSharpOptionsGroupBox";
-            this.m_CSharpOptionsGroupBox.Size = new System.Drawing.Size(443, 53);
+            this.m_CSharpOptionsGroupBox.Size = new System.Drawing.Size(472, 53);
             this.m_CSharpOptionsGroupBox.TabIndex = 3;
             this.m_CSharpOptionsGroupBox.TabStop = false;
             this.m_CSharpOptionsGroupBox.Text = "C# Options";
+            // 
+            // m_CSharpGenIncludesCheckBox
+            // 
+            this.m_CSharpGenIncludesCheckBox.AutoSize = true;
+            this.m_CSharpGenIncludesCheckBox.Location = new System.Drawing.Point(149, 25);
+            this.m_CSharpGenIncludesCheckBox.Name = "m_CSharpGenIncludesCheckBox";
+            this.m_CSharpGenIncludesCheckBox.Size = new System.Drawing.Size(126, 16);
+            this.m_CSharpGenIncludesCheckBox.TabIndex = 0;
+            this.m_CSharpGenIncludesCheckBox.Text = "Generate Includes";
+            this.m_CSharpGenIncludesCheckBox.UseVisualStyleBackColor = true;
             // 
             // m_CSharpGenCommentsCheckBox
             // 
@@ -73,10 +88,20 @@
             this.m_JavaOptionsGroupBox.Controls.Add(this.m_JavaGenCommentsCheckBox);
             this.m_JavaOptionsGroupBox.Location = new System.Drawing.Point(14, 71);
             this.m_JavaOptionsGroupBox.Name = "m_JavaOptionsGroupBox";
-            this.m_JavaOptionsGroupBox.Size = new System.Drawing.Size(443, 53);
+            this.m_JavaOptionsGroupBox.Size = new System.Drawing.Size(472, 53);
             this.m_JavaOptionsGroupBox.TabIndex = 4;
             this.m_JavaOptionsGroupBox.TabStop = false;
             this.m_JavaOptionsGroupBox.Text = "Java Options";
+            // 
+            // m_JavaGenIncludesCheckBox
+            // 
+            this.m_JavaGenIncludesCheckBox.AutoSize = true;
+            this.m_JavaGenIncludesCheckBox.Location = new System.Drawing.Point(311, 25);
+            this.m_JavaGenIncludesCheckBox.Name = "m_JavaGenIncludesCheckBox";
+            this.m_JavaGenIncludesCheckBox.Size = new System.Drawing.Size(126, 16);
+            this.m_JavaGenIncludesCheckBox.TabIndex = 0;
+            this.m_JavaGenIncludesCheckBox.Text = "Generate Includes";
+            this.m_JavaGenIncludesCheckBox.UseVisualStyleBackColor = true;
             // 
             // m_JavaGenPublicFieldsCheckBox
             // 
@@ -102,7 +127,7 @@
             // 
             this.m_CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_CancelButton.Location = new System.Drawing.Point(382, 135);
+            this.m_CancelButton.Location = new System.Drawing.Point(411, 210);
             this.m_CancelButton.Name = "m_CancelButton";
             this.m_CancelButton.Size = new System.Drawing.Size(75, 23);
             this.m_CancelButton.TabIndex = 6;
@@ -112,7 +137,7 @@
             // m_SaveButton
             // 
             this.m_SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_SaveButton.Location = new System.Drawing.Point(301, 135);
+            this.m_SaveButton.Location = new System.Drawing.Point(330, 210);
             this.m_SaveButton.Name = "m_SaveButton";
             this.m_SaveButton.Size = new System.Drawing.Size(75, 23);
             this.m_SaveButton.TabIndex = 5;
@@ -120,25 +145,50 @@
             this.m_SaveButton.UseVisualStyleBackColor = true;
             this.m_SaveButton.Click += new System.EventHandler(this.m_SaveButton_Click);
             // 
-            // m_CSharpGenIncludesCheckBox
+            // groupBox1
             // 
-            this.m_CSharpGenIncludesCheckBox.AutoSize = true;
-            this.m_CSharpGenIncludesCheckBox.Location = new System.Drawing.Point(149, 25);
-            this.m_CSharpGenIncludesCheckBox.Name = "m_CSharpGenIncludesCheckBox";
-            this.m_CSharpGenIncludesCheckBox.Size = new System.Drawing.Size(126, 16);
-            this.m_CSharpGenIncludesCheckBox.TabIndex = 0;
-            this.m_CSharpGenIncludesCheckBox.Text = "Generate Includes";
-            this.m_CSharpGenIncludesCheckBox.UseVisualStyleBackColor = true;
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.m_OCAutoReleaseCheckBox);
+            this.groupBox1.Controls.Add(this.m_OCGenIncludesCheckBox);
+            this.groupBox1.Controls.Add(this.m_OCGenCommentsCheckBox);
+            this.groupBox1.Location = new System.Drawing.Point(14, 139);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(472, 53);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "OC Options";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // m_JavaGenIncludesCheckBox
+            // m_OCGenIncludesCheckBox
             // 
-            this.m_JavaGenIncludesCheckBox.AutoSize = true;
-            this.m_JavaGenIncludesCheckBox.Location = new System.Drawing.Point(311, 25);
-            this.m_JavaGenIncludesCheckBox.Name = "m_JavaGenIncludesCheckBox";
-            this.m_JavaGenIncludesCheckBox.Size = new System.Drawing.Size(126, 16);
-            this.m_JavaGenIncludesCheckBox.TabIndex = 0;
-            this.m_JavaGenIncludesCheckBox.Text = "Generate Includes";
-            this.m_JavaGenIncludesCheckBox.UseVisualStyleBackColor = true;
+            this.m_OCGenIncludesCheckBox.AutoSize = true;
+            this.m_OCGenIncludesCheckBox.Location = new System.Drawing.Point(149, 25);
+            this.m_OCGenIncludesCheckBox.Name = "m_OCGenIncludesCheckBox";
+            this.m_OCGenIncludesCheckBox.Size = new System.Drawing.Size(126, 16);
+            this.m_OCGenIncludesCheckBox.TabIndex = 0;
+            this.m_OCGenIncludesCheckBox.Text = "Generate Includes";
+            this.m_OCGenIncludesCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // m_OCGenCommentsCheckBox
+            // 
+            this.m_OCGenCommentsCheckBox.AutoSize = true;
+            this.m_OCGenCommentsCheckBox.Location = new System.Drawing.Point(17, 25);
+            this.m_OCGenCommentsCheckBox.Name = "m_OCGenCommentsCheckBox";
+            this.m_OCGenCommentsCheckBox.Size = new System.Drawing.Size(126, 16);
+            this.m_OCGenCommentsCheckBox.TabIndex = 0;
+            this.m_OCGenCommentsCheckBox.Text = "Generate Comments";
+            this.m_OCGenCommentsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // m_OCAutoReleaseCheckBox
+            // 
+            this.m_OCAutoReleaseCheckBox.AutoSize = true;
+            this.m_OCAutoReleaseCheckBox.Location = new System.Drawing.Point(311, 25);
+            this.m_OCAutoReleaseCheckBox.Name = "m_OCAutoReleaseCheckBox";
+            this.m_OCAutoReleaseCheckBox.Size = new System.Drawing.Size(96, 16);
+            this.m_OCAutoReleaseCheckBox.TabIndex = 1;
+            this.m_OCAutoReleaseCheckBox.Text = "Auto Release";
+            this.m_OCAutoReleaseCheckBox.UseVisualStyleBackColor = true;
             // 
             // CodeGenOptionsForm
             // 
@@ -146,7 +196,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.m_CancelButton;
-            this.ClientSize = new System.Drawing.Size(469, 170);
+            this.ClientSize = new System.Drawing.Size(498, 245);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.m_CancelButton);
             this.Controls.Add(this.m_SaveButton);
             this.Controls.Add(this.m_JavaOptionsGroupBox);
@@ -162,6 +213,8 @@
             this.m_CSharpOptionsGroupBox.PerformLayout();
             this.m_JavaOptionsGroupBox.ResumeLayout(false);
             this.m_JavaOptionsGroupBox.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -177,5 +230,9 @@
         private System.Windows.Forms.CheckBox m_JavaGenPublicFieldsCheckBox;
         private System.Windows.Forms.CheckBox m_CSharpGenIncludesCheckBox;
         private System.Windows.Forms.CheckBox m_JavaGenIncludesCheckBox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox m_OCGenIncludesCheckBox;
+        private System.Windows.Forms.CheckBox m_OCGenCommentsCheckBox;
+        private System.Windows.Forms.CheckBox m_OCAutoReleaseCheckBox;
     }
 }

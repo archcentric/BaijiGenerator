@@ -298,6 +298,24 @@ namespace CTripOSS.Baiji.Editor
             }
         }
 
+        private void GenerateOC_Click(object sender, EventArgs e)
+        {
+            if (sender == m_GenerateOCMenuItem)
+            {
+                RecordLastUsedGenerationOption((ToolStripMenuItem)sender, GenerateOC_Click);
+            }
+
+            if (!ValidateBeforeCodeGen())
+            {
+                return;
+            }
+
+            using (var form = new GenerateOCForm { IdlFilename = m_Document.Filename })
+            {
+                form.ShowDialog(this);
+            }
+        }
+
         private bool ValidateBeforeCodeGen()
         {
             if (m_TextBox.ParseTree.HasErrors())
@@ -726,5 +744,6 @@ namespace CTripOSS.Baiji.Editor
             #endregion
         }
         #endregion
+
     }
 }
