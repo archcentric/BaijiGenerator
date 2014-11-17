@@ -36,7 +36,9 @@ struct(context, tweaks, global) ::= <<
 
 <_hash(context)>
 
+<if (!tweaks.AUTO_RELEASE)>
 <_dealloc(context)>
+<endif>
 <endif>
 
 @end
@@ -52,12 +54,12 @@ structHeader(context, tweaks, global) ::= <<
 <! ================================================================================== !>
 #import \<Foundation/Foundation.h\>
 #import "BJMutableSpecificRecord.h"
-
+<_includes(context)>
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
 <_docString(context.DocStringLines)>
 <endif>
 
-@interface <context.TypeName> : BJMutableSpecificRecord
+@interface <context.Namespace><context.TypeName> : BJMutableSpecificRecord
 
 <if(context.Fields)>
 <_headerProperty(context)>
@@ -70,6 +72,14 @@ structHeader(context, tweaks, global) ::= <<
 @end
 >>
 
+_includes(context) ::= <<
+<context.Fields : { field |<if (field.GenType.isStruct||field.GenType.isEnum)><_class(field)><endif>}; separator="">
+>>
+
+_class(field) ::= <<
+@class <context.Namespace><field.GenType.TypeName>;<\n>
+>>
+
 _headerProperty(context) ::= <<
 <context.Fields : { field |<_property(field)>}; separator="\n">
 >>
@@ -78,7 +88,7 @@ _property(field) ::= <<
 < if (tweaks.GEN_COMMNETS && field.DocStringLines)>
 <_docString(field.DocStringLines)>
 <endif>
-@property (nonatomic, readwrite, retain) <field.GenType.TypeName> *<field.CodeName>;
+@property (nonatomic, readwrite, <if (tweaks.AUTO_RELEASE)>strong<else>retain<endif>) <if (field.GenType.isStruct||field.GenType.isEnum)><context.Namespace><endif><field.GenType.TypeName> *<field.CodeName>;
 >>
 
 enumHeader(context, tweaks, global) ::= <<
@@ -97,10 +107,10 @@ enumHeader(context, tweaks, global) ::= <<
 <endif>
 
 enum {
-	<context.Fields : { field | <field.Name>,}; separator="\n">
+	<context.Fields : { field | <context.Namespace><context.TypeName><field.Name>,}; separator="\n">
 };
 
-@interface <context.TypeName> : BJSpecificEnum
+@interface <context.Namespace><context.TypeName> : BJSpecificEnum
 
 @end
 >>
@@ -119,14 +129,14 @@ intEnum(context, tweaks, global) ::= <<
 <_docString(context.DocStringLines)>
 <endif>
 
-NSString *const <context.TypeName>Names[] = {
+NSString *const <context.Namespace><context.TypeName>Names[] = {
 	<context.Fields : { field | <_enumElement(field)>, }; separator="\n">
 };
 
-@implementation <context.TypeName>
+@implementation <context.Namespace><context.TypeName>
 
 - (NSString *)name {
-	return <context.TypeName>Names[self.value];
+	return <context.Namespace><context.TypeName>Names[self.value];
 }
 
 + (NSUInteger)ordinalForName:(NSString *)name {
@@ -148,12 +158,12 @@ _docString(lines) ::= <<
 >>
 
 _ordinalForName(context, field) ::= <<
-if([<context.TypeName>Names[<field.Name>] isEqual:name])
-	return field.Name;
+if([<context.Namespace><context.TypeName>Names[<context.Namespace><context.TypeName><field.Name>] isEqual:name])
+	return <context.Namespace><context.TypeName>field.Name;
 >>
 
 _enumElement(field) ::= <<
-[<field.Name>] = <if(field.Value)>@"<field.Value>"<endif>
+[<context.Namespace><context.TypeName><field.Name>] = @"<field.Name>"
 >>
 
 _isEnumEqual(context) ::= <<
@@ -174,7 +184,7 @@ _initHeader(context) ::= <<
 >>
 
 _initProperty(field) ::= <<
-<field.CodeName>:(<field.GenType.TypeName> *)<field.CodeName>
+<field.CodeName>:(<if (field.GenType.isStruct||field.GenType.isEnum)><context.Namespace><endif><field.GenType.TypeName> *)<field.CodeName>
 >>
 
 _initMain(context) ::= <<
@@ -195,7 +205,11 @@ _schema(context) ::= <<
 	static BJSchema *__schema = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once (&onceToken, ^{
+	<if (tweaks.AUTO_RELEASE)>
+		__schema = [BJSchema parse:@"<context.EscapedSchemaText>"];
+	<else>
 		__schema = [[BJSchema parse:@"<context.EscapedSchemaText>"] retain];
+	<endif>
 	});
 	return __schema;
 }
