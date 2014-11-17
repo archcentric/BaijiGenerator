@@ -45,24 +45,19 @@
             // 
             // m_OutputFolderTextBox
             // 
-            this.m_OutputFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_OutputFolderTextBox.Location = new System.Drawing.Point(96, 36);
+            this.m_OutputFolderTextBox.Location = new System.Drawing.Point(96, 32);
             this.m_OutputFolderTextBox.Name = "m_OutputFolderTextBox";
-            this.m_OutputFolderTextBox.Size = new System.Drawing.Size(316, 21);
+            this.m_OutputFolderTextBox.Size = new System.Drawing.Size(317, 21);
             this.m_OutputFolderTextBox.TabIndex = 17;
             // 
             // m_OptionsGroupBox
             // 
-            this.m_OptionsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_OptionsGroupBox.Controls.Add(this.m_AutoReleaseCheckBox);
             this.m_OptionsGroupBox.Controls.Add(this.m_GenIncludesCheckBox);
             this.m_OptionsGroupBox.Controls.Add(this.m_GenCommentsCheckBox);
-            this.m_OptionsGroupBox.Location = new System.Drawing.Point(9, 80);
+            this.m_OptionsGroupBox.Location = new System.Drawing.Point(9, 64);
             this.m_OptionsGroupBox.Name = "m_OptionsGroupBox";
-            this.m_OptionsGroupBox.Size = new System.Drawing.Size(443, 53);
+            this.m_OptionsGroupBox.Size = new System.Drawing.Size(444, 49);
             this.m_OptionsGroupBox.TabIndex = 11;
             this.m_OptionsGroupBox.TabStop = false;
             this.m_OptionsGroupBox.Text = "Options";
@@ -110,7 +105,7 @@
             // 
             this.m_CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_CancelButton.Location = new System.Drawing.Point(377, 180);
+            this.m_CancelButton.Location = new System.Drawing.Point(378, 119);
             this.m_CancelButton.Name = "m_CancelButton";
             this.m_CancelButton.Size = new System.Drawing.Size(75, 23);
             this.m_CancelButton.TabIndex = 13;
@@ -120,18 +115,16 @@
             // 
             // m_IdlFileTextBox
             // 
-            this.m_IdlFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_IdlFileTextBox.Location = new System.Drawing.Point(96, 9);
+            this.m_IdlFileTextBox.Location = new System.Drawing.Point(96, 5);
             this.m_IdlFileTextBox.Name = "m_IdlFileTextBox";
             this.m_IdlFileTextBox.ReadOnly = true;
-            this.m_IdlFileTextBox.Size = new System.Drawing.Size(356, 21);
+            this.m_IdlFileTextBox.Size = new System.Drawing.Size(357, 21);
             this.m_IdlFileTextBox.TabIndex = 15;
             // 
             // m_GenerateButton
             // 
             this.m_GenerateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_GenerateButton.Location = new System.Drawing.Point(296, 180);
+            this.m_GenerateButton.Location = new System.Drawing.Point(296, 119);
             this.m_GenerateButton.Name = "m_GenerateButton";
             this.m_GenerateButton.Size = new System.Drawing.Size(75, 23);
             this.m_GenerateButton.TabIndex = 12;
@@ -145,8 +138,7 @@
             // 
             // m_BrowseButton
             // 
-            this.m_BrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_BrowseButton.Location = new System.Drawing.Point(417, 34);
+            this.m_BrowseButton.Location = new System.Drawing.Point(418, 34);
             this.m_BrowseButton.Name = "m_BrowseButton";
             this.m_BrowseButton.Size = new System.Drawing.Size(34, 23);
             this.m_BrowseButton.TabIndex = 9;
@@ -167,7 +159,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 212);
+            this.ClientSize = new System.Drawing.Size(460, 154);
             this.Controls.Add(this.m_OutputFolderTextBox);
             this.Controls.Add(this.m_OptionsGroupBox);
             this.Controls.Add(this.m_OutputFolderLabel);
@@ -176,8 +168,10 @@
             this.Controls.Add(this.m_GenerateButton);
             this.Controls.Add(this.m_BrowseButton);
             this.Controls.Add(this.m_IdlFileLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "GenerateOCForm";
-            this.Text = "GenerateOCForm";
+            this.Text = "Baiji IDL Code Generation - Objective-C";
             this.m_OptionsGroupBox.ResumeLayout(false);
             this.m_OptionsGroupBox.PerformLayout();
             this.ResumeLayout(false);

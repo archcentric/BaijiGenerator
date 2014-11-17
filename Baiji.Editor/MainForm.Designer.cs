@@ -406,7 +406,7 @@
             // 
             this.m_GenerateCSharpMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_CSharp;
             this.m_GenerateCSharpMenuItem.Name = "m_GenerateCSharpMenuItem";
-            this.m_GenerateCSharpMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.m_GenerateCSharpMenuItem.Size = new System.Drawing.Size(244, 22);
             this.m_GenerateCSharpMenuItem.Text = "Generate &C# Code...";
             this.m_GenerateCSharpMenuItem.Click += new System.EventHandler(this.GenerateCSharp_Click);
             // 
@@ -414,7 +414,7 @@
             // 
             this.m_GenerateJavaMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_Java;
             this.m_GenerateJavaMenuItem.Name = "m_GenerateJavaMenuItem";
-            this.m_GenerateJavaMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.m_GenerateJavaMenuItem.Size = new System.Drawing.Size(244, 22);
             this.m_GenerateJavaMenuItem.Text = "Generate &Java Code...";
             this.m_GenerateJavaMenuItem.Click += new System.EventHandler(this.GenerateJava_Click);
             // 
@@ -422,14 +422,14 @@
             // 
             this.m_GenerateOCMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_Java;
             this.m_GenerateOCMenuItem.Name = "m_GenerateOCMenuItem";
-            this.m_GenerateOCMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.m_GenerateOCMenuItem.Text = "Generate Objective-C Code";
+            this.m_GenerateOCMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.m_GenerateOCMenuItem.Text = "Generate Objective-C Code...";
             this.m_GenerateOCMenuItem.Click += new System.EventHandler(this.GenerateOC_Click);
             // 
             // m_CodeGenOptionsMenuItem
             // 
             this.m_CodeGenOptionsMenuItem.Name = "m_CodeGenOptionsMenuItem";
-            this.m_CodeGenOptionsMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.m_CodeGenOptionsMenuItem.Size = new System.Drawing.Size(244, 22);
             this.m_CodeGenOptionsMenuItem.Text = "&Options";
             this.m_CodeGenOptionsMenuItem.Click += new System.EventHandler(this.m_CodeGenOptionsMenuItem_Click);
             // 
