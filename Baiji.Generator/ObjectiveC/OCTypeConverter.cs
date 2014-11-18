@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CTripOSS.Baiji.IDLParser.Model;
+using System.Text;
 
 namespace CTripOSS.Baiji.Generator.ObjectiveC
 {
@@ -100,12 +101,14 @@ namespace CTripOSS.Baiji.Generator.ObjectiveC
         {
             // If the class is in the package we are currently generating code for, generate
             // only the simple name, otherwise generate the fully qualified class name.
-            if (className.StartsWith(_typeConverter.CodeNamespace) &&
+            /*if (className.StartsWith(_typeConverter.CodeNamespace) &&
                 className.LastIndexOf(".") == _typeConverter.CodeNamespace.Length)
             {
                 className = className.Substring(_typeConverter.CodeNamespace.Length + 1);
-            }
-            return className;
+            }*/
+            StringBuilder sb = new StringBuilder(className);
+            sb.Remove(className.LastIndexOf("."), 1);
+            return sb.ToString();
         }
 
         public GenType ConvertToGenType(BaijiType type, bool nullable)

@@ -7,13 +7,13 @@ struct(context, tweaks, global) ::= <<
 <! =                                                                                = !>
 <! ================================================================================== !>
 
-#import "<context.TypeName>.h"
+#import "<context.Namespace><context.TypeName>.h"
 
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
 <_docString(context.DocStringLines)>
 <endif>
 
-@implementation <context.TypeName>
+@implementation <context.Namespace><context.TypeName>
 
 <_schema(context)>
 
@@ -77,7 +77,7 @@ _includes(context) ::= <<
 >>
 
 _class(field) ::= <<
-@class <context.Namespace><field.GenType.TypeName>;<\n>
+@class <field.GenType.TypeName>;<\n>
 >>
 
 _headerProperty(context) ::= <<
@@ -88,7 +88,7 @@ _property(field) ::= <<
 < if (tweaks.GEN_COMMNETS && field.DocStringLines)>
 <_docString(field.DocStringLines)>
 <endif>
-@property (nonatomic, readwrite, <if (tweaks.AUTO_RELEASE)>strong<else>retain<endif>) <if (field.GenType.isStruct||field.GenType.isEnum)><context.Namespace><endif><field.GenType.TypeName> *<field.CodeName>;
+@property (nonatomic, readwrite, <if (tweaks.AUTO_RELEASE)>strong<else>retain<endif>) <field.GenType.TypeName> *<field.CodeName>;
 >>
 
 enumHeader(context, tweaks, global) ::= <<
@@ -184,7 +184,7 @@ _initHeader(context) ::= <<
 >>
 
 _initProperty(field) ::= <<
-<field.CodeName>:(<if (field.GenType.isStruct||field.GenType.isEnum)><context.Namespace><endif><field.GenType.TypeName> *)<field.CodeName>
+<field.CodeName>:(<field.GenType.TypeName> *)<field.CodeName>
 >>
 
 _initMain(context) ::= <<
@@ -193,6 +193,7 @@ _initMain(context) ::= <<
 	if (self) {
 		<context.Fields : { field |<_initAssign(field)>}; separator="\n">
 	}
+	return self;
 }
 >>
 
@@ -255,7 +256,7 @@ _isEqual(context) ::= <<
 	if ([self class] != [object class])
 		return NO;
 
-	<context.TypeName> *that = (<context.TypeName> *)object;
+	<context.Namespace><context.TypeName> *that = (<context.Namespace><context.TypeName> *)object;
 	return
 		<context.Fields : {field | <_equalField(field)>}; separator=" &&\n">; 
 }
