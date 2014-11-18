@@ -144,7 +144,7 @@ namespace CTripOSS.Baiji.Generator.ObjectiveC
         {
             var listType = type as ListType;
             string actualType = typeToOCConverter.ConvertToString(listType.Type, false);
-            return "List<" + actualType + ">";
+            return "NSArray";
         }
 
         public GenType ConvertToGenType(BaijiType type, bool nullable)
@@ -175,12 +175,7 @@ namespace CTripOSS.Baiji.Generator.ObjectiveC
 
         public string ConvertToString(BaijiType type, bool nullable)
         {
-            var mapType = type as MapType;
-
-            string actualKeyType = typeToOCConverter.ConvertToString(mapType.KeyType, false);
-            string actualValueType = typeToOCConverter.ConvertToString(mapType.ValueType, false);
-
-            return string.Format("Map<{0}, {1}>", actualKeyType, actualValueType);
+            return "NSDictionary";
         }
 
         public GenType ConvertToGenType(BaijiType type, bool nullable)
