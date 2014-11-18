@@ -163,6 +163,16 @@ namespace CTripOSS.Baiji.Editor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Icon_16x16_OC {
+            get {
+                object obj = ResourceManager.GetObject("Icon_16x16_OC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Icon_16x16_Open {
             get {
                 object obj = ResourceManager.GetObject("Icon_16x16_Open", resourceCulture);

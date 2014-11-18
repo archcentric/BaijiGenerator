@@ -37,13 +37,13 @@
             this.m_JavaGenCommentsCheckBox = new System.Windows.Forms.CheckBox();
             this.m_CancelButton = new System.Windows.Forms.Button();
             this.m_SaveButton = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.m_OCOptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.m_OCAutoReleaseCheckBox = new System.Windows.Forms.CheckBox();
             this.m_OCGenIncludesCheckBox = new System.Windows.Forms.CheckBox();
             this.m_OCGenCommentsCheckBox = new System.Windows.Forms.CheckBox();
-            this.m_OCAutoReleaseCheckBox = new System.Windows.Forms.CheckBox();
             this.m_CSharpOptionsGroupBox.SuspendLayout();
             this.m_JavaOptionsGroupBox.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.m_OCOptionsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_CSharpOptionsGroupBox
@@ -145,20 +145,30 @@
             this.m_SaveButton.UseVisualStyleBackColor = true;
             this.m_SaveButton.Click += new System.EventHandler(this.m_SaveButton_Click);
             // 
-            // groupBox1
+            // m_OCOptionsGroupBox
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.m_OCOptionsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.m_OCAutoReleaseCheckBox);
-            this.groupBox1.Controls.Add(this.m_OCGenIncludesCheckBox);
-            this.groupBox1.Controls.Add(this.m_OCGenCommentsCheckBox);
-            this.groupBox1.Location = new System.Drawing.Point(14, 139);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(472, 53);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "OC Options";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.m_OCOptionsGroupBox.Controls.Add(this.m_OCAutoReleaseCheckBox);
+            this.m_OCOptionsGroupBox.Controls.Add(this.m_OCGenIncludesCheckBox);
+            this.m_OCOptionsGroupBox.Controls.Add(this.m_OCGenCommentsCheckBox);
+            this.m_OCOptionsGroupBox.Location = new System.Drawing.Point(14, 139);
+            this.m_OCOptionsGroupBox.Name = "m_OCOptionsGroupBox";
+            this.m_OCOptionsGroupBox.Size = new System.Drawing.Size(472, 53);
+            this.m_OCOptionsGroupBox.TabIndex = 7;
+            this.m_OCOptionsGroupBox.TabStop = false;
+            this.m_OCOptionsGroupBox.Text = "Objective-C Options";
+            this.m_OCOptionsGroupBox.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // m_OCAutoReleaseCheckBox
+            // 
+            this.m_OCAutoReleaseCheckBox.AutoSize = true;
+            this.m_OCAutoReleaseCheckBox.Location = new System.Drawing.Point(311, 25);
+            this.m_OCAutoReleaseCheckBox.Name = "m_OCAutoReleaseCheckBox";
+            this.m_OCAutoReleaseCheckBox.Size = new System.Drawing.Size(96, 16);
+            this.m_OCAutoReleaseCheckBox.TabIndex = 1;
+            this.m_OCAutoReleaseCheckBox.Text = "Auto Release";
+            this.m_OCAutoReleaseCheckBox.UseVisualStyleBackColor = true;
             // 
             // m_OCGenIncludesCheckBox
             // 
@@ -180,16 +190,6 @@
             this.m_OCGenCommentsCheckBox.Text = "Generate Comments";
             this.m_OCGenCommentsCheckBox.UseVisualStyleBackColor = true;
             // 
-            // m_OCAutoReleaseCheckBox
-            // 
-            this.m_OCAutoReleaseCheckBox.AutoSize = true;
-            this.m_OCAutoReleaseCheckBox.Location = new System.Drawing.Point(311, 25);
-            this.m_OCAutoReleaseCheckBox.Name = "m_OCAutoReleaseCheckBox";
-            this.m_OCAutoReleaseCheckBox.Size = new System.Drawing.Size(96, 16);
-            this.m_OCAutoReleaseCheckBox.TabIndex = 1;
-            this.m_OCAutoReleaseCheckBox.Text = "Auto Release";
-            this.m_OCAutoReleaseCheckBox.UseVisualStyleBackColor = true;
-            // 
             // CodeGenOptionsForm
             // 
             this.AcceptButton = this.m_SaveButton;
@@ -197,7 +197,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.m_CancelButton;
             this.ClientSize = new System.Drawing.Size(498, 245);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.m_OCOptionsGroupBox);
             this.Controls.Add(this.m_CancelButton);
             this.Controls.Add(this.m_SaveButton);
             this.Controls.Add(this.m_JavaOptionsGroupBox);
@@ -213,8 +213,8 @@
             this.m_CSharpOptionsGroupBox.PerformLayout();
             this.m_JavaOptionsGroupBox.ResumeLayout(false);
             this.m_JavaOptionsGroupBox.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.m_OCOptionsGroupBox.ResumeLayout(false);
+            this.m_OCOptionsGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -230,7 +230,7 @@
         private System.Windows.Forms.CheckBox m_JavaGenPublicFieldsCheckBox;
         private System.Windows.Forms.CheckBox m_CSharpGenIncludesCheckBox;
         private System.Windows.Forms.CheckBox m_JavaGenIncludesCheckBox;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox m_OCOptionsGroupBox;
         private System.Windows.Forms.CheckBox m_OCGenIncludesCheckBox;
         private System.Windows.Forms.CheckBox m_OCGenCommentsCheckBox;
         private System.Windows.Forms.CheckBox m_OCAutoReleaseCheckBox;

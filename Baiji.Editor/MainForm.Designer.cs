@@ -109,6 +109,7 @@
             this.m_FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.m_OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.m_SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.m_GenerateOCToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_MenuStrip.SuspendLayout();
             this.m_ToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_MainContainer)).BeginInit();
@@ -155,7 +156,7 @@
             this.m_NewMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_New;
             this.m_NewMenuItem.Name = "m_NewMenuItem";
             this.m_NewMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.m_NewMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.m_NewMenuItem.Size = new System.Drawing.Size(164, 22);
             this.m_NewMenuItem.Text = "&New";
             this.m_NewMenuItem.Click += new System.EventHandler(this.New_Click);
             // 
@@ -164,8 +165,8 @@
             this.m_OpenMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_Open;
             this.m_OpenMenuItem.Name = "m_OpenMenuItem";
             this.m_OpenMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.m_OpenMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.m_OpenMenuItem.Text = "&Open";
+            this.m_OpenMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.m_OpenMenuItem.Text = "&Open...";
             this.m_OpenMenuItem.Click += new System.EventHandler(this.Open_Click);
             // 
             // m_SaveMenuItem
@@ -173,21 +174,21 @@
             this.m_SaveMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_Save;
             this.m_SaveMenuItem.Name = "m_SaveMenuItem";
             this.m_SaveMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.m_SaveMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.m_SaveMenuItem.Size = new System.Drawing.Size(164, 22);
             this.m_SaveMenuItem.Text = "&Save";
             this.m_SaveMenuItem.Click += new System.EventHandler(this.Save_Click);
             // 
             // m_SaveAsMenuItem
             // 
             this.m_SaveAsMenuItem.Name = "m_SaveAsMenuItem";
-            this.m_SaveAsMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.m_SaveAsMenuItem.Size = new System.Drawing.Size(164, 22);
             this.m_SaveAsMenuItem.Text = "Save &As...";
             this.m_SaveAsMenuItem.Click += new System.EventHandler(this.SaveAs_Click);
             // 
             // m_FileMenuSeparator1
             // 
             this.m_FileMenuSeparator1.Name = "m_FileMenuSeparator1";
-            this.m_FileMenuSeparator1.Size = new System.Drawing.Size(152, 6);
+            this.m_FileMenuSeparator1.Size = new System.Drawing.Size(161, 6);
             // 
             // m_RecentFilesMenuItem
             // 
@@ -196,7 +197,7 @@
             this.m_RecentFilesMenuSeparator,
             this.m_ClearRecentFilesMenuItem});
             this.m_RecentFilesMenuItem.Name = "m_RecentFilesMenuItem";
-            this.m_RecentFilesMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.m_RecentFilesMenuItem.Size = new System.Drawing.Size(164, 22);
             this.m_RecentFilesMenuItem.Text = "&Recent Files";
             // 
             // m_EmpyRecentFilesMenuItem
@@ -221,12 +222,12 @@
             // m_FileMenuSeparator2
             // 
             this.m_FileMenuSeparator2.Name = "m_FileMenuSeparator2";
-            this.m_FileMenuSeparator2.Size = new System.Drawing.Size(152, 6);
+            this.m_FileMenuSeparator2.Size = new System.Drawing.Size(161, 6);
             // 
             // m_ExitMenuItem
             // 
             this.m_ExitMenuItem.Name = "m_ExitMenuItem";
-            this.m_ExitMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.m_ExitMenuItem.Size = new System.Drawing.Size(164, 22);
             this.m_ExitMenuItem.Text = "E&xit";
             this.m_ExitMenuItem.Click += new System.EventHandler(this.Exit_Click);
             // 
@@ -332,7 +333,7 @@
             this.m_FindMenuItem.Name = "m_FindMenuItem";
             this.m_FindMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
             this.m_FindMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.m_FindMenuItem.Text = "&Find ";
+            this.m_FindMenuItem.Text = "&Find";
             this.m_FindMenuItem.Click += new System.EventHandler(this.Find_Click);
             // 
             // m_FindNextMenuItem
@@ -420,7 +421,7 @@
             // 
             // m_GenerateOCMenuItem
             // 
-            this.m_GenerateOCMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_Java;
+            this.m_GenerateOCMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_OC;
             this.m_GenerateOCMenuItem.Name = "m_GenerateOCMenuItem";
             this.m_GenerateOCMenuItem.Size = new System.Drawing.Size(244, 22);
             this.m_GenerateOCMenuItem.Text = "Generate Objective-C Code...";
@@ -430,7 +431,7 @@
             // 
             this.m_CodeGenOptionsMenuItem.Name = "m_CodeGenOptionsMenuItem";
             this.m_CodeGenOptionsMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.m_CodeGenOptionsMenuItem.Text = "&Options";
+            this.m_CodeGenOptionsMenuItem.Text = "&Options...";
             this.m_CodeGenOptionsMenuItem.Click += new System.EventHandler(this.m_CodeGenOptionsMenuItem_Click);
             // 
             // m_HelpMenuItem
@@ -444,7 +445,7 @@
             // m_AboutMenuItem
             // 
             this.m_AboutMenuItem.Name = "m_AboutMenuItem";
-            this.m_AboutMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.m_AboutMenuItem.Size = new System.Drawing.Size(152, 22);
             this.m_AboutMenuItem.Text = "&About";
             this.m_AboutMenuItem.Click += new System.EventHandler(this.About_Click);
             // 
@@ -592,7 +593,8 @@
             this.m_GenerateToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.m_GenerateToolButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_GenerateCSharpToolMenuItem,
-            this.m_GenerateJavaToolMenuItem});
+            this.m_GenerateJavaToolMenuItem,
+            this.m_GenerateOCToolMenuItem});
             this.m_GenerateToolButton.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_Generate;
             this.m_GenerateToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_GenerateToolButton.Name = "m_GenerateToolButton";
@@ -604,7 +606,7 @@
             // 
             this.m_GenerateCSharpToolMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_CSharp;
             this.m_GenerateCSharpToolMenuItem.Name = "m_GenerateCSharpToolMenuItem";
-            this.m_GenerateCSharpToolMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.m_GenerateCSharpToolMenuItem.Size = new System.Drawing.Size(244, 22);
             this.m_GenerateCSharpToolMenuItem.Text = "Generate C# Code...";
             this.m_GenerateCSharpToolMenuItem.Click += new System.EventHandler(this.GenerateCSharp_Click);
             // 
@@ -612,7 +614,7 @@
             // 
             this.m_GenerateJavaToolMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_Java;
             this.m_GenerateJavaToolMenuItem.Name = "m_GenerateJavaToolMenuItem";
-            this.m_GenerateJavaToolMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.m_GenerateJavaToolMenuItem.Size = new System.Drawing.Size(244, 22);
             this.m_GenerateJavaToolMenuItem.Text = "Generate Java Code...";
             this.m_GenerateJavaToolMenuItem.Click += new System.EventHandler(this.GenerateJava_Click);
             // 
@@ -842,6 +844,14 @@
             // 
             this.m_SaveFileDialog.Filter = "Baiji IDL files (*.bjsc)|*.bjsc|All files (*.*)|*.*";
             // 
+            // m_GenerateOCToolMenuItem
+            // 
+            this.m_GenerateOCToolMenuItem.Image = global::CTripOSS.Baiji.Editor.Properties.Resources.Icon_16x16_OC;
+            this.m_GenerateOCToolMenuItem.Name = "m_GenerateOCToolMenuItem";
+            this.m_GenerateOCToolMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.m_GenerateOCToolMenuItem.Text = "Generate Objective-C Code...";
+            this.m_GenerateOCToolMenuItem.Click += new System.EventHandler(this.GenerateOC_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -955,6 +965,7 @@
         private System.Windows.Forms.ToolStripSeparator m_FileMenuSeparator2;
         private System.Windows.Forms.ToolStripMenuItem m_CodeGenOptionsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_GenerateOCMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_GenerateOCToolMenuItem;
     }
 }
 
