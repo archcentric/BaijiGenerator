@@ -76,7 +76,7 @@ namespace <context.Namespace>
     using System.Linq;
     using System.Collections;
     using System.Collections.Generic;
-    using CTripOSS.Baiji.Exception;
+    using CTripOSS.Baiji.Exceptions;
     using CTripOSS.Baiji.Specific;
     using CTripOSS.Baiji.Utils;
     using CTripOSS.Baiji.Rpc.Common;
