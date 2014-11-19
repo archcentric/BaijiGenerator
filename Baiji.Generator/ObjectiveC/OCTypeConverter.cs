@@ -86,7 +86,7 @@ namespace CTripOSS.Baiji.Generator.ObjectiveC
                 idlNamespace = names[0];
             }
 
-            var javaTypeName = idlNamespace + "." + _typeConverter.TypeMangler.MangleTypeName(idlName);
+            var javaTypeName = idlNamespace + "." + idlName;
             var javaType = _typeConverter.TypeRegistry.FindType(javaTypeName);
             return javaType;
         }
@@ -94,7 +94,7 @@ namespace CTripOSS.Baiji.Generator.ObjectiveC
         public string ConvertToString(BaijiType type, bool nullable)
         {
             var javaType = FindCodeTypeFromIdentifierType((IdentifierType)type);
-            return ShortenClassName(javaType.FullName);
+            return javaType.Name;
         }
 
         private string ShortenClassName(string className)

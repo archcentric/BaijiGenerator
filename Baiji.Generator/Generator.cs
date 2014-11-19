@@ -145,7 +145,7 @@ namespace CTripOSS.Baiji.Generator
             // Make a note that we've already passed this document
             _parsedDocuments.Add(uri);
 
-            new TypeVisitor(codeNamespace, context).Visit(document);
+            CreateTypeVisitor(codeNamespace, context).Visit(document);
 
             if (contexts != null)
             {
@@ -217,5 +217,10 @@ namespace CTripOSS.Baiji.Generator
 
         protected abstract DocumentContext CreateDocumentContext(Uri uri, string idlNamespace, GeneratorConfig config,
             TypeRegistry typeRegistry);
+
+        public virtual TypeVisitor CreateTypeVisitor(string codeNamespace, DocumentContext documentContext)
+        {
+            return new TypeVisitor(codeNamespace, documentContext);
+        }
     }
 }

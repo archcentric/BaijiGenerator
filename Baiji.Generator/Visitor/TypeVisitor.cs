@@ -7,9 +7,9 @@ namespace CTripOSS.Baiji.Generator.Visitor
 {
     public class TypeVisitor : IVisitor
     {
-        private static readonly ILog LOG = LogManager.GetLogger(typeof(TypeVisitor));
-        private readonly string _codeNamespace;
-        private readonly DocumentContext _documentContext;
+        protected static readonly ILog LOG = LogManager.GetLogger(typeof(TypeVisitor));
+        protected readonly string _codeNamespace;
+        protected readonly DocumentContext _documentContext;
 
         public TypeVisitor(string codeNamespace, DocumentContext documentContext)
         {
@@ -22,11 +22,11 @@ namespace CTripOSS.Baiji.Generator.Visitor
             throw new NotImplementedException();
         }
 
-        public void Visit(Document document)
+        public virtual void Visit(Document document)
         {
             foreach (var definition in document.Definitions)
             {
-                var type = new CodeType(_documentContext.Namespace,
+                var type = new CodeType(_documentContext.Namespace, definition.Name,
                     _documentContext.TypeMangler.MangleTypeName(definition.Name), _codeNamespace, definition);
                 if (definition is Struct)
                 {

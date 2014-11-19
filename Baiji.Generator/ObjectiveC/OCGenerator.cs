@@ -38,5 +38,10 @@ namespace CTripOSS.Baiji.Generator.ObjectiveC
 
             return new OCDocumentContext(uri, idlNamespace, config, typeRegistry);
         }
+
+        public override Baiji.Generator.Visitor.TypeVisitor CreateTypeVisitor(string codeNamespace, DocumentContext documentContext)
+        {
+            return new OCTypeVisitor(codeNamespace, documentContext);
+        }
     }
 }

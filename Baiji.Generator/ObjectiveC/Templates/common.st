@@ -13,7 +13,7 @@ struct(context, tweaks, global) ::= <<
 <_docString(context.DocStringLines)>
 <endif>
 
-@implementation <context.Namespace><context.TypeName>
+@implementation <context.TypeName>
 
 <_schema(context)>
 
@@ -59,7 +59,7 @@ structHeader(context, tweaks, global) ::= <<
 <_docString(context.DocStringLines)>
 <endif>
 
-@interface <context.Namespace><context.TypeName> : BJMutableSpecificRecord
+@interface <context.TypeName> : BJMutableSpecificRecord
 
 <if(context.Fields)>
 <_headerProperty(context)>
@@ -107,10 +107,10 @@ enumHeader(context, tweaks, global) ::= <<
 <endif>
 
 enum {
-	<context.Fields : { field | <context.Namespace><context.TypeName><field.Name>,}; separator="\n">
+	<context.Fields : { field | <context.TypeName><field.Name>,}; separator="\n">
 };
 
-@interface <context.Namespace><context.TypeName> : BJSpecificEnum
+@interface <context.TypeName> : BJSpecificEnum
 
 @end
 >>
@@ -129,14 +129,14 @@ intEnum(context, tweaks, global) ::= <<
 <_docString(context.DocStringLines)>
 <endif>
 
-NSString *const <context.Namespace><context.TypeName>Names[] = {
+NSString *const <context.TypeName>Names[] = {
 	<context.Fields : { field | <_enumElement(field)>, }; separator="\n">
 };
 
-@implementation <context.Namespace><context.TypeName>
+@implementation <context.TypeName>
 
 - (NSString *)name {
-	return <context.Namespace><context.TypeName>Names[self.value];
+	return <context.TypeName>Names[self.value];
 }
 
 + (NSUInteger)ordinalForName:(NSString *)name {
@@ -158,12 +158,12 @@ _docString(lines) ::= <<
 >>
 
 _ordinalForName(context, field) ::= <<
-if([<context.Namespace><context.TypeName>Names[<context.Namespace><context.TypeName><field.Name>] isEqual:name])
-	return <context.Namespace><context.TypeName>field.Name;
+if([<context.TypeName>Names[<context.TypeName><field.Name>] isEqual:name])
+	return <context.TypeName>field.Name;
 >>
 
 _enumElement(field) ::= <<
-[<context.Namespace><context.TypeName><field.Name>] = @"<field.Name>"
+[<context.TypeName><field.Name>] = @"<field.Name>"
 >>
 
 _isEnumEqual(context) ::= <<
@@ -230,7 +230,7 @@ _fieldAtIndex(structContext) ::= <<
 >>
 
 _getField(fieldContext, i0) ::= <<
-case <i0>: return self.<fieldContext.CodeName>; break;
+case <i0>: return self.<fieldContext.CodeName>;
 >>
 
 _setObjectAtIndex(structContext) ::= <<
@@ -256,7 +256,7 @@ _isEqual(context) ::= <<
 	if ([self class] != [object class])
 		return NO;
 
-	<context.Namespace><context.TypeName> *that = (<context.Namespace><context.TypeName> *)object;
+	<context.TypeName> *that = (<context.TypeName> *)object;
 	return
 		<context.Fields : {field | <_equalField(field)>}; separator=" &&\n">; 
 }

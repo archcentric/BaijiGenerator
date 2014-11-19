@@ -6,11 +6,13 @@ namespace CTripOSS.Baiji.Generator
     {
         private readonly string _idlNamespace;
         private readonly string _name;
+        private readonly string _idlName;
         private readonly string _codeNamespace;
 
-        public CodeType(string idlNamespace, string name, string codeNamespace, Definition definition)
+        public CodeType(string idlNamespace, string idlName, string name, string codeNamespace, Definition definition)
         {
             _idlNamespace = idlNamespace;
+            _idlName = idlName;
             _name = name;
             _codeNamespace = codeNamespace;
             IsStruct = false;
@@ -52,6 +54,14 @@ namespace CTripOSS.Baiji.Generator
             }
         }
 
+        public string IDLName
+        {
+            get
+            {
+                return _idlName;
+            }
+        }
+
         public string Name
         {
             get
@@ -72,7 +82,7 @@ namespace CTripOSS.Baiji.Generator
         {
             get
             {
-                return _idlNamespace + "." + _name;
+                return _idlNamespace + "." + _idlName;
             }
         }
 
@@ -125,6 +135,18 @@ namespace CTripOSS.Baiji.Generator
                 return false;
             }
 
+            if (_idlName == null)
+            {
+                if (other._idlName != null)
+                {
+                    return false;
+                }
+            }
+            else if (_idlName != other._idlName) 
+            {
+                return false;
+            }
+
             if (IsStruct != other.IsStruct)
             {
                 return false;
@@ -144,12 +166,13 @@ namespace CTripOSS.Baiji.Generator
             result = prime * result + ((_codeNamespace == null) ? 0 : _codeNamespace.GetHashCode());
             result = prime * result + ((_name == null) ? 0 : _name.GetHashCode());
             result = prime * result + ((_idlNamespace == null) ? 0 : _idlNamespace.GetHashCode());
+            result = prime * result + ((_idlName == null) ? 0 : _idlName.GetHashCode());
             return result;
         }
 
         public override string ToString()
         {
-            return string.Format("[Baiji namespace = {0}, name = {1}, namespace = {2}]", _idlNamespace, _name,
+            return string.Format("[Baiji namespace = {0}, Baiji name = {1}, name = {2}, namespace = {3}]", _idlNamespace, _idlName, _name,
                 _codeNamespace);
         }
     }

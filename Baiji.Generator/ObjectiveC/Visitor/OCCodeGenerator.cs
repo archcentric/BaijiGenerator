@@ -65,7 +65,7 @@ namespace CTripOSS.Baiji.Generator.ObjectiveC.Visitor
         {
             DirectoryInfo folder = _outputFolder;
 
-            var fileName = Path.Combine(folder.FullName, context.Namespace + context.TypeName + fileExtension);
+            var fileName = Path.Combine(folder.FullName, context.TypeName + fileExtension);
             return fileName;
         }
 
