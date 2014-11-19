@@ -59,7 +59,7 @@ structHeader(context, tweaks, global) ::= <<
 <_docString(context.DocStringLines)>
 <endif>
 
-@interface <context.TypeName> : BJMutableSpecificRecord
+@interface <context.TypeName> : BJMutableSpecificRecord<if (context.HasResponseStatus)>BJHasResponseStatus<endif><if (context.HasMobileRequestHead)>BJHasMobileRequestHead<endif>
 
 <if(context.Fields)>
 <_headerProperty(context)>
