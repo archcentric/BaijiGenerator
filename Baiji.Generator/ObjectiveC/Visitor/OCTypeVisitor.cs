@@ -14,23 +14,9 @@ namespace CTripOSS.Baiji.Generator.ObjectiveC.Visitor
         {
         }
 
-        public override void Visit(IDLParser.Model.Document document)
+        public override CodeType CreateCodeType(string idlNamespace, string idlName, string name, string codeNamespace, Definition definition)
         {
-            foreach (var definition in document.Definitions)
-            {
-                var type = new CodeType(_documentContext.Namespace, definition.Name,
-                    _documentContext.TypeMangler.MangleTypeName(_codeNamespace + definition.Name), _codeNamespace, definition);
-                if (definition is Struct)
-                {
-                    type.IsStruct = true;
-                }
-                else if (definition is IntegerEnum)
-                {
-                    type.IsEnum = true;
-                }
-                LOG.Debug(string.Format("Registering type '{0}'", type));
-                _documentContext.TypeRegistry.Add(type);
-            }
+            return new CodeType(idlNamespace, idlName, _documentContext.TypeMangler.MangleTypeName(codeNamespace + name), codeNamespace, definition);
         }
     }
 }
