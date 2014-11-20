@@ -7,7 +7,7 @@ struct(context, tweaks, global) ::= <<
 <! =                                                                                = !>
 <! ================================================================================== !>
 
-#import "<context.Namespace><context.TypeName>.h"
+#import "<context.TypeName>.h"
 
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
 <_docString(context.DocStringLines)>
@@ -59,7 +59,7 @@ structHeader(context, tweaks, global) ::= <<
 <_docString(context.DocStringLines)>
 <endif>
 
-@interface <context.TypeName> : BJMutableSpecificRecord<if (context.HasResponseStatus)>BJHasResponseStatus<endif><if (context.HasMobileRequestHead)>BJHasMobileRequestHead<endif>
+@interface <context.TypeName> : BJMutableSpecificRecord<_protocol(context)>
 
 <if(context.Fields)>
 <_headerProperty(context)>
@@ -70,6 +70,10 @@ structHeader(context, tweaks, global) ::= <<
 <endif>
 
 @end
+>>
+
+_protocol(context) ::= <<
+<if (context.HasResponseStatus&&context.HasMobileRequestHead)>\<BJHasResponseStatus, BJHasMobileRequestHead\><endif><if (context.HasResponseStatus&&!context.HasMobileRequestHead)>\<BJHasResponseStatus\><endif><if (!context.HasResponseStatus&&context.HasMobileRequestHead)>\<BJHasMobileRequestHead\><endif>
 >>
 
 _includes(context) ::= <<
