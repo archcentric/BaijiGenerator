@@ -73,6 +73,10 @@ public <method.ReturnType> <method.CodeName>(<if(method.ArgumentType)><method.Ar
                                 throws Exception {
     return super.invoke("<method.CodeName>"<if (method.ArgumentType)>, <method.ArgumentName><endif>, <method.ReturnType>.class);
 }
+public java.util.concurrent.Future\<<method.ReturnType>\> <method.CodeName>Async(<if(method.ArgumentType)><method.ArgumentType> <method.ArgumentName><endif>)
+                                throws Exception {
+    return super.invokeAsync("<method.CodeName>"<if (method.ArgumentType)>, <method.ArgumentName><endif>, <method.ReturnType>.class);
+}
 >>
 
 struct(context, tweaks, global) ::= <<
