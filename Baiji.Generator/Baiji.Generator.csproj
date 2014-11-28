@@ -87,6 +87,7 @@
     <Compile Include="Java\JavaTypeConverters.cs" />
     <Compile Include="Java\JavaTypeMangler.cs" />
     <Compile Include="Java\Visitor\JavaCodeGenerator.cs" />
+    <Compile Include="DocPruner.cs" />
     <Compile Include="ObjectiveC\Context\OCDocumentContext.cs" />
     <Compile Include="ObjectiveC\Context\OCFieldContext.cs" />
     <Compile Include="ObjectiveC\Context\OCTemplateContextGenerator.cs" />
@@ -102,6 +103,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Pruner.cs" />
     <Compile Include="SchemaBuilder.cs" />
     <Compile Include="TypeRegistry.cs" />
     <Compile Include="TypeConverter.cs" />
