@@ -107,6 +107,7 @@
     <Compile Include="SchemaBuilder.cs" />
     <Compile Include="TypeRegistry.cs" />
     <Compile Include="TypeConverter.cs" />
+    <Compile Include="Util\ContextUtils.cs" />
     <Compile Include="Util\TemplateLoader.cs" />
     <Compile Include="Visitor\CodeGenerator.cs" />
     <Compile Include="Visitor\TypeVisitor.cs" />

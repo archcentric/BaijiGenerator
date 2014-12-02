@@ -20,13 +20,13 @@ namespace CTripOSS.Baiji.Generator
             }
         }
 
-        public void Prune(Service svc, IList<BaijiMethod> selectedMethod)
+        public void Prune(IList<BaijiMethod> selectedMethod)
         {
             foreach (KeyValuePair<string, DocPruner> kv in _pruners)
             {
                 ISet<string> includedModels;
                 var mp = kv.Value;
-                mp.Prune(svc, selectedMethod, out includedModels);
+                mp.Prune(selectedMethod, out includedModels);
                 if (_includedModelCache.ContainsKey(kv.Key))
                 {
                     _includedModelCache[kv.Key].UnionWith(includedModels);

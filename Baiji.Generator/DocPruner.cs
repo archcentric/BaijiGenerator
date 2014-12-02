@@ -33,7 +33,7 @@ namespace CTripOSS.Baiji.Generator
             }
         }
 
-        public void Prune(Service svc, IList<BaijiMethod> selectedMethod, out ISet<string> includedModels)
+        public void Prune(IList<BaijiMethod> selectedMethod, out ISet<string> includedModels)
         {
             foreach (var m in selectedMethod)
             {

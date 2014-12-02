@@ -44,7 +44,7 @@ namespace CTripOSS.Baiji.Generator
             _templateLoader = new TemplateLoader(templates[generatorConfig.CodeFlavor]);
         }
 
-        public void Parse(IList<Uri> inputs)
+        public IDictionary<string, DocumentContext> GetContexts(IList<Uri> inputs)
         {
             if (inputs == null || inputs.Count == 0)
             {
@@ -69,6 +69,33 @@ namespace CTripOSS.Baiji.Generator
 
                 ParseDocument(input, contexts, new TypeRegistry());
             }
+            return contexts;
+        }
+
+        public void Parse(IDictionary<string, DocumentContext> contexts)
+        {
+            MarkServiceResponseTypes(contexts);
+
+            LOG.Info("IDL parsing complete, writing code files...");
+
+            foreach (var context in contexts.Values)
+            {
+                GenerateFiles(context);
+            }
+
+            LOG.Info("Code generation complete.");
+        }
+
+        public void Parse(IList<Uri> inputs)
+        {
+            var contexts = GetContexts(inputs);
+            var service = ContextUtils.ExtractService(contexts.Values.ToList());
+
+            IList<BaijiMethod> selectedMethod = new List<BaijiMethod>();
+            selectedMethod.Add(service.Methods[0]);
+            selectedMethod.Add(service.Methods[1]);
+            Pruner pruner = new Pruner(contexts);
+            pruner.Prune(selectedMethod);
 
             MarkServiceResponseTypes(contexts);
 
@@ -80,6 +107,13 @@ namespace CTripOSS.Baiji.Generator
             }
 
             LOG.Info("Code generation complete.");
+        }
+
+        public void Parse(IDictionary<string, DocumentContext> contexts, IList<BaijiMethod> selectedMethod)
+        {
+            Pruner pruner = new Pruner(contexts);
+            pruner.Prune(selectedMethod);
+            Parse(contexts);
         }
 
         private void ParseDocument(Uri uri,
