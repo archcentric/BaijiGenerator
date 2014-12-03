@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using CTripOSS.Baiji.Generator.Util;
+﻿using CTripOSS.Baiji.Generator.Util;
 using CTripOSS.Baiji.Generator.Visitor;
 using CTripOSS.Baiji.Helper;
 using CTripOSS.Baiji.IDLParser.Model;
 using CTripOSS.Baiji.IDLParser.Visitor;
 using log4net;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace CTripOSS.Baiji.Generator
 {
@@ -238,6 +238,9 @@ namespace CTripOSS.Baiji.Generator
 
         private void GenerateFiles(DocumentContext context)
         {
+            if (ContextUtils.isCommon(context.CodeNamespace))
+                return;
+
             LOG.Debug(string.Format("Generating code for {0}...", context.Namespace));
 
             Enforce.IsNotNull(_outputFolder, "The output folder was not set!");
