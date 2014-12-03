@@ -53,7 +53,7 @@ structHeader(context, tweaks, global) ::= <<
 <! =                                                                                = !>
 <! ================================================================================== !>
 #import \<Foundation/Foundation.h\>
-#import "BJMutableSpecificRecord.h"
+#import \<Baiji/Baiji.h\>
 <_includes(context)>
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
 <_docString(context.DocStringLines)>
@@ -104,7 +104,7 @@ enumHeader(context, tweaks, global) ::= <<
 <! =                                                                                = !>
 <! ================================================================================== !>
 #import \<Foundation/Foundation.h\>
-#import "BJSpecificEnum.h"
+#import \<Baiji/Baiji.h\>
 
 <if (tweaks.GEN_COMMENTS && context.DocStringLines)>
 <_docString(context.DocStringLines)>
