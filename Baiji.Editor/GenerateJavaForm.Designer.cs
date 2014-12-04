@@ -131,6 +131,7 @@
             this.m_OutputFolderTextBox.Name = "m_OutputFolderTextBox";
             this.m_OutputFolderTextBox.Size = new System.Drawing.Size(316, 21);
             this.m_OutputFolderTextBox.TabIndex = 8;
+            this.m_OutputFolderTextBox.TextChanged += new System.EventHandler(this.m_OutputFolderTextBox_TextChanged);
             // 
             // m_OutputFolderLabel
             // 
@@ -152,6 +153,7 @@
             this.m_ServiceRadioButton.TabStop = true;
             this.m_ServiceRadioButton.Text = "Service-Side Stub";
             this.m_ServiceRadioButton.UseVisualStyleBackColor = true;
+            this.m_ServiceRadioButton.CheckedChanged += new System.EventHandler(this.m_ServiceRadioButton_CheckedChanged);
             // 
             // m_IdlFileLabel
             // 

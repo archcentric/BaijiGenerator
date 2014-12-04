@@ -216,7 +216,8 @@ namespace CTripOSS.Baiji.Editor
 
         private void m_OutputFolderTextBox_TextChanged(object sender, EventArgs e)
         {
-            ListMethods();
+            if (m_IdlFileTextBox.Text != string.Empty)
+                ListMethods();
         }
     }
 }

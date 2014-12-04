@@ -212,5 +212,23 @@ namespace CTripOSS.Baiji.Editor
                 m_PrunerPanel.EnableSelect();
             }
         }
+
+        private void m_ServiceRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_ServiceRadioButton.Checked)
+            {
+                m_PrunerPanel.ForceSelectAll();
+            }
+            else if (m_GenerateSelectedRadioButton.Checked)
+            {
+                m_PrunerPanel.EnableSelect();
+            }
+        }
+
+        private void m_OutputFolderTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (m_IdlFileTextBox.Text != string.Empty)
+                ListMethods();
+        }
     }
 }

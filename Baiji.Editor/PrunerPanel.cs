@@ -23,6 +23,7 @@ namespace CTripOSS.Baiji.Editor
             set
             {
                 _service = value;
+                m_OperationsCheckedListBox.Items.Clear();
                 if (_service != null)
                 {
                     foreach (var m in _service.Methods)

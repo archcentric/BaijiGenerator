@@ -208,5 +208,11 @@ namespace CTripOSS.Baiji.Editor
                 m_PrunerPanel.EnableSelect();
             }
         }
+
+        private void m_OutputFolderTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (m_IdlFileTextBox.Text != string.Empty)
+                ListMethods();
+        }
     }
 }
