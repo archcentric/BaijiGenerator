@@ -1,4 +1,5 @@
 ﻿using System;
+using CTripOSS.Baiji.Generator.Util;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -12,6 +13,8 @@ namespace CTripOSS.Baiji.Editor
 {
     public partial class GenerateJavaForm : Form
     {
+        private Generator.Generator _codeGenerator;
+
         public GenerateJavaForm()
         {
             InitializeComponent();
@@ -27,6 +30,7 @@ namespace CTripOSS.Baiji.Editor
             set
             {
                 m_IdlFileTextBox.Text = value;
+                ListMethods();
             }
         }
 
@@ -36,6 +40,32 @@ namespace CTripOSS.Baiji.Editor
             m_GenCommentsCheckBox.Checked = Settings.Default.GenComment_Java;
             m_GenPublicFieldsCheckBox.Checked = Settings.Default.GenPublicFields_Java;
             m_GenIncludesCheckBox.Checked = Settings.Default.GenIncludes_Java;
+            m_GenerateAllRadioButton.Checked = Settings.Default.GenAll_Default;
+        }
+
+        private void ListMethods()
+        {
+            var outputFolder = GetOutputFolder();
+            if (outputFolder == null)
+            {
+                m_BrowseButton.Focus();
+                return;
+            }
+
+            var inputBaseFolder = new Uri(Path.GetDirectoryName(IdlFilename) + "\\", UriKind.Absolute);
+            var configBuilder = CreateConfigBuilder(inputBaseFolder, outputFolder);
+            var inputs = new List<Uri> { new Uri(IdlFilename, UriKind.Absolute) };
+            try
+            {
+                _codeGenerator = new JavaGenerator(configBuilder.Build());
+                var service = ContextUtils.ExtractService(_codeGenerator.GetContexts(inputs).Values.ToList());
+                m_PrunerPanel.Service = service;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Code generation failed: " + ex.Message, Resources.ProductName,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void m_BrowseButton_Click(object sender, EventArgs e)
@@ -58,12 +88,21 @@ namespace CTripOSS.Baiji.Editor
                 return;
             }
 
-            var inputBaseFolder = new Uri(Path.GetDirectoryName(IdlFilename) + "\\", UriKind.Absolute);
-            var configBuilder = CreateConfigBuilder(inputBaseFolder, outputFolder);
-            var inputs = new List<Uri> {new Uri(IdlFilename, UriKind.Absolute)};
             try
             {
-                new JavaGenerator(configBuilder.Build()).Parse(inputs);
+                if (m_ServiceRadioButton.Checked || m_GenerateAllRadioButton.Checked)
+                {
+                    _codeGenerator.Parse();
+                }
+                else
+                {
+                    var selectedMethods = m_PrunerPanel.SelectedMethods;
+                    if (selectedMethods.Count == 0)
+                    {
+                        return;
+                    }
+                    _codeGenerator.Parse(selectedMethods);
+                }
                 var result = MessageBox.Show(this, "Code generation succeeded. Open the output folder?",
                                              Resources.ProductName,
                                              MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -156,6 +195,22 @@ namespace CTripOSS.Baiji.Editor
                 configBuilder.AddTweak(JavaGeneratorTweak.GEN_SERVICE_STUB);
             }
             return configBuilder;
+        }
+
+        private void m_GenerateAllRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_GenerateAllRadioButton.Checked)
+            {
+                m_PrunerPanel.ForceSelectAll();
+            }
+        }
+
+        private void m_GenerateSelectedRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!m_ServiceRadioButton.Checked && m_GenerateSelectedRadioButton.Checked)
+            {
+                m_PrunerPanel.EnableSelect();
+            }
         }
     }
 }

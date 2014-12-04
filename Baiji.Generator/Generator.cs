@@ -24,6 +24,9 @@ namespace CTripOSS.Baiji.Generator
         protected readonly ISet<Uri> _parsedDocuments = new HashSet<Uri>();
         protected readonly Stack<Uri> _parentDocuments = new Stack<Uri>();
 
+        private IDictionary<string, DocumentContext> _contexts;
+
+        //config value change at runtime?
         protected Generator(GeneratorConfig generatorConfig, IDictionary<string, IList<string>> templates)
         {
             if (!templates.ContainsKey(generatorConfig.CodeFlavor))
@@ -53,7 +56,7 @@ namespace CTripOSS.Baiji.Generator
 
             LOG.Info(string.Format("Parsing IDL from {0}...", inputs));
 
-            var contexts = new Dictionary<string, DocumentContext>();
+            _contexts = new Dictionary<string, DocumentContext>();
             foreach (var inputUri in inputs)
             {
                 _parsedDocuments.Clear();
@@ -67,12 +70,12 @@ namespace CTripOSS.Baiji.Generator
                     input = inputUri;
                 }
 
-                ParseDocument(input, contexts, new TypeRegistry());
+                ParseDocument(input, _contexts, new TypeRegistry());
             }
-            return contexts;
+            return _contexts;
         }
 
-        public void Parse(IDictionary<string, DocumentContext> contexts)
+        private void Parse(IDictionary<string, DocumentContext> contexts)
         {
             MarkServiceResponseTypes(contexts);
 
@@ -89,13 +92,6 @@ namespace CTripOSS.Baiji.Generator
         public void Parse(IList<Uri> inputs)
         {
             var contexts = GetContexts(inputs);
-            var service = ContextUtils.ExtractService(contexts.Values.ToList());
-
-            IList<BaijiMethod> selectedMethod = new List<BaijiMethod>();
-            selectedMethod.Add(service.Methods[0]);
-            selectedMethod.Add(service.Methods[1]);
-            Pruner pruner = new Pruner(contexts);
-            pruner.Prune(selectedMethod);
 
             MarkServiceResponseTypes(contexts);
 
@@ -109,11 +105,25 @@ namespace CTripOSS.Baiji.Generator
             LOG.Info("Code generation complete.");
         }
 
-        public void Parse(IDictionary<string, DocumentContext> contexts, IList<BaijiMethod> selectedMethod)
+        public void Parse()
         {
-            Pruner pruner = new Pruner(contexts);
+            MarkServiceResponseTypes(_contexts);
+
+            LOG.Info("IDL parsing complete, writing code files...");
+
+            foreach (var context in _contexts.Values)
+            {
+                GenerateFiles(context);
+            }
+
+            LOG.Info("Code generation complete.");
+        }
+
+        public void Parse(IList<BaijiMethod> selectedMethod)
+        {
+            Pruner pruner = new Pruner(_contexts);
             pruner.Prune(selectedMethod);
-            Parse(contexts);
+            Parse(_contexts);
         }
 
         private void ParseDocument(Uri uri,

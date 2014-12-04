@@ -29,23 +29,29 @@
         private void InitializeComponent()
         {
             this.m_OptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.m_GenIncludesCheckBox = new System.Windows.Forms.CheckBox();
             this.m_GenPublicFieldsCheckBox = new System.Windows.Forms.CheckBox();
             this.m_GenCommentsCheckBox = new System.Windows.Forms.CheckBox();
+            this.m_GenerateSelectedRadioButton = new System.Windows.Forms.RadioButton();
+            this.m_GenerateAllRadioButton = new System.Windows.Forms.RadioButton();
             this.m_OutputFolderTextBox = new System.Windows.Forms.TextBox();
             this.m_OutputFolderLabel = new System.Windows.Forms.Label();
             this.m_ServiceRadioButton = new System.Windows.Forms.RadioButton();
             this.m_IdlFileLabel = new System.Windows.Forms.Label();
             this.m_BrowseButton = new System.Windows.Forms.Button();
             this.m_CodeTypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.m_DataObjsOnlyRadioButtion = new System.Windows.Forms.RadioButton();
             this.m_ClientRadioButton = new System.Windows.Forms.RadioButton();
             this.m_CancelButton = new System.Windows.Forms.Button();
             this.m_GenerateButton = new System.Windows.Forms.Button();
             this.m_IdlFileTextBox = new System.Windows.Forms.TextBox();
             this.m_FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.m_DataObjsOnlyRadioButtion = new System.Windows.Forms.RadioButton();
-            this.m_GenIncludesCheckBox = new System.Windows.Forms.CheckBox();
+            this.m_GenerateGroupBox = new System.Windows.Forms.GroupBox();
+            this.m_PrunerPanel = new CTripOSS.Baiji.Editor.PrunerPanel();
             this.m_OptionsGroupBox.SuspendLayout();
             this.m_CodeTypeGroupBox.SuspendLayout();
+            this.m_GenerateGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PrunerPanel)).BeginInit();
             this.SuspendLayout();
             // 
             // m_OptionsGroupBox
@@ -58,10 +64,20 @@
             this.m_OptionsGroupBox.Controls.Add(this.m_GenCommentsCheckBox);
             this.m_OptionsGroupBox.Location = new System.Drawing.Point(14, 128);
             this.m_OptionsGroupBox.Name = "m_OptionsGroupBox";
-            this.m_OptionsGroupBox.Size = new System.Drawing.Size(443, 53);
+            this.m_OptionsGroupBox.Size = new System.Drawing.Size(443, 60);
             this.m_OptionsGroupBox.TabIndex = 2;
             this.m_OptionsGroupBox.TabStop = false;
             this.m_OptionsGroupBox.Text = "Options";
+            // 
+            // m_GenIncludesCheckBox
+            // 
+            this.m_GenIncludesCheckBox.AutoSize = true;
+            this.m_GenIncludesCheckBox.Location = new System.Drawing.Point(311, 25);
+            this.m_GenIncludesCheckBox.Name = "m_GenIncludesCheckBox";
+            this.m_GenIncludesCheckBox.Size = new System.Drawing.Size(126, 16);
+            this.m_GenIncludesCheckBox.TabIndex = 1;
+            this.m_GenIncludesCheckBox.Text = "Generate Includes";
+            this.m_GenIncludesCheckBox.UseVisualStyleBackColor = true;
             // 
             // m_GenPublicFieldsCheckBox
             // 
@@ -82,6 +98,30 @@
             this.m_GenCommentsCheckBox.TabIndex = 0;
             this.m_GenCommentsCheckBox.Text = "Generate Comments";
             this.m_GenCommentsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // m_GenerateSelectedRadioButton
+            // 
+            this.m_GenerateSelectedRadioButton.AutoSize = true;
+            this.m_GenerateSelectedRadioButton.Location = new System.Drawing.Point(6, 42);
+            this.m_GenerateSelectedRadioButton.Name = "m_GenerateSelectedRadioButton";
+            this.m_GenerateSelectedRadioButton.Size = new System.Drawing.Size(71, 16);
+            this.m_GenerateSelectedRadioButton.TabIndex = 3;
+            this.m_GenerateSelectedRadioButton.TabStop = true;
+            this.m_GenerateSelectedRadioButton.Text = "Selected";
+            this.m_GenerateSelectedRadioButton.UseVisualStyleBackColor = true;
+            this.m_GenerateSelectedRadioButton.CheckedChanged += new System.EventHandler(this.m_GenerateSelectedRadioButton_CheckedChanged);
+            // 
+            // m_GenerateAllRadioButton
+            // 
+            this.m_GenerateAllRadioButton.AutoSize = true;
+            this.m_GenerateAllRadioButton.Location = new System.Drawing.Point(6, 20);
+            this.m_GenerateAllRadioButton.Name = "m_GenerateAllRadioButton";
+            this.m_GenerateAllRadioButton.Size = new System.Drawing.Size(41, 16);
+            this.m_GenerateAllRadioButton.TabIndex = 2;
+            this.m_GenerateAllRadioButton.TabStop = true;
+            this.m_GenerateAllRadioButton.Text = "All";
+            this.m_GenerateAllRadioButton.UseVisualStyleBackColor = true;
+            this.m_GenerateAllRadioButton.CheckedChanged += new System.EventHandler(this.m_GenerateAllRadioButton_CheckedChanged);
             // 
             // m_OutputFolderTextBox
             // 
@@ -147,6 +187,17 @@
             this.m_CodeTypeGroupBox.TabStop = false;
             this.m_CodeTypeGroupBox.Text = "Code Type";
             // 
+            // m_DataObjsOnlyRadioButtion
+            // 
+            this.m_DataObjsOnlyRadioButtion.AutoSize = true;
+            this.m_DataObjsOnlyRadioButtion.Location = new System.Drawing.Point(17, 22);
+            this.m_DataObjsOnlyRadioButtion.Name = "m_DataObjsOnlyRadioButtion";
+            this.m_DataObjsOnlyRadioButtion.Size = new System.Drawing.Size(125, 16);
+            this.m_DataObjsOnlyRadioButtion.TabIndex = 0;
+            this.m_DataObjsOnlyRadioButtion.TabStop = true;
+            this.m_DataObjsOnlyRadioButtion.Text = "Data Objects Only";
+            this.m_DataObjsOnlyRadioButtion.UseVisualStyleBackColor = true;
+            // 
             // m_ClientRadioButton
             // 
             this.m_ClientRadioButton.AutoSize = true;
@@ -162,7 +213,7 @@
             // 
             this.m_CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_CancelButton.Location = new System.Drawing.Point(382, 187);
+            this.m_CancelButton.Location = new System.Drawing.Point(382, 399);
             this.m_CancelButton.Name = "m_CancelButton";
             this.m_CancelButton.Size = new System.Drawing.Size(75, 23);
             this.m_CancelButton.TabIndex = 4;
@@ -172,7 +223,7 @@
             // m_GenerateButton
             // 
             this.m_GenerateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_GenerateButton.Location = new System.Drawing.Point(301, 187);
+            this.m_GenerateButton.Location = new System.Drawing.Point(301, 399);
             this.m_GenerateButton.Name = "m_GenerateButton";
             this.m_GenerateButton.Size = new System.Drawing.Size(75, 23);
             this.m_GenerateButton.TabIndex = 3;
@@ -194,26 +245,25 @@
             // 
             this.m_FolderBrowserDialog.SelectedPath = "Please select the output folder of code generation:";
             // 
-            // m_DataObjsOnlyRadioButtion
+            // m_GenerateGroupBox
             // 
-            this.m_DataObjsOnlyRadioButtion.AutoSize = true;
-            this.m_DataObjsOnlyRadioButtion.Location = new System.Drawing.Point(17, 22);
-            this.m_DataObjsOnlyRadioButtion.Name = "m_DataObjsOnlyRadioButtion";
-            this.m_DataObjsOnlyRadioButtion.Size = new System.Drawing.Size(125, 16);
-            this.m_DataObjsOnlyRadioButtion.TabIndex = 0;
-            this.m_DataObjsOnlyRadioButtion.TabStop = true;
-            this.m_DataObjsOnlyRadioButtion.Text = "Data Objects Only";
-            this.m_DataObjsOnlyRadioButtion.UseVisualStyleBackColor = true;
+            this.m_GenerateGroupBox.CausesValidation = false;
+            this.m_GenerateGroupBox.Controls.Add(this.m_GenerateAllRadioButton);
+            this.m_GenerateGroupBox.Controls.Add(this.m_GenerateSelectedRadioButton);
+            this.m_GenerateGroupBox.Location = new System.Drawing.Point(14, 194);
+            this.m_GenerateGroupBox.Name = "m_GenerateGroupBox";
+            this.m_GenerateGroupBox.Size = new System.Drawing.Size(163, 70);
+            this.m_GenerateGroupBox.TabIndex = 5;
+            this.m_GenerateGroupBox.TabStop = false;
+            this.m_GenerateGroupBox.Text = "Generate";
             // 
-            // m_GenIncludesCheckBox
+            // m_PrunerPanel
             // 
-            this.m_GenIncludesCheckBox.AutoSize = true;
-            this.m_GenIncludesCheckBox.Location = new System.Drawing.Point(311, 25);
-            this.m_GenIncludesCheckBox.Name = "m_GenIncludesCheckBox";
-            this.m_GenIncludesCheckBox.Size = new System.Drawing.Size(126, 16);
-            this.m_GenIncludesCheckBox.TabIndex = 1;
-            this.m_GenIncludesCheckBox.Text = "Generate Includes";
-            this.m_GenIncludesCheckBox.UseVisualStyleBackColor = true;
+            this.m_PrunerPanel.Location = new System.Drawing.Point(183, 194);
+            this.m_PrunerPanel.Name = "m_PrunerPanel";
+            this.m_PrunerPanel.Service = null;
+            this.m_PrunerPanel.Size = new System.Drawing.Size(262, 199);
+            this.m_PrunerPanel.TabIndex = 4;
             // 
             // GenerateJavaForm
             // 
@@ -221,8 +271,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.m_CancelButton;
-            this.ClientSize = new System.Drawing.Size(469, 222);
+            this.ClientSize = new System.Drawing.Size(469, 434);
+            this.Controls.Add(this.m_GenerateGroupBox);
             this.Controls.Add(this.m_OptionsGroupBox);
+            this.Controls.Add(this.m_PrunerPanel);
             this.Controls.Add(this.m_OutputFolderTextBox);
             this.Controls.Add(this.m_OutputFolderLabel);
             this.Controls.Add(this.m_IdlFileLabel);
@@ -242,6 +294,9 @@
             this.m_OptionsGroupBox.PerformLayout();
             this.m_CodeTypeGroupBox.ResumeLayout(false);
             this.m_CodeTypeGroupBox.PerformLayout();
+            this.m_GenerateGroupBox.ResumeLayout(false);
+            this.m_GenerateGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PrunerPanel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,5 +320,9 @@
         private System.Windows.Forms.FolderBrowserDialog m_FolderBrowserDialog;
         private System.Windows.Forms.RadioButton m_DataObjsOnlyRadioButtion;
         private System.Windows.Forms.CheckBox m_GenIncludesCheckBox;
+        private System.Windows.Forms.RadioButton m_GenerateAllRadioButton;
+        private System.Windows.Forms.RadioButton m_GenerateSelectedRadioButton;
+        private PrunerPanel m_PrunerPanel;
+        private System.Windows.Forms.GroupBox m_GenerateGroupBox;
     }
 }
