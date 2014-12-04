@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using CTripOSS.Baiji.Editor.Properties;
@@ -362,9 +364,9 @@ namespace CTripOSS.Baiji.Editor
         #region [Help Menu Events]
         private void About_Click(object sender, EventArgs e)
         {
-            var aboutMessageBuilder = new StringBuilder();
-            aboutMessageBuilder.Append(Resources.ProductName);
-            MessageBox.Show(this, aboutMessageBuilder.ToString(), Resources.ProductName, MessageBoxButtons.OK,
+            var fileVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+            var message = string.Format("{0} v{1}", Resources.ProductName, fileVersion.ProductVersion);
+            MessageBox.Show(this, message, Resources.ProductName, MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
         }
         #endregion
