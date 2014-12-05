@@ -140,24 +140,21 @@ namespace CTripOSS.Baiji.Generator.Visitor
 
         public void Visit(Service service)
         {
-            EnsureCheckHealthAvail(service);
-
+            if (!string.IsNullOrEmpty(GenServiceTweak) && _config.ContainsTweak(GenServiceTweak))
+            {
+                EnsureCheckHealthAvail(service);
+                var serviceContext = _contextGenerator.ServiceFromIdl(service);
+                Render(serviceContext, "service");
+            }
             if (!string.IsNullOrEmpty(GenClientTweak) && _config.ContainsTweak(GenClientTweak))
             {
                 var clientContext = _contextGenerator.ClientFromIdl(service);
                 Render(clientContext, "client");
             }
-            if (!string.IsNullOrEmpty(GenServiceTweak) && _config.ContainsTweak(GenServiceTweak))
-            {
-                var serviceContext = _contextGenerator.ServiceFromIdl(service);
-                Render(serviceContext, "service");
-            }
         }
 
         private void EnsureCheckHealthAvail(Service service)
         {
-            if (!_config.GeneratorTweaks.Contains(CTripOSS.Baiji.Generator.Java.JavaGeneratorTweak.GEN_SERVICE_STUB))
-                return;
             var checkHealthMethod = service.Methods.FirstOrDefault(m => m.Name.ToLower().Equals("checkhealth"));
             if (checkHealthMethod == null)
             {

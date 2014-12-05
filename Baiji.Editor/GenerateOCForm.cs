@@ -145,7 +145,9 @@ namespace CTripOSS.Baiji.Editor
         {
             if (m_PrunerPanel.SelectedMethods.Count == 0)
             {
-                MessageBox.Show(this, "No operation is selected.");
+                MessageBox.Show(this, "No operation is selected.",
+                    Resources.ProductName,
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 return;
             }
             var outputFolder = GetOutputFolder();
