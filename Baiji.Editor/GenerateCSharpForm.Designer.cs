@@ -45,8 +45,8 @@
             this.m_FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.m_GenerateGroupBox = new System.Windows.Forms.GroupBox();
             this.m_GenerateAllRadioButton = new System.Windows.Forms.RadioButton();
-            this.m_GenerateSelectedRadioButton = new System.Windows.Forms.RadioButton();
             this.m_PrunerPanel = new CTripOSS.Baiji.Editor.PrunerPanel();
+            this.m_GenerateSelectedRadioButton = new System.Windows.Forms.RadioButton();
             this.m_CodeTypeGroupBox.SuspendLayout();
             this.m_OptionsGroupBox.SuspendLayout();
             this.m_GenerateGroupBox.SuspendLayout();
@@ -192,7 +192,6 @@
             this.m_OutputFolderTextBox.Name = "m_OutputFolderTextBox";
             this.m_OutputFolderTextBox.Size = new System.Drawing.Size(316, 21);
             this.m_OutputFolderTextBox.TabIndex = 3;
-            this.m_OutputFolderTextBox.TextChanged += new System.EventHandler(this.m_OutputFolderTextBox_TextChanged);
             // 
             // m_BrowseButton
             // 
@@ -234,6 +233,14 @@
             this.m_GenerateAllRadioButton.UseVisualStyleBackColor = true;
             this.m_GenerateAllRadioButton.CheckedChanged += new System.EventHandler(this.m_GenerateAllRadioButton_CheckedChanged);
             // 
+            // m_PrunerPanel
+            // 
+            this.m_PrunerPanel.Location = new System.Drawing.Point(35, 64);
+            this.m_PrunerPanel.Name = "m_PrunerPanel";
+            this.m_PrunerPanel.Service = null;
+            this.m_PrunerPanel.Size = new System.Drawing.Size(236, 118);
+            this.m_PrunerPanel.TabIndex = 2;
+            // 
             // m_GenerateSelectedRadioButton
             // 
             this.m_GenerateSelectedRadioButton.AutoSize = true;
@@ -245,14 +252,6 @@
             this.m_GenerateSelectedRadioButton.Text = "Generate for Selected Operations";
             this.m_GenerateSelectedRadioButton.UseVisualStyleBackColor = true;
             this.m_GenerateSelectedRadioButton.CheckedChanged += new System.EventHandler(this.m_GenerateSelectedRadioButton_CheckedChanged);
-            // 
-            // m_PrunerPanel
-            // 
-            this.m_PrunerPanel.Location = new System.Drawing.Point(35, 64);
-            this.m_PrunerPanel.Name = "m_PrunerPanel";
-            this.m_PrunerPanel.Service = null;
-            this.m_PrunerPanel.Size = new System.Drawing.Size(236, 118);
-            this.m_PrunerPanel.TabIndex = 2;
             // 
             // GenerateCSharpForm
             // 

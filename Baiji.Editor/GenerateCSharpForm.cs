@@ -73,6 +73,11 @@ namespace CTripOSS.Baiji.Editor
 
         private void m_GenerateButton_Click(object sender, EventArgs e)
         {
+            if (m_PrunerPanel.SelectedMethods.Count == 0)
+            {
+                MessageBox.Show(this, "No operation is selected.");
+                return;
+            }
             var outputFolder = GetOutputFolder();
             if (outputFolder == null)
             {
@@ -94,10 +99,6 @@ namespace CTripOSS.Baiji.Editor
                 {
                     var service = m_PrunerPanel.Service;
                     var selectedMethods = m_PrunerPanel.SelectedMethods;
-                    if (selectedMethods.Count == 0)
-                    {
-                        return;
-                    }
                     _codeGenerator.Parse(inputs, service, selectedMethods);
                 }
                 var result = MessageBox.Show(this, "Code generation succeeded. Open the output folder?",
@@ -206,12 +207,6 @@ namespace CTripOSS.Baiji.Editor
             {
                 m_PrunerPanel.Enabled = true;
             }
-        }
-
-        private void m_OutputFolderTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (m_IdlFileTextBox.Text != string.Empty)
-                ListMethods();
         }
     }
 }

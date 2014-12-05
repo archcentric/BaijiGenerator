@@ -156,6 +156,8 @@ namespace CTripOSS.Baiji.Generator.Visitor
 
         private void EnsureCheckHealthAvail(Service service)
         {
+            if (!_config.GeneratorTweaks.Contains(CTripOSS.Baiji.Generator.Java.JavaGeneratorTweak.GEN_SERVICE_STUB))
+                return;
             var checkHealthMethod = service.Methods.FirstOrDefault(m => m.Name.ToLower().Equals("checkhealth"));
             if (checkHealthMethod == null)
             {
