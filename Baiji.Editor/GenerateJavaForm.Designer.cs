@@ -56,8 +56,8 @@
             // 
             // m_OptionsGroupBox
             // 
-            this.m_OptionsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.m_OptionsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_OptionsGroupBox.Controls.Add(this.m_GenIncludesCheckBox);
             this.m_OptionsGroupBox.Controls.Add(this.m_GenPublicFieldsCheckBox);
@@ -102,7 +102,7 @@
             // m_GenerateSelectedRadioButton
             // 
             this.m_GenerateSelectedRadioButton.AutoSize = true;
-            this.m_GenerateSelectedRadioButton.Location = new System.Drawing.Point(17, 44);
+            this.m_GenerateSelectedRadioButton.Location = new System.Drawing.Point(17, 42);
             this.m_GenerateSelectedRadioButton.Name = "m_GenerateSelectedRadioButton";
             this.m_GenerateSelectedRadioButton.Size = new System.Drawing.Size(215, 16);
             this.m_GenerateSelectedRadioButton.TabIndex = 1;
@@ -114,7 +114,7 @@
             // m_GenerateAllRadioButton
             // 
             this.m_GenerateAllRadioButton.AutoSize = true;
-            this.m_GenerateAllRadioButton.Location = new System.Drawing.Point(17, 22);
+            this.m_GenerateAllRadioButton.Location = new System.Drawing.Point(17, 20);
             this.m_GenerateAllRadioButton.Name = "m_GenerateAllRadioButton";
             this.m_GenerateAllRadioButton.Size = new System.Drawing.Size(185, 16);
             this.m_GenerateAllRadioButton.TabIndex = 0;
@@ -125,7 +125,7 @@
             // 
             // m_OutputFolderTextBox
             // 
-            this.m_OutputFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.m_OutputFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_OutputFolderTextBox.Location = new System.Drawing.Point(101, 43);
             this.m_OutputFolderTextBox.Name = "m_OutputFolderTextBox";
@@ -177,7 +177,7 @@
             // 
             // m_CodeTypeGroupBox
             // 
-            this.m_CodeTypeGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.m_CodeTypeGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_CodeTypeGroupBox.Controls.Add(this.m_ServiceRadioButton);
             this.m_CodeTypeGroupBox.Controls.Add(this.m_DataObjsOnlyRadioButtion);
@@ -235,7 +235,7 @@
             // 
             // m_IdlFileTextBox
             // 
-            this.m_IdlFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.m_IdlFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_IdlFileTextBox.Location = new System.Drawing.Point(101, 16);
             this.m_IdlFileTextBox.Name = "m_IdlFileTextBox";
