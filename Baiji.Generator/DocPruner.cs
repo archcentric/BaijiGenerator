@@ -21,14 +21,15 @@ namespace CTripOSS.Baiji.Generator
             EnqueueDelegate enqueue)
         {
             _enqueue = enqueue;
-            _modelCache = new Dictionary<string, Definition>();
-            _retainedModels = new List<Definition>();
             _doc = doc;
+            _retainedModels = new List<Definition>();
+            _modelCache = new Dictionary<string, Definition>();
             Cache(@namespace, ref modelMapping, ref visited);
             _doc.Definitions = _retainedModels;
         }
 
-        private void Cache(string @namespace, ref IDictionary<string, string> modelMapping, ref IDictionary<string, int> visited)
+        private void Cache(string @namespace,
+            ref IDictionary<string, string> modelMapping, ref IDictionary<string, int> visited)
         {
             foreach (Definition def in _doc.Definitions)
             {
@@ -51,6 +52,11 @@ namespace CTripOSS.Baiji.Generator
             {
                 PruneModel(def as IntegerEnum);
             }
+        }
+
+        public void AddModel(Definition def)
+        {
+            _retainedModels.Add(def);
         }
 
         protected void PruneModel(Struct structModel)

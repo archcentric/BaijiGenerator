@@ -40,9 +40,10 @@ namespace CTripOSS.Baiji.Editor
             get
             {
                 var selectedMethods = new List<BaijiMethod>();
-                for (int i = 0; i < m_OperationsCheckedListBox.CheckedIndices.Count; i++)
+                var checkedIndices = m_OperationsCheckedListBox.CheckedIndices;
+                for (int i = 0; i < checkedIndices.Count; i++)
                 {
-                    selectedMethods.Add(_service.Methods[i]);
+                    selectedMethods.Add(_service.Methods[checkedIndices[i]]);
                 }
                 return selectedMethods;
             }

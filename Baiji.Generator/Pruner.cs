@@ -1,5 +1,6 @@
 ﻿using CTripOSS.Baiji.Helper;
 using CTripOSS.Baiji.IDLParser.Model;
+using System;
 using System.Collections.Generic;
 
 namespace CTripOSS.Baiji.Generator
@@ -27,13 +28,21 @@ namespace CTripOSS.Baiji.Generator
             }
         }
 
-        public void Prune(IList<BaijiMethod> selectedMethod)
+        public void Prune(Service service, IList<BaijiMethod> selectedMethod)
         {
             foreach (var m in selectedMethod)
             {
                 PrepareByMethod(m);
             }
             PruneModels();
+            PruneService(service, selectedMethod);
+        }
+
+        protected void PruneService(Service service, IList<BaijiMethod> selectedMethod)
+        {
+            var prunedService = new Service(service.DocStringLines, service.Name, selectedMethod, service.Annotations);
+            var pruner = FindPruner(service.Name);
+            pruner.AddModel(prunedService);
         }
 
         protected void PruneModels()
@@ -41,8 +50,7 @@ namespace CTripOSS.Baiji.Generator
             while (_visitingQueue.Count > 0)
             {
                 string modelName = _visitingQueue.Dequeue();
-                string prunerNamespace = _modelCache[modelName];
-                var pruner = _pruners[prunerNamespace];
+                var pruner = FindPruner(modelName);
                 pruner.PruneModel(modelName);
             }
         }
@@ -51,6 +59,15 @@ namespace CTripOSS.Baiji.Generator
         {
             TryEnqueue(method.ArgumentType.Name);
             TryEnqueue(method.ReturnType.Name);
+        }
+
+        private DocPruner FindPruner(string modelName)
+        {
+            string prunerNamespace = _modelCache[modelName];
+            var pruner = _pruners[prunerNamespace];
+            if (pruner == null)
+                throw new ArgumentException("Cannot find pruner for " + modelName);
+            return pruner;
         }
 
         private void TryEnqueue(string typeName)

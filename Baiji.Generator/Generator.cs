@@ -99,11 +99,11 @@ namespace CTripOSS.Baiji.Generator
             LOG.Info("Code generation complete.");
         }
 
-        public void Parse(IList<Uri> inputs, IList<BaijiMethod> selectedMethod)
+        public void Parse(IList<Uri> inputs, Service service, IList<BaijiMethod> selectedMethod)
         {
             var contexts = GetContexts(inputs);
             Pruner pruner = new Pruner(contexts);
-            pruner.Prune(selectedMethod);
+            pruner.Prune(service, selectedMethod);
             Parse(contexts);
         }
 

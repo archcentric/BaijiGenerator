@@ -93,12 +93,13 @@ namespace CTripOSS.Baiji.Editor
                 }
                 else
                 {
+                    var service = m_PrunerPanel.Service;
                     var selectedMethods = m_PrunerPanel.SelectedMethods;
                     if (selectedMethods.Count == 0)
                     {
                         return;
                     }
-                    _codeGenerator.Parse(inputs, selectedMethods);
+                    _codeGenerator.Parse(inputs, service, selectedMethods);
                 }
                 var result = MessageBox.Show(this, "Code generation succeeded. Open the output folder?",
                                              Resources.ProductName,
