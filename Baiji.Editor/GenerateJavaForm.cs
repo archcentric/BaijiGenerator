@@ -41,6 +41,7 @@ namespace CTripOSS.Baiji.Editor
             m_GenPublicFieldsCheckBox.Checked = Settings.Default.GenPublicFields_Java;
             m_GenIncludesCheckBox.Checked = Settings.Default.GenIncludes_Java;
             m_GenerateAllRadioButton.Checked = Settings.Default.GenAll_Default;
+            m_GenerateGroupBox.Enabled = !Settings.Default.GenAll_Default;
         }
 
         private void ListMethods()
@@ -199,7 +200,8 @@ namespace CTripOSS.Baiji.Editor
         {
             if (m_GenerateAllRadioButton.Checked)
             {
-                m_PrunerPanel.ForceSelectAll();
+                m_PrunerPanel.SelectAll();
+                m_PrunerPanel.Enabled = false;
             }
         }
 
@@ -207,7 +209,7 @@ namespace CTripOSS.Baiji.Editor
         {
             if (!m_ServiceRadioButton.Checked && m_GenerateSelectedRadioButton.Checked)
             {
-                m_PrunerPanel.EnableSelect();
+                m_PrunerPanel.Enabled = true;
             }
         }
 
@@ -215,11 +217,18 @@ namespace CTripOSS.Baiji.Editor
         {
             if (m_ServiceRadioButton.Checked)
             {
-                m_PrunerPanel.ForceSelectAll();
+                m_GenerateAllRadioButton.Checked = true;
+                m_GenerateGroupBox.Enabled = false;
+                m_PrunerPanel.SelectAll();
+                m_PrunerPanel.Enabled = false;
             }
-            else if (m_GenerateSelectedRadioButton.Checked)
+            else
             {
-                m_PrunerPanel.EnableSelect();
+                m_GenerateGroupBox.Enabled = true;
+                if (m_GenerateSelectedRadioButton.Checked)
+                {
+                    m_PrunerPanel.Enabled = true;
+                }
             }
         }
 

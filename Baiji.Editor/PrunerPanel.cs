@@ -49,18 +49,12 @@ namespace CTripOSS.Baiji.Editor
             }
         }
 
-        public void ForceSelectAll()
+        public void SelectAll()
         {
             for (int i = 0; i < m_OperationsCheckedListBox.Items.Count; i++)
             {
                 m_OperationsCheckedListBox.SetItemChecked(i, true);
             }
-            m_OperationsCheckedListBox.Enabled = false;
-        }
-
-        public void EnableSelect()
-        {
-            m_OperationsCheckedListBox.Enabled = true;
         }
 
         public void BeginInit()

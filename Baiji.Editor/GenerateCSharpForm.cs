@@ -195,7 +195,8 @@ namespace CTripOSS.Baiji.Editor
         {
             if (m_GenerateAllRadioButton.Checked)
             {
-                m_PrunerPanel.ForceSelectAll();
+                m_PrunerPanel.SelectAll();
+                m_PrunerPanel.Enabled = false;
             }
         }
 
@@ -203,7 +204,7 @@ namespace CTripOSS.Baiji.Editor
         {
             if (m_GenerateSelectedRadioButton.Checked)
             {
-                m_PrunerPanel.EnableSelect();
+                m_PrunerPanel.Enabled = true;
             }
         }
 
