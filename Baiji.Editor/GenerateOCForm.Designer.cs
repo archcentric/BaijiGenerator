@@ -40,7 +40,13 @@
             this.m_FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.m_BrowseButton = new System.Windows.Forms.Button();
             this.m_IdlFileLabel = new System.Windows.Forms.Label();
+            this.m_GenerateGroupBox = new System.Windows.Forms.GroupBox();
+            this.m_GenerateAllRadioButton = new System.Windows.Forms.RadioButton();
+            this.m_GenerateSelectedRadioButton = new System.Windows.Forms.RadioButton();
+            this.m_PrunerPanel = new CTripOSS.Baiji.Editor.PrunerPanel();
             this.m_OptionsGroupBox.SuspendLayout();
+            this.m_GenerateGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PrunerPanel)).BeginInit();
             this.SuspendLayout();
             // 
             // m_OutputFolderTextBox
@@ -48,7 +54,8 @@
             this.m_OutputFolderTextBox.Location = new System.Drawing.Point(101, 43);
             this.m_OutputFolderTextBox.Name = "m_OutputFolderTextBox";
             this.m_OutputFolderTextBox.Size = new System.Drawing.Size(317, 21);
-            this.m_OutputFolderTextBox.TabIndex = 17;
+            this.m_OutputFolderTextBox.TabIndex = 3;
+            this.m_OutputFolderTextBox.TextChanged += new System.EventHandler(this.m_OutputFolderTextBox_TextChanged);
             // 
             // m_OptionsGroupBox
             // 
@@ -58,7 +65,7 @@
             this.m_OptionsGroupBox.Location = new System.Drawing.Point(14, 74);
             this.m_OptionsGroupBox.Name = "m_OptionsGroupBox";
             this.m_OptionsGroupBox.Size = new System.Drawing.Size(443, 49);
-            this.m_OptionsGroupBox.TabIndex = 11;
+            this.m_OptionsGroupBox.TabIndex = 5;
             this.m_OptionsGroupBox.TabStop = false;
             this.m_OptionsGroupBox.Text = "Options";
             // 
@@ -98,17 +105,17 @@
             this.m_OutputFolderLabel.Location = new System.Drawing.Point(12, 46);
             this.m_OutputFolderLabel.Name = "m_OutputFolderLabel";
             this.m_OutputFolderLabel.Size = new System.Drawing.Size(83, 12);
-            this.m_OutputFolderLabel.TabIndex = 16;
+            this.m_OutputFolderLabel.TabIndex = 2;
             this.m_OutputFolderLabel.Text = "Output Folder";
             // 
             // m_CancelButton
             // 
             this.m_CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_CancelButton.Location = new System.Drawing.Point(382, 131);
+            this.m_CancelButton.Location = new System.Drawing.Point(382, 334);
             this.m_CancelButton.Name = "m_CancelButton";
             this.m_CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.m_CancelButton.TabIndex = 13;
+            this.m_CancelButton.TabIndex = 8;
             this.m_CancelButton.Text = "&Cancel";
             this.m_CancelButton.UseVisualStyleBackColor = true;
             this.m_CancelButton.Click += new System.EventHandler(this.m_CancelButton_Click);
@@ -119,15 +126,15 @@
             this.m_IdlFileTextBox.Name = "m_IdlFileTextBox";
             this.m_IdlFileTextBox.ReadOnly = true;
             this.m_IdlFileTextBox.Size = new System.Drawing.Size(356, 21);
-            this.m_IdlFileTextBox.TabIndex = 15;
+            this.m_IdlFileTextBox.TabIndex = 1;
             // 
             // m_GenerateButton
             // 
             this.m_GenerateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_GenerateButton.Location = new System.Drawing.Point(301, 131);
+            this.m_GenerateButton.Location = new System.Drawing.Point(301, 334);
             this.m_GenerateButton.Name = "m_GenerateButton";
             this.m_GenerateButton.Size = new System.Drawing.Size(75, 23);
-            this.m_GenerateButton.TabIndex = 12;
+            this.m_GenerateButton.TabIndex = 7;
             this.m_GenerateButton.Text = "&Generate";
             this.m_GenerateButton.UseVisualStyleBackColor = true;
             this.m_GenerateButton.Click += new System.EventHandler(this.m_GenerateButton_Click);
@@ -141,7 +148,7 @@
             this.m_BrowseButton.Location = new System.Drawing.Point(422, 41);
             this.m_BrowseButton.Name = "m_BrowseButton";
             this.m_BrowseButton.Size = new System.Drawing.Size(34, 23);
-            this.m_BrowseButton.TabIndex = 9;
+            this.m_BrowseButton.TabIndex = 4;
             this.m_BrowseButton.Text = "...";
             this.m_BrowseButton.UseVisualStyleBackColor = true;
             this.m_BrowseButton.Click += new System.EventHandler(this.m_BrowseButton_Click);
@@ -152,8 +159,53 @@
             this.m_IdlFileLabel.Location = new System.Drawing.Point(12, 19);
             this.m_IdlFileLabel.Name = "m_IdlFileLabel";
             this.m_IdlFileLabel.Size = new System.Drawing.Size(53, 12);
-            this.m_IdlFileLabel.TabIndex = 14;
+            this.m_IdlFileLabel.TabIndex = 0;
             this.m_IdlFileLabel.Text = "IDL File";
+            // 
+            // m_GenerateGroupBox
+            // 
+            this.m_GenerateGroupBox.CausesValidation = false;
+            this.m_GenerateGroupBox.Controls.Add(this.m_GenerateAllRadioButton);
+            this.m_GenerateGroupBox.Controls.Add(this.m_PrunerPanel);
+            this.m_GenerateGroupBox.Controls.Add(this.m_GenerateSelectedRadioButton);
+            this.m_GenerateGroupBox.Location = new System.Drawing.Point(14, 129);
+            this.m_GenerateGroupBox.Name = "m_GenerateGroupBox";
+            this.m_GenerateGroupBox.Size = new System.Drawing.Size(442, 188);
+            this.m_GenerateGroupBox.TabIndex = 6;
+            this.m_GenerateGroupBox.TabStop = false;
+            this.m_GenerateGroupBox.Text = "Operation Selection";
+            // 
+            // m_GenerateAllRadioButton
+            // 
+            this.m_GenerateAllRadioButton.AutoSize = true;
+            this.m_GenerateAllRadioButton.Location = new System.Drawing.Point(19, 20);
+            this.m_GenerateAllRadioButton.Name = "m_GenerateAllRadioButton";
+            this.m_GenerateAllRadioButton.Size = new System.Drawing.Size(185, 16);
+            this.m_GenerateAllRadioButton.TabIndex = 0;
+            this.m_GenerateAllRadioButton.TabStop = true;
+            this.m_GenerateAllRadioButton.Text = "Generate for All Operations";
+            this.m_GenerateAllRadioButton.UseVisualStyleBackColor = true;
+            this.m_GenerateAllRadioButton.CheckedChanged += new System.EventHandler(this.m_GenerateAllRadioButton_CheckedChanged);
+            // 
+            // m_GenerateSelectedRadioButton
+            // 
+            this.m_GenerateSelectedRadioButton.AutoSize = true;
+            this.m_GenerateSelectedRadioButton.Location = new System.Drawing.Point(19, 42);
+            this.m_GenerateSelectedRadioButton.Name = "m_GenerateSelectedRadioButton";
+            this.m_GenerateSelectedRadioButton.Size = new System.Drawing.Size(215, 16);
+            this.m_GenerateSelectedRadioButton.TabIndex = 1;
+            this.m_GenerateSelectedRadioButton.TabStop = true;
+            this.m_GenerateSelectedRadioButton.Text = "Generate for Selected Operations";
+            this.m_GenerateSelectedRadioButton.UseVisualStyleBackColor = true;
+            this.m_GenerateSelectedRadioButton.CheckedChanged += new System.EventHandler(this.m_GenerateSelectedRadioButton_CheckedChanged);
+            // 
+            // m_PrunerPanel
+            // 
+            this.m_PrunerPanel.Location = new System.Drawing.Point(37, 63);
+            this.m_PrunerPanel.Name = "m_PrunerPanel";
+            this.m_PrunerPanel.Service = null;
+            this.m_PrunerPanel.Size = new System.Drawing.Size(236, 118);
+            this.m_PrunerPanel.TabIndex = 2;
             // 
             // GenerateOCForm
             // 
@@ -161,7 +213,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.m_CancelButton;
-            this.ClientSize = new System.Drawing.Size(469, 163);
+            this.ClientSize = new System.Drawing.Size(469, 366);
+            this.Controls.Add(this.m_GenerateGroupBox);
             this.Controls.Add(this.m_OutputFolderTextBox);
             this.Controls.Add(this.m_OptionsGroupBox);
             this.Controls.Add(this.m_OutputFolderLabel);
@@ -178,6 +231,9 @@
             this.Text = "Baiji IDL Code Generation - Objective-C";
             this.m_OptionsGroupBox.ResumeLayout(false);
             this.m_OptionsGroupBox.PerformLayout();
+            this.m_GenerateGroupBox.ResumeLayout(false);
+            this.m_GenerateGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_PrunerPanel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,5 +253,9 @@
         private System.Windows.Forms.Button m_BrowseButton;
         private System.Windows.Forms.Label m_IdlFileLabel;
         private System.Windows.Forms.CheckBox m_AutoReleaseCheckBox;
+        private System.Windows.Forms.GroupBox m_GenerateGroupBox;
+        private System.Windows.Forms.RadioButton m_GenerateAllRadioButton;
+        private System.Windows.Forms.RadioButton m_GenerateSelectedRadioButton;
+        private PrunerPanel m_PrunerPanel;
     }
 }

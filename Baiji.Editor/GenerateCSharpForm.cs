@@ -1,17 +1,20 @@
-﻿using System;
+﻿using CTripOSS.Baiji.Editor.Properties;
+using CTripOSS.Baiji.Generator;
+using CTripOSS.Baiji.Generator.CSharp;
+using CTripOSS.Baiji.Generator.Util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using CTripOSS.Baiji.Generator;
-using CTripOSS.Baiji.Editor.Properties;
-using CTripOSS.Baiji.Generator.CSharp;
 
 namespace CTripOSS.Baiji.Editor
 {
     public partial class GenerateCSharpForm : Form
     {
+        private Generator.Generator _codeGenerator;
+
         public GenerateCSharpForm()
         {
             InitializeComponent();
@@ -27,6 +30,7 @@ namespace CTripOSS.Baiji.Editor
             set
             {
                 m_IdlFileTextBox.Text = value;
+                ListMethods();
             }
         }
 
@@ -35,6 +39,25 @@ namespace CTripOSS.Baiji.Editor
             m_OutputFolderTextBox.Text = Settings.Default.LastOutputFolder_CSharp;
             m_GenCommentsCheckBox.Checked = Settings.Default.GenComment_CSharp;
             m_GenIncludesCheckBox.Checked = Settings.Default.GenIncludes_CSharp;
+            m_GenerateAllRadioButton.Checked = Settings.Default.GenAll_Default;
+        }
+
+        private void ListMethods()
+        {
+            var inputBaseFolder = new Uri(Path.GetDirectoryName(IdlFilename) + "\\", UriKind.Absolute);
+            var configBuilder = CreateConfigBuilder(inputBaseFolder, Path.GetTempPath());
+            var inputs = new List<Uri> { new Uri(IdlFilename, UriKind.Absolute) };
+            try
+            {
+                _codeGenerator = new CSharpGenerator(configBuilder.Build());
+                var service = ContextUtils.ExtractService(_codeGenerator.GetContexts(inputs).Values.ToList());
+                m_PrunerPanel.Service = service;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Code generation failed: " + ex.Message, Resources.ProductName,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void m_BrowseButton_Click(object sender, EventArgs e)
@@ -56,13 +79,27 @@ namespace CTripOSS.Baiji.Editor
                 m_BrowseButton.Focus();
                 return;
             }
-
             var inputBaseFolder = new Uri(Path.GetDirectoryName(IdlFilename) + "\\", UriKind.Absolute);
             var configBuilder = CreateConfigBuilder(inputBaseFolder, outputFolder);
-            var inputs = new List<Uri> {new Uri(IdlFilename, UriKind.Absolute)};
+            var inputs = new List<Uri> { new Uri(IdlFilename, UriKind.Absolute) };
+            _codeGenerator.UpdateConfig(configBuilder.Build());
+
             try
             {
-                new CSharpGenerator(configBuilder.Build()).Parse(inputs);
+                if (m_GenerateAllRadioButton.Checked)
+                {
+                    _codeGenerator.Parse(inputs);
+                }
+                else
+                {
+                    var service = m_PrunerPanel.Service;
+                    var selectedMethods = m_PrunerPanel.SelectedMethods;
+                    if (selectedMethods.Count == 0)
+                    {
+                        return;
+                    }
+                    _codeGenerator.Parse(inputs, service, selectedMethods);
+                }
                 var result = MessageBox.Show(this, "Code generation succeeded. Open the output folder?",
                                              Resources.ProductName,
                                              MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -152,6 +189,29 @@ namespace CTripOSS.Baiji.Editor
                 configBuilder.AddTweak(CSharpGeneratorTweak.GEN_COMMENTS);
             }
             return configBuilder;
+        }
+
+        private void m_GenerateAllRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_GenerateAllRadioButton.Checked)
+            {
+                m_PrunerPanel.SelectAll();
+                m_PrunerPanel.Enabled = false;
+            }
+        }
+
+        private void m_GenerateSelectedRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_GenerateSelectedRadioButton.Checked)
+            {
+                m_PrunerPanel.Enabled = true;
+            }
+        }
+
+        private void m_OutputFolderTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (m_IdlFileTextBox.Text != string.Empty)
+                ListMethods();
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using CTripOSS.Baiji.Helper;
+﻿using CTripOSS.Baiji.Helper;
 using CTripOSS.Baiji.IDLParser.Visitor;
+using System.Collections.Generic;
 
 namespace CTripOSS.Baiji.IDLParser.Model
 {
@@ -15,7 +15,7 @@ namespace CTripOSS.Baiji.IDLParser.Model
         public IList<Definition> Definitions
         {
             get;
-            private set;
+            set;
         }
 
         public Document(Header header, IList<Definition> definitions)
