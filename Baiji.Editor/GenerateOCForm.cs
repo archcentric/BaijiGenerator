@@ -49,15 +49,8 @@ namespace CTripOSS.Baiji.Editor
 
         private void ListMethods()
         {
-            var outputFolder = GetOutputFolder();
-            if (outputFolder == null)
-            {
-                m_BrowseButton.Focus();
-                return;
-            }
-
             var inputBaseFolder = new Uri(Path.GetDirectoryName(IdlFilename) + "\\", UriKind.Absolute);
-            var configBuilder = CreateConfigBuilder(inputBaseFolder, outputFolder);
+            var configBuilder = CreateConfigBuilder(inputBaseFolder, Path.GetTempPath());
             var inputs = new List<Uri> { new Uri(IdlFilename, UriKind.Absolute) };
             try
             {
@@ -156,12 +149,16 @@ namespace CTripOSS.Baiji.Editor
                 m_BrowseButton.Focus();
                 return;
             }
+            var inputBaseFolder = new Uri(Path.GetDirectoryName(IdlFilename) + "\\", UriKind.Absolute);
+            var configBuilder = CreateConfigBuilder(inputBaseFolder, outputFolder);
+            var inputs = new List<Uri> { new Uri(IdlFilename, UriKind.Absolute) };
+            _codeGenerator.UpdateConfig(configBuilder.Build());
 
             try
             {
                 if (m_GenerateAllRadioButton.Checked)
                 {
-                    _codeGenerator.Parse();
+                    _codeGenerator.Parse(inputs);
                 }
                 else
                 {
@@ -170,7 +167,7 @@ namespace CTripOSS.Baiji.Editor
                     {
                         return;
                     }
-                    _codeGenerator.Parse(selectedMethods);
+                    _codeGenerator.Parse(inputs, selectedMethods);
                 }
                 var result = MessageBox.Show(this, "Code generation succeeded. Open the output folder?",
                                              Resources.ProductName,

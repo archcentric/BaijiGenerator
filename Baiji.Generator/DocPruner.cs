@@ -6,82 +6,51 @@ namespace CTripOSS.Baiji.Generator
 {
     internal class DocPruner
     {
-        private readonly IDictionary<string, int> _visited;
         private readonly IDictionary<string, Definition> _modelCache;
         private readonly IList<Definition> _retainedModels;
-        private readonly ISet<string> _includedModels;
-        private readonly Queue<string> _visitingQueue;
         private readonly Document _doc;
 
-        internal DocPruner(Document doc)
+        public delegate void EnqueueDelegate(string modelName);
+        private EnqueueDelegate _enqueue;
+
+        internal DocPruner(
+            Document doc,
+            string @namespace,
+            ref IDictionary<string, string> modelMapping,
+            ref IDictionary<string, int> visited,
+            EnqueueDelegate enqueue)
         {
-            _visited = new Dictionary<string, int>();
+            _enqueue = enqueue;
             _modelCache = new Dictionary<string, Definition>();
             _retainedModels = new List<Definition>();
-            _includedModels = new HashSet<string>();
-            _visitingQueue = new Queue<string>();
             _doc = doc;
-            Cache();
+            Cache(@namespace, ref modelMapping, ref visited);
+            _doc.Definitions = _retainedModels;
         }
 
-        private void Cache()
+        private void Cache(string @namespace, ref IDictionary<string, string> modelMapping, ref IDictionary<string, int> visited)
         {
             foreach (Definition def in _doc.Definitions)
             {
                 _modelCache.Add(def.Name, def);
-                _visited.Add(def.Name, 0);
+                modelMapping.Add(def.Name, @namespace);
+                visited.Add(def.Name, 0);
             }
         }
 
-        public void Prune(IList<BaijiMethod> selectedMethod, out ISet<string> includedModels)
+        public void PruneModel(string modelName)
         {
-            foreach (var m in selectedMethod)
+            if (!_modelCache.ContainsKey(modelName))
+                throw new ArgumentException(modelName + "cannot be found!");
+            var def = _modelCache[modelName];
+            if (def.GetType() == typeof(Struct))
             {
-                PrepareByMethod(m);
+                PruneModel(def as Struct);
             }
-            PruneModels();
-            _doc.Definitions = _retainedModels;
-            includedModels = _includedModels;
-        }
-
-        public void PruneExcluded(ISet<string> visitingList)
-        {
-            foreach (string v in visitingList)
+            if (def.GetType() == typeof(IntegerEnum))
             {
-                TryEnqueue(v);
+                PruneModel(def as IntegerEnum);
             }
-            PruneModels();
-            _doc.Definitions = _retainedModels;
-        }
-
-        protected void PrepareByMethod(BaijiMethod method)
-        {
-            TryEnqueue(method.ArgumentType.Name);
-            TryEnqueue(method.ReturnType.Name);
-        }
-
-        protected void PruneModels()
-        {
-            while (_visitingQueue.Count > 0)
-            {
-                string modelName = _visitingQueue.Dequeue();
-                if (!_modelCache.ContainsKey(modelName))
-                    continue;
-                var def = _modelCache[modelName];
-                if (def == null)
-                    Console.WriteLine(modelName);
-                if (def.GetType() == typeof(Struct))
-                {
-                    PruneModel(def as Struct);
-                    continue;
-                }
-                if (def.GetType() == typeof(IntegerEnum))
-                {
-                    PruneModel(def as IntegerEnum);
-                    continue;
-                }
-            }
-
         }
 
         protected void PruneModel(Struct structModel)
@@ -127,15 +96,7 @@ namespace CTripOSS.Baiji.Generator
 
         private void TryEnqueue(string modelName)
         {
-            if (_visited.ContainsKey(modelName) && _visited[modelName] == 0)
-            {
-                _visitingQueue.Enqueue(modelName);
-                _visited[modelName] = 1;
-            }
-            else
-            {
-                _includedModels.Add(modelName);
-            }
+            _enqueue(modelName);
         }
     }
 }

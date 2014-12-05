@@ -18,13 +18,11 @@ namespace CTripOSS.Baiji.Generator
     {
         private static readonly ILog LOG = LogManager.GetLogger(typeof(Generator));
 
-        protected readonly DirectoryInfo _outputFolder;
-        protected readonly GeneratorConfig _generatorConfig;
         protected readonly TemplateLoader _templateLoader;
         protected readonly ISet<Uri> _parsedDocuments = new HashSet<Uri>();
         protected readonly Stack<Uri> _parentDocuments = new Stack<Uri>();
-
-        private IDictionary<string, DocumentContext> _contexts;
+        protected GeneratorConfig _generatorConfig;
+        protected DirectoryInfo _outputFolder;
 
         //config value change at runtime?
         protected Generator(GeneratorConfig generatorConfig, IDictionary<string, IList<string>> templates)
@@ -40,10 +38,6 @@ namespace CTripOSS.Baiji.Generator
             {
                 _outputFolder.Create();
             }
-
-            LOG.Debug(string.Format("Writing source files into {0} using {1} ...", _outputFolder,
-                generatorConfig.CodeFlavor));
-
             _templateLoader = new TemplateLoader(templates[generatorConfig.CodeFlavor]);
         }
 
@@ -56,7 +50,7 @@ namespace CTripOSS.Baiji.Generator
 
             LOG.Info(string.Format("Parsing IDL from {0}...", inputs));
 
-            _contexts = new Dictionary<string, DocumentContext>();
+            var contexts = new Dictionary<string, DocumentContext>();
             foreach (var inputUri in inputs)
             {
                 _parsedDocuments.Clear();
@@ -70,9 +64,9 @@ namespace CTripOSS.Baiji.Generator
                     input = inputUri;
                 }
 
-                ParseDocument(input, _contexts, new TypeRegistry());
+                ParseDocument(input, contexts, new TypeRegistry());
             }
-            return _contexts;
+            return contexts;
         }
 
         private void Parse(IDictionary<string, DocumentContext> contexts)
@@ -105,25 +99,18 @@ namespace CTripOSS.Baiji.Generator
             LOG.Info("Code generation complete.");
         }
 
-        public void Parse()
+        public void Parse(IList<Uri> inputs, IList<BaijiMethod> selectedMethod)
         {
-            MarkServiceResponseTypes(_contexts);
-
-            LOG.Info("IDL parsing complete, writing code files...");
-
-            foreach (var context in _contexts.Values)
-            {
-                GenerateFiles(context);
-            }
-
-            LOG.Info("Code generation complete.");
+            var contexts = GetContexts(inputs);
+            Pruner pruner = new Pruner(contexts);
+            pruner.Prune(selectedMethod);
+            Parse(contexts);
         }
 
-        public void Parse(IList<BaijiMethod> selectedMethod)
+        public void UpdateConfig(GeneratorConfig config)
         {
-            Pruner pruner = new Pruner(_contexts);
-            pruner.Prune(selectedMethod);
-            Parse(_contexts);
+            _generatorConfig = config;
+            _outputFolder = config.OutputFolder;
         }
 
         private void ParseDocument(Uri uri,
@@ -254,7 +241,13 @@ namespace CTripOSS.Baiji.Generator
             LOG.Debug(string.Format("Generating code for {0}...", context.Namespace));
 
             Enforce.IsNotNull(_outputFolder, "The output folder was not set!");
-            // TODO, check folder valid
+            if (!_outputFolder.Exists)
+            {
+                _outputFolder.Create();
+            }
+
+            LOG.Debug(string.Format("Writing source files into {0} using {1} ...", _outputFolder,
+                _generatorConfig.CodeFlavor));
 
             var codeGenerator = CreateCodeGenerator(context);
             codeGenerator.Visit(context.Document);
