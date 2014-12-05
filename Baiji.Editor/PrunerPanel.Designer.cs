@@ -33,14 +33,12 @@
             // 
             // m_OperationsCheckedListBox
             // 
-            this.m_OperationsCheckedListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_OperationsCheckedListBox.CheckOnClick = true;
+            this.m_OperationsCheckedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_OperationsCheckedListBox.FormattingEnabled = true;
-            this.m_OperationsCheckedListBox.Location = new System.Drawing.Point(6, 4);
+            this.m_OperationsCheckedListBox.Location = new System.Drawing.Point(0, 0);
             this.m_OperationsCheckedListBox.Name = "m_OperationsCheckedListBox";
-            this.m_OperationsCheckedListBox.Size = new System.Drawing.Size(433, 148);
+            this.m_OperationsCheckedListBox.Size = new System.Drawing.Size(442, 162);
             this.m_OperationsCheckedListBox.TabIndex = 1;
             // 
             // PrunerPanel
