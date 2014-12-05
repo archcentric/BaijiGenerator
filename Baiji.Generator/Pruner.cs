@@ -85,7 +85,7 @@ namespace CTripOSS.Baiji.Generator
 
             Enforce.IsNotNull<string>(modelName, typeName + " parsing failed.");
 
-            if (_visited[modelName] == 0)
+            if (_visited.ContainsKey(modelName) && _visited[modelName] == 0)
             {
                 _visitingQueue.Enqueue(modelName);
                 _visited[modelName] = 1;
