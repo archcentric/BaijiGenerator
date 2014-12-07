@@ -59,7 +59,7 @@
             this.m_IdlFileLabel.Location = new System.Drawing.Point(12, 19);
             this.m_IdlFileLabel.Name = "m_IdlFileLabel";
             this.m_IdlFileLabel.Size = new System.Drawing.Size(53, 12);
-            this.m_IdlFileLabel.TabIndex = 0;
+            this.m_IdlFileLabel.TabIndex = 8;
             this.m_IdlFileLabel.Text = "IDL File";
             // 
             // m_IdlFileTextBox
@@ -70,7 +70,7 @@
             this.m_IdlFileTextBox.Name = "m_IdlFileTextBox";
             this.m_IdlFileTextBox.ReadOnly = true;
             this.m_IdlFileTextBox.Size = new System.Drawing.Size(356, 21);
-            this.m_IdlFileTextBox.TabIndex = 1;
+            this.m_IdlFileTextBox.TabIndex = 9;
             // 
             // m_GenerateButton
             // 
@@ -78,7 +78,7 @@
             this.m_GenerateButton.Location = new System.Drawing.Point(301, 399);
             this.m_GenerateButton.Name = "m_GenerateButton";
             this.m_GenerateButton.Size = new System.Drawing.Size(75, 23);
-            this.m_GenerateButton.TabIndex = 8;
+            this.m_GenerateButton.TabIndex = 6;
             this.m_GenerateButton.Text = "&Generate";
             this.m_GenerateButton.UseVisualStyleBackColor = true;
             this.m_GenerateButton.Click += new System.EventHandler(this.m_GenerateButton_Click);
@@ -90,7 +90,7 @@
             this.m_CancelButton.Location = new System.Drawing.Point(382, 399);
             this.m_CancelButton.Name = "m_CancelButton";
             this.m_CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.m_CancelButton.TabIndex = 9;
+            this.m_CancelButton.TabIndex = 7;
             this.m_CancelButton.Text = "&Cancel";
             this.m_CancelButton.UseVisualStyleBackColor = true;
             // 
@@ -104,7 +104,7 @@
             this.m_CodeTypeGroupBox.Location = new System.Drawing.Point(14, 74);
             this.m_CodeTypeGroupBox.Name = "m_CodeTypeGroupBox";
             this.m_CodeTypeGroupBox.Size = new System.Drawing.Size(443, 48);
-            this.m_CodeTypeGroupBox.TabIndex = 5;
+            this.m_CodeTypeGroupBox.TabIndex = 3;
             this.m_CodeTypeGroupBox.TabStop = false;
             this.m_CodeTypeGroupBox.Text = "Code Type";
             // 
@@ -151,7 +151,7 @@
             this.m_OptionsGroupBox.Location = new System.Drawing.Point(14, 128);
             this.m_OptionsGroupBox.Name = "m_OptionsGroupBox";
             this.m_OptionsGroupBox.Size = new System.Drawing.Size(443, 60);
-            this.m_OptionsGroupBox.TabIndex = 6;
+            this.m_OptionsGroupBox.TabIndex = 4;
             this.m_OptionsGroupBox.TabStop = false;
             this.m_OptionsGroupBox.Text = "Options";
             // 
@@ -181,7 +181,7 @@
             this.m_OutputFolderLabel.Location = new System.Drawing.Point(12, 46);
             this.m_OutputFolderLabel.Name = "m_OutputFolderLabel";
             this.m_OutputFolderLabel.Size = new System.Drawing.Size(83, 12);
-            this.m_OutputFolderLabel.TabIndex = 2;
+            this.m_OutputFolderLabel.TabIndex = 0;
             this.m_OutputFolderLabel.Text = "Output Folder";
             // 
             // m_OutputFolderTextBox
@@ -191,7 +191,7 @@
             this.m_OutputFolderTextBox.Location = new System.Drawing.Point(101, 43);
             this.m_OutputFolderTextBox.Name = "m_OutputFolderTextBox";
             this.m_OutputFolderTextBox.Size = new System.Drawing.Size(316, 21);
-            this.m_OutputFolderTextBox.TabIndex = 3;
+            this.m_OutputFolderTextBox.TabIndex = 1;
             // 
             // m_BrowseButton
             // 
@@ -199,7 +199,7 @@
             this.m_BrowseButton.Location = new System.Drawing.Point(422, 41);
             this.m_BrowseButton.Name = "m_BrowseButton";
             this.m_BrowseButton.Size = new System.Drawing.Size(34, 23);
-            this.m_BrowseButton.TabIndex = 4;
+            this.m_BrowseButton.TabIndex = 2;
             this.m_BrowseButton.Text = "...";
             this.m_BrowseButton.UseVisualStyleBackColor = true;
             this.m_BrowseButton.Click += new System.EventHandler(this.m_BrowseButton_Click);
@@ -217,7 +217,7 @@
             this.m_GenerateGroupBox.Location = new System.Drawing.Point(14, 194);
             this.m_GenerateGroupBox.Name = "m_GenerateGroupBox";
             this.m_GenerateGroupBox.Size = new System.Drawing.Size(442, 188);
-            this.m_GenerateGroupBox.TabIndex = 7;
+            this.m_GenerateGroupBox.TabIndex = 5;
             this.m_GenerateGroupBox.TabStop = false;
             this.m_GenerateGroupBox.Text = "Operation Selection";
             // 
