@@ -30,7 +30,7 @@
         {
             this.m_OutputFolderTextBox = new System.Windows.Forms.TextBox();
             this.m_OptionsGroupBox = new System.Windows.Forms.GroupBox();
-            this.m_AutoReleaseCheckBox = new System.Windows.Forms.CheckBox();
+            this.m_UseArcBox = new System.Windows.Forms.CheckBox();
             this.m_GenIncludesCheckBox = new System.Windows.Forms.CheckBox();
             this.m_GenCommentsCheckBox = new System.Windows.Forms.CheckBox();
             this.m_OutputFolderLabel = new System.Windows.Forms.Label();
@@ -58,7 +58,7 @@
             // 
             // m_OptionsGroupBox
             // 
-            this.m_OptionsGroupBox.Controls.Add(this.m_AutoReleaseCheckBox);
+            this.m_OptionsGroupBox.Controls.Add(this.m_UseArcBox);
             this.m_OptionsGroupBox.Controls.Add(this.m_GenIncludesCheckBox);
             this.m_OptionsGroupBox.Controls.Add(this.m_GenCommentsCheckBox);
             this.m_OptionsGroupBox.Location = new System.Drawing.Point(14, 74);
@@ -68,15 +68,15 @@
             this.m_OptionsGroupBox.TabStop = false;
             this.m_OptionsGroupBox.Text = "Options";
             // 
-            // m_AutoReleaseCheckBox
+            // m_UseArcBox
             // 
-            this.m_AutoReleaseCheckBox.AutoSize = true;
-            this.m_AutoReleaseCheckBox.Location = new System.Drawing.Point(287, 25);
-            this.m_AutoReleaseCheckBox.Name = "m_AutoReleaseCheckBox";
-            this.m_AutoReleaseCheckBox.Size = new System.Drawing.Size(96, 16);
-            this.m_AutoReleaseCheckBox.TabIndex = 2;
-            this.m_AutoReleaseCheckBox.Text = "Auto Release";
-            this.m_AutoReleaseCheckBox.UseVisualStyleBackColor = true;
+            this.m_UseArcBox.AutoSize = true;
+            this.m_UseArcBox.Location = new System.Drawing.Point(287, 25);
+            this.m_UseArcBox.Name = "m_UseArcBox";
+            this.m_UseArcBox.Size = new System.Drawing.Size(66, 16);
+            this.m_UseArcBox.TabIndex = 2;
+            this.m_UseArcBox.Text = "Use ARC";
+            this.m_UseArcBox.UseVisualStyleBackColor = true;
             // 
             // m_GenIncludesCheckBox
             // 
@@ -117,7 +117,6 @@
             this.m_CancelButton.TabIndex = 6;
             this.m_CancelButton.Text = "&Cancel";
             this.m_CancelButton.UseVisualStyleBackColor = true;
-            this.m_CancelButton.Click += new System.EventHandler(this.m_CancelButton_Click);
             // 
             // m_IdlFileTextBox
             // 
@@ -251,7 +250,7 @@
         private System.Windows.Forms.FolderBrowserDialog m_FolderBrowserDialog;
         private System.Windows.Forms.Button m_BrowseButton;
         private System.Windows.Forms.Label m_IdlFileLabel;
-        private System.Windows.Forms.CheckBox m_AutoReleaseCheckBox;
+        private System.Windows.Forms.CheckBox m_UseArcBox;
         private System.Windows.Forms.GroupBox m_GenerateGroupBox;
         private System.Windows.Forms.RadioButton m_GenerateAllRadioButton;
         private System.Windows.Forms.RadioButton m_GenerateSelectedRadioButton;

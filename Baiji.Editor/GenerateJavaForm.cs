@@ -1,6 +1,5 @@
 ﻿using System;
 using CTripOSS.Baiji.Generator.Util;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -48,12 +47,20 @@ namespace CTripOSS.Baiji.Editor
         {
             var inputBaseFolder = new Uri(Path.GetDirectoryName(IdlFilename) + "\\", UriKind.Absolute);
             var configBuilder = CreateConfigBuilder(inputBaseFolder, Path.GetTempPath());
-            var inputs = new List<Uri> { new Uri(IdlFilename, UriKind.Absolute) };
+            var input = new Uri(IdlFilename, UriKind.Absolute);
             try
             {
                 _codeGenerator = new JavaGenerator(configBuilder.Build());
-                var service = ContextUtils.ExtractService(_codeGenerator.GetContexts(inputs).Values.ToList());
-                m_PrunerPanel.Service = service;
+                var contexts = _codeGenerator.GetContexts(input);
+                var service = ContextUtils.ExtractService(contexts[contexts.Count - 1]);
+                if (service != null)
+                {
+                    m_PrunerPanel.Service = service;
+                }
+                else
+                {
+                    m_GenerateGroupBox.Enabled = false;
+                }
             }
             catch (Exception ex)
             {
@@ -75,7 +82,7 @@ namespace CTripOSS.Baiji.Editor
 
         private void m_GenerateButton_Click(object sender, EventArgs e)
         {
-            if (m_PrunerPanel.SelectedMethods.Count == 0)
+            if (m_GenerateGroupBox.Enabled && m_PrunerPanel.SelectedMethods.Count == 0)
             {
                 MessageBox.Show(this, "No operation is selected.",
                     Resources.ProductName,
@@ -90,20 +97,20 @@ namespace CTripOSS.Baiji.Editor
             }
             var inputBaseFolder = new Uri(Path.GetDirectoryName(IdlFilename) + "\\", UriKind.Absolute);
             var configBuilder = CreateConfigBuilder(inputBaseFolder, outputFolder);
-            var inputs = new List<Uri> { new Uri(IdlFilename, UriKind.Absolute) };
+            var input = new Uri(IdlFilename, UriKind.Absolute);
             _codeGenerator.UpdateConfig(configBuilder.Build());
 
             try
             {
                 if (m_ServiceRadioButton.Checked || m_GenerateAllRadioButton.Checked)
                 {
-                    _codeGenerator.Parse(inputs);
+                    _codeGenerator.Parse(input);
                 }
                 else
                 {
                     var service = m_PrunerPanel.Service;
                     var selectedMethods = m_PrunerPanel.SelectedMethods;
-                    _codeGenerator.Parse(inputs, service, selectedMethods);
+                    _codeGenerator.Parse(input, service, selectedMethods);
                 }
                 var result = MessageBox.Show(this, "Code generation succeeded. Open the output folder?",
                                              Resources.ProductName,

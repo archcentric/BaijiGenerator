@@ -12,19 +12,16 @@ namespace CTripOSS.Baiji.Generator
         private readonly IDictionary<string, string> _modelCache;
         private readonly Queue<string> _visitingQueue;
 
-        public Pruner(IDictionary<string, DocumentContext> contexts)
+        public Pruner(IEnumerable<DocumentContext> contexts)
         {
             _visited = new Dictionary<string, int>();
             _modelCache = new Dictionary<string, string>();
             _pruners = new Dictionary<string, DocPruner>();
             _visitingQueue = new Queue<string>();
-            foreach (DocumentContext dc in contexts.Values)
+            foreach (DocumentContext dc in contexts)
             {
                 _pruners.Add(dc.Namespace,
-                    new DocPruner(dc.Document, dc.Namespace, ref _modelCache, ref _visited, m =>
-                    {
-                        TryEnqueue(m);
-                    }));
+                    new DocPruner(dc.Document, dc.Namespace, ref _modelCache, ref _visited, TryEnqueue));
             }
         }
 

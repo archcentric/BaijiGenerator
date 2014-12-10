@@ -1,13 +1,8 @@
 ﻿using System;
 using CTripOSS.Baiji.Generator.Util;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CTripOSS.Baiji.Editor.Properties;
 using CTripOSS.Baiji.Generator;
@@ -43,7 +38,7 @@ namespace CTripOSS.Baiji.Editor
             m_OutputFolderTextBox.Text = Settings.Default.LastOutputFolder_OC;
             m_GenCommentsCheckBox.Checked = Settings.Default.GenComment_OC;
             m_GenIncludesCheckBox.Checked = Settings.Default.GenIncludes_OC;
-            m_AutoReleaseCheckBox.Checked = Settings.Default.GenAutoRelease_OC;
+            m_UseArcBox.Checked = Settings.Default.GenAutoRelease_OC;
             m_GenerateAllRadioButton.Checked = Settings.Default.GenAll_Default;
         }
 
@@ -51,12 +46,20 @@ namespace CTripOSS.Baiji.Editor
         {
             var inputBaseFolder = new Uri(Path.GetDirectoryName(IdlFilename) + "\\", UriKind.Absolute);
             var configBuilder = CreateConfigBuilder(inputBaseFolder, Path.GetTempPath());
-            var inputs = new List<Uri> { new Uri(IdlFilename, UriKind.Absolute) };
+            var input =  new Uri(IdlFilename, UriKind.Absolute);
             try
             {
                 _codeGenerator = new OCGenerator(configBuilder.Build());
-                var service = ContextUtils.ExtractService(_codeGenerator.GetContexts(inputs).Values.ToList());
-                m_PrunerPanel.Service = service;
+                var contexts = _codeGenerator.GetContexts(input);
+                var service = ContextUtils.ExtractService(contexts[contexts.Count - 1]);
+                if (service != null)
+                {
+                    m_PrunerPanel.Service = service;
+                }
+                else
+                {
+                    m_GenerateGroupBox.Enabled = false;
+                }
             }
             catch (Exception ex)
             {
@@ -123,7 +126,7 @@ namespace CTripOSS.Baiji.Editor
             {
                 configBuilder.AddTweak(OCGeneratorTweak.GEN_COMMENTS);
             }
-            if (m_AutoReleaseCheckBox.Checked)
+            if (m_UseArcBox.Checked)
             {
                 configBuilder.AddTweak(OCGeneratorTweak.AUTO_RELEASE);
             }
@@ -143,7 +146,7 @@ namespace CTripOSS.Baiji.Editor
 
         private void m_GenerateButton_Click(object sender, EventArgs e)
         {
-            if (m_PrunerPanel.SelectedMethods.Count == 0)
+            if (m_GenerateGroupBox.Enabled && m_PrunerPanel.SelectedMethods.Count == 0)
             {
                 MessageBox.Show(this, "No operation is selected.",
                     Resources.ProductName,
@@ -158,20 +161,20 @@ namespace CTripOSS.Baiji.Editor
             }
             var inputBaseFolder = new Uri(Path.GetDirectoryName(IdlFilename) + "\\", UriKind.Absolute);
             var configBuilder = CreateConfigBuilder(inputBaseFolder, outputFolder);
-            var inputs = new List<Uri> { new Uri(IdlFilename, UriKind.Absolute) };
+            var input = new Uri(IdlFilename, UriKind.Absolute);
             _codeGenerator.UpdateConfig(configBuilder.Build());
 
             try
             {
                 if (m_GenerateAllRadioButton.Checked)
                 {
-                    _codeGenerator.Parse(inputs);
+                    _codeGenerator.Parse(input);
                 }
                 else
                 {
                     var service = m_PrunerPanel.Service;
                     var selectedMethods = m_PrunerPanel.SelectedMethods;
-                    _codeGenerator.Parse(inputs, service, selectedMethods);
+                    _codeGenerator.Parse(input, service, selectedMethods);
                 }
                 var result = MessageBox.Show(this, "Code generation succeeded. Open the output folder?",
                                              Resources.ProductName,
@@ -181,7 +184,7 @@ namespace CTripOSS.Baiji.Editor
                     Process.Start(outputFolder);
                 }
 
-                Settings.Default.LastOutputFolder_Java = outputFolder;
+                Settings.Default.LastOutputFolder_OC = outputFolder;
                 Settings.Default.Save();
 
                 DialogResult = DialogResult.OK;
@@ -192,11 +195,6 @@ namespace CTripOSS.Baiji.Editor
                 MessageBox.Show(this, "Code generation failed: " + ex.Message, Resources.ProductName,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void m_CancelButton_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void m_GenerateAllRadioButton_CheckedChanged(object sender, EventArgs e)

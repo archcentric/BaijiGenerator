@@ -19,8 +19,6 @@ namespace CTripOSS.Baiji.Generator
         private static readonly ILog LOG = LogManager.GetLogger(typeof(Generator));
 
         protected readonly TemplateLoader _templateLoader;
-        protected readonly ISet<Uri> _parsedDocuments = new HashSet<Uri>();
-        protected readonly Stack<Uri> _parentDocuments = new Stack<Uri>();
         protected GeneratorConfig _generatorConfig;
         protected DirectoryInfo _outputFolder;
 
@@ -41,70 +39,58 @@ namespace CTripOSS.Baiji.Generator
             _templateLoader = new TemplateLoader(templates[generatorConfig.CodeFlavor]);
         }
 
-        public IDictionary<string, DocumentContext> GetContexts(IList<Uri> inputs)
+        /// <summary>
+        /// Create DocumentContexts based on the input IDL document.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns>
+        /// A list of all document contexts of the given input and documents its includes.
+        /// Contexts of included documents come first, context of the given input document is the last element in the list.
+        /// </returns>
+        public IList<DocumentContext> GetContexts(Uri input)
         {
-            if (inputs == null || inputs.Count == 0)
+            if (input == null)
             {
-                throw new ArgumentException("No input files");
+                throw new ArgumentException("No input file");
             }
 
-            LOG.Info(string.Format("Parsing IDL from {0}...", inputs));
+            LOG.Info(string.Format("Parsing IDL from {0}...", input));
 
-            var contexts = new Dictionary<string, DocumentContext>();
-            foreach (var inputUri in inputs)
+            if (!input.IsAbsoluteUri)
             {
-                _parsedDocuments.Clear();
-                Uri input;
-                if (!inputUri.IsAbsoluteUri)
-                {
-                    Uri.TryCreate(_generatorConfig.InputBase, inputUri, out input);
-                }
-                else
-                {
-                    input = inputUri;
-                }
-
-                ParseDocument(input, contexts, new TypeRegistry());
+                Uri.TryCreate(_generatorConfig.InputBase, input, out input);
             }
-            return contexts;
+
+            return ParseDocument(input);
         }
 
-        private void Parse(IDictionary<string, DocumentContext> contexts)
+        public void Parse(Uri input)
         {
-            MarkServiceResponseTypes(contexts);
-
-            LOG.Info("IDL parsing complete, writing code files...");
-
-            foreach (var context in contexts.Values)
-            {
-                GenerateFiles(context);
-            }
-
-            LOG.Info("Code generation complete.");
+            var contexts = GetContexts(input);
+            Parse(contexts);
         }
 
-        public void Parse(IList<Uri> inputs)
+        public void Parse(Uri input, Service service, IList<BaijiMethod> selectedMethod)
         {
-            var contexts = GetContexts(inputs);
-
-            MarkServiceResponseTypes(contexts);
-
-            LOG.Info("IDL parsing complete, writing code files...");
-
-            foreach (var context in contexts.Values)
-            {
-                GenerateFiles(context);
-            }
-
-            LOG.Info("Code generation complete.");
-        }
-
-        public void Parse(IList<Uri> inputs, Service service, IList<BaijiMethod> selectedMethod)
-        {
-            var contexts = GetContexts(inputs);
+            var contexts = GetContexts(input);
             Pruner pruner = new Pruner(contexts);
             pruner.Prune(service, selectedMethod);
             Parse(contexts);
+        }
+
+        private void Parse(IList<DocumentContext> contexts)
+        {
+            MarkServiceResponseTypes(contexts);
+
+            LOG.Info("IDL parsing complete, writing code files...");
+
+            for (var i = 0; i < contexts.Count - 1; ++i)
+            {
+                GenerateFiles(contexts[i], false);
+            }
+            GenerateFiles(contexts[contexts.Count - 1], true);
+
+            LOG.Info("Code generation complete.");
         }
 
         public void UpdateConfig(GeneratorConfig config)
@@ -113,24 +99,26 @@ namespace CTripOSS.Baiji.Generator
             _outputFolder = config.OutputFolder;
         }
 
-        private void ParseDocument(Uri uri,
-            IDictionary<string, DocumentContext> contexts,
-            TypeRegistry typeRegistry)
+        private IList<DocumentContext> ParseDocument(Uri uri,
+            IList<DocumentContext> contexts = null,
+            ISet<Uri> parsedUris = null,
+            Stack<Uri> parentDocuments = null,
+            TypeRegistry typeRegistry = null)
         {
+            // This is only for the first call.
+            contexts = contexts ?? new List<DocumentContext>();
+            parsedUris = parsedUris ?? new HashSet<Uri>();
+            parentDocuments = parentDocuments ?? new Stack<Uri>();
+            typeRegistry = typeRegistry?? new TypeRegistry();
+
             if (uri == null || !uri.IsAbsoluteUri)
             {
                 throw new ArgumentException("Only absolute URIs can be parsed!");
             }
-            if (_parentDocuments.Contains(uri))
+            if (parentDocuments.Contains(uri))
             {
                 throw new ArgumentException(string.Format("Input {0} recursively includes itself ({1})", uri,
-                    string.Join(" -> ", _parentDocuments) + " -> " + uri));
-            }
-
-            if (_parsedDocuments.Contains(uri))
-            {
-                LOG.Debug(string.Format("Skipping already parsed file {0}...", uri));
-                return;
+                    string.Join(" -> ", parentDocuments) + " -> " + uri));
             }
 
             LOG.Debug(string.Format("Parsing {0}...", uri));
@@ -146,10 +134,8 @@ namespace CTripOSS.Baiji.Generator
             var document = context.Document;
             var header = document.Header;
 
-            var codeNamespace = context.CodeNamespace;
-
             // Make a note that this document is a parent of all the documents included, directly or recursively
-            _parentDocuments.Push(uri);
+            parentDocuments.Push(uri);
 
             try
             {
@@ -163,6 +149,8 @@ namespace CTripOSS.Baiji.Generator
                             // If the includes should also generate code, pass the list of
                             // contexts down to the include parser, otherwise pass a null in
                             _generatorConfig.GenerateIncludedCode ? contexts : null,
+                            parsedUris,
+                            parentDocuments,
                             typeRegistry);
                     }
                 }
@@ -170,27 +158,22 @@ namespace CTripOSS.Baiji.Generator
             finally
             {
                 // Done parsing this document's includes, remove it from the parent chain
-                _parentDocuments.Pop();
+                parentDocuments.Pop();
             }
 
             // Make a note that we've already passed this document
-            _parsedDocuments.Add(uri);
-
-            CreateTypeVisitor(codeNamespace, context).Visit(document);
-
-            if (contexts != null)
+            if (!parsedUris.Contains(uri))
             {
-                if (contexts.ContainsKey(context.Namespace))
-                {
-                    LOG.Info(string.Format("Namespace {0} included multiple times!", context.Namespace));
-                }
-                contexts[context.Namespace] = context;
+                CreateTypeVisitor(context.CodeNamespace, context).Visit(document);
+                parsedUris.Add(uri);
+                contexts.Add(context);
             }
+            return contexts;
         }
 
-        private void MarkServiceResponseTypes(IDictionary<string, DocumentContext> contexts)
+        private void MarkServiceResponseTypes(IList<DocumentContext> contexts)
         {
-            foreach (var context in contexts.Values)
+            foreach (var context in contexts)
             {
                 if (context.Document.Definitions == null)
                 {
@@ -208,8 +191,7 @@ namespace CTripOSS.Baiji.Generator
                             continue;
                         }
                         string contextName = nameSegments[0], structName = nameSegments[1];
-                        DocumentContext referredContext;
-                        contexts.TryGetValue(contextName, out referredContext);
+                        var referredContext = contexts.FirstOrDefault(c => c.Namespace == contextName);
                         if (referredContext == null || referredContext.Document.Definitions == null)
                         {
                             continue;
@@ -233,10 +215,12 @@ namespace CTripOSS.Baiji.Generator
             return name.Replace(".", "_");
         }
 
-        private void GenerateFiles(DocumentContext context)
+        private void GenerateFiles(DocumentContext context, bool isRootContext)
         {
-            if (ContextUtils.isCommon(context.CodeNamespace))
+            if (!isRootContext && ContextUtils.IsCommon(context.CodeNamespace))
+            {
                 return;
+            }
 
             LOG.Debug(string.Format("Generating code for {0}...", context.Namespace));
 
